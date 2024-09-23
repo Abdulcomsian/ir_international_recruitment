@@ -17,4 +17,5 @@ Route::get('verify-email/{user_id}/{token}', [UserController::class, 'verifyEmai
 
 Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('history', [HomeController::class, 'history'])->name('view.history');
 });

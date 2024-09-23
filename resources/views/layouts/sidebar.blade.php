@@ -12,7 +12,13 @@
             <i class="ri-record-circle-line"></i>
         </button>
     </div>
-
+@php 
+$pageName = \Request::route()->getName();
+$aria_expansion = "false";
+if($pageName == "view.history"){
+    $aria_expansion = "true";
+}
+@endphp
     <div id="scrollbar">
         <div class="container-fluid">
 
@@ -20,83 +26,132 @@
             </div>
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
+                    <a class="nav-link menu-link" href="{{route('home')}}">
                         <i class="las la-tachometer-alt"></i> <span>Dashboard
                         </span>
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
+                    <i class="las la-file-alt"></i> <span>Essentials Informations
+                        </span>
+                    </a>
+                    <div class="menu-dropdown collapse @if($pageName == "view.history") show @endif" id="customization" style="">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('view.history')}}" class="nav-link @if($pageName == "view.history") active @endif">History of Quebec</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Quebec culture</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Important legal aspects</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#city_guide" aria-expanded="false" aria-controls="customization">
+                    <i class="las la-map-marked"></i> <span>City Guide
+                        </span>
+                    </a>
+                    <div class="menu-dropdown collapse" id="city_guide" style="">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Carte interactive</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Local Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Points of Interest:</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Transportation options:</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#">
-                    <i class="las la-file-alt"></i> <span>All Categories
+                    <i class="las la-chalkboard"></i> <span>Learning French & Language Test
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
+                    <i class="las la-book-reader"></i> <span>Employment and Education
+                        </span>
+                    </a>
+                    <div class="menu-dropdown collapse" id="employment_education" style="">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Carte interactive</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Local Services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Points of Interest:</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Transportation options:</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#health_insurance" aria-expanded="false" aria-controls="customization">
+                    <i class="las la-users"></i> <span>Health and Social Services
+                        </span>
+                    </a>
+                    <div class="menu-dropdown collapse" id="health_insurance" style="">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Quebec Health System</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Health Resources</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">First Aid</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Social Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#activities" aria-expanded="false" aria-controls="customization">
+                    <i class="las la-users"></i> <span>Activities
+                        </span>
+                    </a>
+                    <div class="menu-dropdown collapse" id="activities" style="">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Tickets</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapse" href="#">
+                    <i class="las la-envelope-open-text"></i></i> <span>Support and Advice
                         </span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#">
-                    <i class="las la-robot"></i>All Listings
+                    <i class="las la-user"></i> <span>Admin Profile
                         </span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                    <i class="las la-money-check-alt"></i> <span>Packages
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                    <i class="las la-dollar-sign"></i> <span>Payments
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                    <i class="las la-mail-bulk"></i> <span>Email Templates
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                    <i class="las la-users"></i> <span>Users
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                    <i class="las la-users"></i> <span>Profile
-                        </span>
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                        <i class="las la-users"></i> <span>User Accounts
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                        <i class="las la-users"></i> <span>User Accounts
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                        <i class="las la-users"></i> <span>User Accounts
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                        <i class="las la-users"></i> <span>User Accounts
-                        </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#">
-                        <i class="las la-users"></i> <span>User Accounts
-                        </span>
-                    </a>
-                </li> -->
             </ul>
         </div>
         <!-- Sidebar -->
