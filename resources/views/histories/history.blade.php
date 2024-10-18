@@ -84,7 +84,60 @@
                                             @php $i++; @endphp
                                             @endforeach
                                         </td>
-                                        <td>Main Content Popup will goes here</td>
+                                        <td>
+                                            <span class="cursor-pointer" id="view_content" data-id="{{$history->id}}">View Content</span>
+                                        </td>
+                                        <td> 
+                                            <a href="{{route('history.edit')}}" class="edit-cat text-success" data-id='.$user->id.' previewlistener="true" >
+                                                <i class="las la-pencil-alt fs-20"></i>
+                                            </a>
+                                        </td>
+                                       </tr>
+                                    </tbody><!-- end tbody -->
+                                </table><!-- end table -->
+                            </div>
+                        </div>
+                    </div> <!-- .card-->
+                </div> <!-- .col-->
+            </div> <!-- end row-->
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Major Historical Events</h4>
+                        </div><!-- end card header -->
+
+                        <div class="card-body">
+                            <div class="table-responsive table-card">
+                                <table class="table table-borderless table-centered align-middle table-nowrap mb-0 data-table">
+                                    <thead class="text-muted table-light">
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Short Description</th>
+                                            <th scope="col">Main Image</th>
+                                            <th scope="col">Extra Images</th>
+                                            <th scope="col">Main Content</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                        <td>{{$history->name ?? ''}}</td>
+                                        <td>{{$history->short_description ?? ''}}</td>
+                                        <td><a href="{{asset($history->main_image)}}" target="_blank">View File</a></td>
+                                        <td>
+                                            @php $i=1; @endphp
+                                            @foreach($history->history_images as $image)
+                                            <div>
+                                                <a href="{{asset($image->image)}}" target="_blank">View File {{$i}}</a>
+                                            </div>
+                                            @php $i++; @endphp
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <span class="cursor-pointer" id="view_content" data-id="{{$history->id}}">View Content</span>
+                                        </td>
                                         <td> 
                                             <a href="#" class="edit-cat text-success" data-id='.$user->id.' previewlistener="true" >
                                                 <i class="las la-pencil-alt fs-20"></i>
@@ -103,7 +156,28 @@
 
     </div> <!-- end col -->
 </div>
-<div class="modal fade bs-delete-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade bs-delete-modal-center" id="main_content_modal" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="NotificationModalbtn-close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <th>Sr.no.</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody id="main_content">
+
+                    </tbody>
+                </table>
+            </div>
+        </div><!-- /.modal-content -->  
+    </div><!-- /.modal-dialog -->
+</div>
+{{-- <div class="modal fade bs-delete-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form action="#" method="POST" enctype="multipart/form-data">
@@ -128,10 +202,10 @@
             </form>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div>
+</div> --}}
 
 
-<div class="modal fade bs-edit-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+{{-- <div class="modal fade bs-edit-modal-center" tabindex="-1" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
             <div class="modal-header">
@@ -176,7 +250,7 @@
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div>
+</div> --}}
 
 {{-- <img src="https://api.screenshotone.com/take?access_key=mSNI-jbk8LZg7w&url=https://vacationrentals.tools/&viewport_width=500&viewport_height=400&device_scale_factor=1&image_quality=80&format=jpg&block_ads=true&block_cookie_banners=true&full_page=false&block_trackers=true&block_banners_by_heuristics=false&delay=0&timeout=60" alt="Hello how are YOU"> --}}
 <style>
@@ -215,11 +289,54 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script> --}}
 <script>
-    $(document).on("click", ".del-cat", function(){
-        let id = $(this).attr("data-id");
-        $("#listingId").val(id);
-        $(".bs-delete-modal-center").modal("show");
+    let viewContent = document.getElementById("view_content");
+    viewContent.addEventListener("click", function(){
+        let historyId = this.dataset.id;
+        let url = "{{route('get.history.content')}}";
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                _token : "{{csrf_token()}}",
+                history_id: historyId,
+            }),
+            headers:{
+                'Content-Type': 'application/json'
+            },
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        }).then((res) => {
+            let tdArr = res.data.title_description;
+            console.log(tdArr);
+            let table = '';
+            let i = 1;
+            tdArr.forEach(element => {
+                table += `
+                    <tr>
+                        <td>${i}</td>
+                        <td>${element.title}</td>
+                        <td>${element.description}</td>
+                    </tr>
+                `;
+                document.getElementById('main_content').innerHTML = table;
+                i++;
+            });
+            
+            let mainContentModal  = new bootstrap.Modal(document.getElementById("main_content_modal"));
+            mainContentModal.show();
+        }).catch((err)=>{
+            console.log(err);
+        });
     });
+
+    // $(document).on("click", ".del-cat", function(){
+    //     let id = $(this).attr("data-id");
+    //     $("#listingId").val(id);
+    //     $(".bs-delete-modal-center").modal("show");
+    // });
+
 
     // $(function () {      
     //   loadTable();
@@ -257,11 +374,11 @@
     //   });
     // }
 
-    $(document).on("change", ".userListingFilter", function(){
-        let userId = $(this).find(":selected").val();
-        let data = {userId: userId,}
-        loadTable(data);
-    })
+    // $(document).on("change", ".userListingFilter", function(){
+    //     let userId = $(this).find(":selected").val();
+    //     let data = {userId: userId,}
+    //     loadTable(data);
+    // })
 
 
 </script>
