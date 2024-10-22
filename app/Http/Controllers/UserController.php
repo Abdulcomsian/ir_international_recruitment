@@ -39,7 +39,8 @@ class UserController extends Controller
                 "name" => $name,
                 "email" => $email,
                 "password" => Hash::make($password),
-                "otp" => rand(1111, 9999),
+                // "otp" => rand(1111, 9999),
+                "otp"=>1234
             ]);
             $user->assignRole('user');
             // Sending Email for Verification

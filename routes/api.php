@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    ServiceController,
     UserController,
 };
 
@@ -18,3 +19,8 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/send-email-forgot-password', [UserController::class, 'sendEmailPassword']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
+
+        ////////Service Routes////////////////
+Route::middleware(['auth:api'])->group(function(){
+    Route::get('get-services',[ServiceController::class,'getService']);
+});
