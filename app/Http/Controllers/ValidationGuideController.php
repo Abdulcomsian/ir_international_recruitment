@@ -58,6 +58,7 @@ class ValidationGuideController extends Controller
     public function delete($id)
     {
         $diploma = ValidationGuide::find($id);
+        
         if($diploma)
         {
             $diploma->delete();
