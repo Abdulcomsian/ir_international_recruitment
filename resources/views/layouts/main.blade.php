@@ -46,6 +46,8 @@
     <!-- JAVASCRIPT -->
     @include('layouts.vendor-scripts')
     @stack('page-script')
+    @stack('scripts')
+
 </body>
 
 </html>

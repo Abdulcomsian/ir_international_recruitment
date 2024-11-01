@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('employee_statistics', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('city')->default('quebec');
-            $table->text('short_description')->nullable();
-            $table->string('main_image')->nullable();
+            $table->string('title')->nullable();
+            $table->string('state')->nullable();
+            $table->string('label')->nullable();
+            $table->string('media_url')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('employee_statistics');
     }
 };

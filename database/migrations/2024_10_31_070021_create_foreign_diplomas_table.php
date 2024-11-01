@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('histories', function (Blueprint $table) {
+        Schema::create('foreign_diplomas', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('city')->default('quebec');
-            $table->text('short_description')->nullable();
-            $table->string('main_image')->nullable();
+            $table->string('title')->nullable();
+            $table->string('media_url')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('history_of_quebec');
+        Schema::dropIfExists('foreign_diplomas');
     }
 };

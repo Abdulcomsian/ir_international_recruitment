@@ -3,8 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
+    QuebecHistoryController,
     ServiceController,
     UserController,
+    IndeedJobController,
+    EmployeeStatisticsController,
+    QuebecCurrentTrendController,
 };
 
 // Route::get('/user', function (Request $request) {
@@ -23,4 +27,16 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
         ////////Service Routes////////////////
 Route::middleware(['auth:api'])->group(function(){
     Route::get('get-services',[ServiceController::class,'getService']);
+
+    //Quebec information culture///
+    Route::get('quebec/history',[QuebecHistoryController::class,'quebecHistory']);
+    Route::get('indeed/jobs',[IndeedJobController::class,'fetchJobs']);
+
+    ///Employee statistics///
+    Route::prefix('employee')->group(function(){
+        Route::get('/statistics',[EmployeeStatisticsController::class,'getStatistics']);
+        Route::get('/currentTrends',[QuebecCurrentTrendController::class,'getCurrentTrends']);
+
+
+    });
 });
