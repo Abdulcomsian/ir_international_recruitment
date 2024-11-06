@@ -12,7 +12,10 @@ use App\Http\Controllers\{
     EmployeeStatisticsController,
     JobSearchAdviceController,
     ForeignDiplomaController,
-    ValidationGuideController
+    ValidationGuideController,
+    DiplomaResourceController,
+    EductionalProgramsController,
+    EducationProgramsDetailsController,
 };
 
 
@@ -114,5 +117,34 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
 
     });
 
+    ////////////////Useful Resource /////////////////////////
+    Route::prefix('diploma/resource')->group(function() {
+        Route::get('/index',[DiplomaResourceController::class,'index'])->name('diploma.resource.index');
+        Route::get('/create',[DiplomaResourceController::class,'create'])->name('diploma.resource.create');
+        Route::post('/store',[DiplomaResourceController::class,'store'])->name('diploma.resource.store');
+        Route::get('/edit/{id}',[DiplomaResourceController::class,'edit'])->name('diploma.resource.edit');
+        Route::put('/update/{id}',[DiplomaResourceController::class,'update'])->name('diploma.resource.update');
+        Route::DELETE('/delete/{id}',[DiplomaResourceController::class,'delete'])->name('diploma.resource.delete');
+    }); 
+    
+    ////////Eductional Institutions and Programs////////////////////
+
+    Route::prefix('eductional/programs')->group(function() {
+        Route::get('/index',[EductionalProgramsController::class,'index'])->name('eductional.programs.index');
+        Route::get('/create',[EductionalProgramsController::class,'create'])->name('eductional.programs.create');
+        Route::post('/store',[EductionalProgramsController::class,'store'])->name('eductional.programs.store');
+        Route::get('/edit/{id}',[EductionalProgramsController::class,'edit'])->name('eductional.programs.edit');
+        Route::put('/update/{id}',[EductionalProgramsController::class,'update'])->name('eductional.programs.update');
+        Route::DELETE('/delete/{id}',[EductionalProgramsController::class,'delete'])->name('eductional.programs.delete');
+    });
+
+    Route::prefix('eductional/programs/details')->group(function() {
+        Route::get('/index',[EducationProgramsDetailsController::class,'index'])->name('eductional.programs.details.index');
+        Route::get('/create',[EducationProgramsDetailsController::class,'create'])->name('eductional.programs.details.create');
+        Route::post('/store',[EducationProgramsDetailsController::class,'store'])->name('eductional.programs.details.store');
+        Route::get('/edit/{id}',[EducationProgramsDetailsController::class,'edit'])->name('eductional.programs.details.edit');
+        Route::put('/update/{id}',[EducationProgramsDetailsController::class,'update'])->name('eductional.programs.details.update');
+        Route::DELETE('/delete/{id}',[EducationProgramsDetailsController::class,'delete'])->name('eductional.programs.details.delete');
+    });
 
     });

@@ -33,7 +33,7 @@
             </div>
 
             
-            <button type="submit" class="btn btn-success">Update jobSearch</button>
+            <button type="submit" class="btn btn-success">Update Validation</button>
         </form>
     </div>
 @endsection

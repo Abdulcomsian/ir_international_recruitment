@@ -3,10 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ForeignDiplomaDataTable;
+use App\Http\Resources\ForeignDiplomaResource;
 use Illuminate\Http\Request;
 use App\Models\ForeignDiploma;
+use App\Traits\ApiResponseTrait;
+
 class ForeignDiplomaController extends Controller
 {
+    use ApiResponseTrait;
+    ////////////API//////////////////
+    public function foreignDiploma()
+    {
+        try{        
+            $diploma = ForeignDiploma::with('ValidationGuide','resources')->get();
+            $data = ForeignDiplomaResource::collection($diploma);
+
+            return $this->apiResponse($data,'Foreign Diploma Data Fetched');
+        }catch(\Exception $e)
+        {
+            return response()->json(['status_code'=>500, 'status'=>false, 'error'=>$e->getMessage().'on line'.$e->getLine().'onFile'.$e->getFile()]);
+
+        }
+    }
+    /////////////Admin Panel/////////
     public function index(ForeignDiplomaDataTable $dataTable)
     {
         return $dataTable->render('foreignDiploma.index');
