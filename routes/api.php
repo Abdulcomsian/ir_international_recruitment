@@ -9,6 +9,7 @@ use App\Http\Controllers\{
     IndeedJobController,
     EmployeeStatisticsController,
     QuebecCurrentTrendController,
+    ForeignDiplomaController
 };
 
 // Route::get('/user', function (Request $request) {
@@ -36,7 +37,7 @@ Route::middleware(['auth:api'])->group(function(){
     Route::prefix('employee')->group(function(){
         Route::get('/statistics',[EmployeeStatisticsController::class,'getStatistics']);
         Route::get('/currentTrends',[QuebecCurrentTrendController::class,'getCurrentTrends']);
-
+        Route::get('/foreignDiploma',[ForeignDiplomaController::class,'foreignDiploma']);
 
     });
 });

@@ -112,6 +112,9 @@ if($pageName == "view.history"){
                                 <a href="{{route('diploma.validation.index')}}" class="nav-link">Validation Guide</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{route('diploma.resource.index')}}" class="nav-link">Useful Resource</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="#" class="nav-link">Local Services</a>
                             </li>
                             <li class="nav-item">
@@ -120,6 +123,27 @@ if($pageName == "view.history"){
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Transportation options:</a>
                             </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#eductional_institutes" aria-expanded="false" aria-controls="customization">
+                    <i class="las la-book-reader"></i> <span>Eductional Institutions
+                        </span>
+                    </a>
+                    <div class="menu-dropdown collapse" id="eductional_institutes" style="">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{route('eductional.programs.index')}}" class="nav-link">University</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('eductional.programs.details.index')}}" class="nav-link">University Details</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('quebec.employee.statistics.index')}}" class="nav-link">Employee Statistics</a>
+                            </li>
+                            
+                          
                         </ul>
                     </div>
                 </li>
