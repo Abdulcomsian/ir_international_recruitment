@@ -15,7 +15,7 @@ class QuebecFoodController extends Controller
      */
     public function index(QuebecFoodDataTable $dataTable)
     {
-        return $dataTable->render('quebec-food.index');
+        return $dataTable->render('quebec.food.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class QuebecFoodController extends Controller
      */
     public function create()
     {
-        return view('quebec-food.create');
+        return view('quebec.food.create');
     }
 
     /**
@@ -63,7 +63,7 @@ class QuebecFoodController extends Controller
 
             $quebecFood = QuebecFood::findOrFail($quebecFoodId);
 
-            return view('quebec-food.show', compact('quebecFood'));
+            return view('quebec.food.show', compact('quebecFood'));
 
         } catch (\Exception $e) {
             return redirect()->route('quebec.foods.index')->with('error', 'Quebec Food not found');
@@ -80,7 +80,7 @@ class QuebecFoodController extends Controller
 
             $quebecFood = QuebecFood::findOrFail($quebecFoodId);
 
-            return view('quebec-food.edit', compact('quebecFood'));
+            return view('quebec.food.edit', compact('quebecFood'));
 
         } catch (\Exception $e) {
             return redirect()->route('quebec.foods.index')->with('error', 'Quebec Food not found');

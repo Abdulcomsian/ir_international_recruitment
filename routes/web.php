@@ -16,7 +16,8 @@ use App\Http\Controllers\{
     DiplomaResourceController,
     EductionalProgramsController,
     EducationProgramsDetailsController,
-    QuebecFoodController
+    QuebecFoodController,
+    QuebecClimateController
 };
 
 
@@ -55,6 +56,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
 
     // qubec foods
     Route::resource('quebec/foods',QuebecFoodController::class,['as' => 'quebec']);
+    // qubec climates
+    Route::resource('quebec/climates',QuebecClimateController::class,['as' => 'quebec']);
 
                 ////Quebec historical Events////
     Route::get('quebec/historical/events/index',[HistoricalEventsController::class,'index'])->name('quebec.historical.event.index');

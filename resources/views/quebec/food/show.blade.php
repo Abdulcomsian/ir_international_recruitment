@@ -31,26 +31,3 @@
         <a href="{{ route('quebec.foods.index') }}" class="btn btn-dark">Quebec Food List</a>
     </div>
 @endsection
-
-@push('page-css')
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
-    <!-- cutom Css Quill-->
-    <link href="{{ URL::asset('build/css/quill-customer.css') }}" rel="stylesheet" type="text/css" />
-@endpush
-
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-
-    <script>
-        var quill = new Quill('#quill-editor', {
-            theme: 'snow'
-        });
-        // Your content in HTML format (retrieved from the backend)
-        let savedContent = `{!! old('description', $quebecFood->description) !!}`;
-        // Load the saved content into the editor
-        quill.clipboard.dangerouslyPasteHTML(savedContent);
-        quill.on('text-change', function() {
-            document.querySelector('#description').value = quill.root.innerHTML;
-        });
-    </script>
-@endpush
