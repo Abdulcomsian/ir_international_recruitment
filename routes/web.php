@@ -16,6 +16,7 @@ use App\Http\Controllers\{
     DiplomaResourceController,
     EductionalProgramsController,
     EducationProgramsDetailsController,
+    QuebecFoodController
 };
 
 
@@ -52,6 +53,9 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::put('quebec/history/update/{id}',[QuebecHistoryController::class,'update'])->name('quebec.history.update');
     Route::DELETE('quebec/history/delete/{id}',[QuebecHistoryController::class,'delete'])->name('quebec.history.delete');
 
+    // qubec foods
+    Route::resource('quebec/foods',QuebecFoodController::class,['as' => 'quebec']);
+
                 ////Quebec historical Events////
     Route::get('quebec/historical/events/index',[HistoricalEventsController::class,'index'])->name('quebec.historical.event.index');
     Route::get('quebec/historical/events/create',[HistoricalEventsController::class,'create'])->name('quebec.historical.event.create');
@@ -62,7 +66,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
 
     //////////////////////////Employment and Recogination////////////////
     //////////////Current Trned///////
-    
+
     Route::prefix('quebec/current/trend')->group(function () {
         Route::get('/index', [QuebecCurrentTrendController::class, 'index'])->name('quebec.current.trend.index');
         Route::get('/create', [QuebecCurrentTrendController::class, 'create'])->name('quebec.current.trend.create');
@@ -71,7 +75,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::put('/update/{id}', [QuebecCurrentTrendController::class, 'update'])->name('quebec.current.trend.update');
         Route::delete('/delete/{id}', [QuebecCurrentTrendController::class, 'delete'])->name('quebec.current.trend.delete');
     });
-    
+
     ///////EmployeeStatistics//////////////////////////
     Route::prefix('quebec/employee/statistics')->group(function() {
         Route::get('/index',[EmployeeStatisticsController::class,'index'])->name('quebec.employee.statistics.index');
@@ -125,8 +129,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::get('/edit/{id}',[DiplomaResourceController::class,'edit'])->name('diploma.resource.edit');
         Route::put('/update/{id}',[DiplomaResourceController::class,'update'])->name('diploma.resource.update');
         Route::DELETE('/delete/{id}',[DiplomaResourceController::class,'delete'])->name('diploma.resource.delete');
-    }); 
-    
+    });
+
     ////////Eductional Institutions and Programs////////////////////
 
     Route::prefix('eductional/programs')->group(function() {
