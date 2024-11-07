@@ -35,7 +35,7 @@
 @push('page-css')
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
     <!-- cutom Css Quill-->
-    <link href="{{ URL::asset('build/css/quill-customer.css') }}"  rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('build/css/quill-custom.css') }}"  rel="stylesheet" type="text/css" />
 @endpush
 
 @push('scripts')

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuebecClimate;
+use App\Models\{QuebecClimate, QuebecClimateSeasonal};
 use App\DataTables\QuebecClimateDataTable;
 use App\Http\Requests\Quebec\Climate\{StoreRequest, UpdateRequest};
 use App\Traits\RemoveFileTrait;
@@ -143,4 +143,57 @@ class QuebecClimateController extends Controller
         }
 
     }
+
+    public function getAllMonths()
+    {
+
+        return [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+    }
+
+    public function editSeasonal($quebecClimateId)
+    {
+
+        try {
+
+            $quebecClimate = QuebecClimate::with('seasonal')->findOrFail($quebecClimateId);
+            $months = $this->getAllMonths();
+
+            return view('quebec.climate.seasonal.edit', compact('quebecClimate','months'));
+
+        } catch (\Exception $e) {
+            return redirect()->route('quebec.climates.index')->with('error', 'Quebec Climate not found');
+        }
+
+    }
+
+
+    public function updateSeasonal(UpdateRequest $request, $quebecClimateId)
+    {
+
+        try {
+
+            $quebecClimate = QuebecClimate::findOrFail($quebecClimateId);
+
+            QuebecClimateSeasonal::updateOrCreate(
+                ['quebec_climate_id' => $quebecClimate->id],
+                [
+                    'title' => $request->title,
+                    'duration_from' => $request->duration_from,
+                    'duration_to' => $request->duration_to,
+                    'description' => $request->description,
+                ]
+            );
+
+            return redirect()->route('quebec.climates.index')->with('success', 'Quebec Climate updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->route('quebec.climates.index')->with('error', 'An error occured while updating Quebec Climate');
+        }
+
+    }
+
+
 }
