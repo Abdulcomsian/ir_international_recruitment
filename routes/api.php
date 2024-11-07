@@ -38,6 +38,7 @@ Route::middleware(['auth:api'])->group(function(){
 
         Route::get('/foods', [QuebecFoodController::class, 'index']);
         Route::get('/climates', [QuebecClimateController::class, 'index']);
+        Route::get('/climates/seasonal/{id}', [QuebecClimateController::class, 'seasonal']);
 
     });
     //Quebec information culture///

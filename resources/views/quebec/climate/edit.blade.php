@@ -38,7 +38,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-success">Update Quebec Food</button>
+            <button type="submit" class="btn btn-success">Update Quebec Climate</button>
         </form>
     </div>
 @endsection

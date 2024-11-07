@@ -20,4 +20,9 @@ class QuebecClimate extends Model
     {
         return $this->img ? asset("assets/QuebecClimate/$this->img") : null;
     }
+
+    public function seasonal()
+    {
+        return $this->hasOne(QuebecClimateSeasonal::class);
+    }
 }
