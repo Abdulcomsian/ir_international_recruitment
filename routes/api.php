@@ -9,9 +9,12 @@ use App\Http\Controllers\{
     IndeedJobController,
     EmployeeStatisticsController,
     QuebecCurrentTrendController,
-    ForeignDiplomaController
-};
+    ForeignDiplomaController,
 
+};
+use App\Http\Controllers\Api\{
+    QuebecFoodController
+};
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
@@ -25,10 +28,16 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
 
-        ////////Service Routes////////////////
+////////Service Routes////////////////
 Route::middleware(['auth:api'])->group(function(){
     Route::get('get-services',[ServiceController::class,'getService']);
 
+    // Quebec
+    Route::prefix('quebec')->group(function (){
+
+        Route::get('/foods', [QuebecFoodController::class, 'index']);
+
+    });
     //Quebec information culture///
     Route::get('quebec/history',[QuebecHistoryController::class,'quebecHistory']);
     Route::get('indeed/jobs',[IndeedJobController::class,'fetchJobs']);

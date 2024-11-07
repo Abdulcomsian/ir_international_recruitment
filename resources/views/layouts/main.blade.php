@@ -15,6 +15,14 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     @include('layouts.head-css')
+    <style>
+        .img-size-1
+        {
+            width: 150px;
+            height: auto;
+        }
+
+    </style>
     @stack('page-css')
 </head>
 
