@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\QuebecFood;
+use App\Models\QuebecClimate;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class QuebecFoodDataTable extends DataTable
+class QuebecClimateDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,7 +23,7 @@ class QuebecFoodDataTable extends DataTable
             ->addColumn('image', function($row) {
                 return '<img src="' . asset($row->image_path) . '" width="50" height="50" />';
             })
-            ->addColumn('action', 'quebec.food.action')
+            ->addColumn('action', 'quebec.climate.action')
             ->rawColumns(['image', 'action'])
             ->setRowId('id');
     }
@@ -31,7 +31,7 @@ class QuebecFoodDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(QuebecFood $model): QueryBuilder
+    public function query(QuebecClimate $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -42,7 +42,7 @@ class QuebecFoodDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('QuebecFood-table')
+                    ->setTableId('QuebecClimate-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->orderBy(0)

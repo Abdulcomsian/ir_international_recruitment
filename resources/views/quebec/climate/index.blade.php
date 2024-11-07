@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Quebec Food
-            <a href="{{ route('quebec.foods.create') }}" class="btn btn-primary float-right">Create New Quebec Food</a>
+            <div class="card-header">Quebec Climates
+            <a href="{{ route('quebec.climates.create') }}" class="btn btn-primary float-right">Create New Quebec Climate</a>
 
             </div>
             <div class="card-body">

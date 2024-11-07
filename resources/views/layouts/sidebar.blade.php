@@ -38,11 +38,11 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
+                    <a class="nav-link menu-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
                     <i class="las la-file-alt"></i> <span>Quebec Informations
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse @if($pageName == "view.history") show @endif {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') ? 'show' : '' }}" id="customization" style="">
+                    <div class="menu-dropdown collapse @if($pageName == "view.history") show @endif {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('quebec.history.index')}}" class="nav-link @if($pageName == "view.history") active @endif">History of Quebec</a>
@@ -56,7 +56,7 @@ if($pageName == "view.history"){
                                 <a href="{{ route('quebec.foods.index') }}" class="nav-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') ? 'active' : '' }}">Quebec Food</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Quebec climate</a>
+                                <a href="{{ route('quebec.climates.index') }}" class="nav-link {{ request()->is('quebec/climates') || request()->is('quebec/climates/*') ? 'active' : '' }}">Quebec Climate</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Important Legal Aspects</a>

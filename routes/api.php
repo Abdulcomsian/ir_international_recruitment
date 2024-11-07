@@ -13,7 +13,8 @@ use App\Http\Controllers\{
 
 };
 use App\Http\Controllers\Api\{
-    QuebecFoodController
+    QuebecFoodController,
+    QuebecClimateController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -36,6 +37,7 @@ Route::middleware(['auth:api'])->group(function(){
     Route::prefix('quebec')->group(function (){
 
         Route::get('/foods', [QuebecFoodController::class, 'index']);
+        Route::get('/climates', [QuebecClimateController::class, 'index']);
 
     });
     //Quebec information culture///
