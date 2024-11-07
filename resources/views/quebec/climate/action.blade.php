@@ -7,3 +7,4 @@
     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
 </form>
 <a href="{{ route('quebec.climates.seasonal', $id) }}" class="btn btn-secondary btn-sm">Seasonal</a>
+<a href="{{ route('quebec.climates.packing-list.index', $id) }}" class="btn btn-info btn-sm">Packing List</a>

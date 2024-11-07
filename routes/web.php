@@ -17,7 +17,8 @@ use App\Http\Controllers\{
     EductionalProgramsController,
     EducationProgramsDetailsController,
     QuebecFoodController,
-    QuebecClimateController
+    QuebecClimateController,
+    QuebecClimatePackingListController
 };
 
 
@@ -60,6 +61,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::resource('quebec/climates',QuebecClimateController::class,['as' => 'quebec']);
     Route::get('quebec/climates/seasonal/{id}',[QuebecClimateController::class, 'editSeasonal'])->name('quebec.climates.seasonal');
     Route::put('quebec/climates/seasonal/update/{id}',[QuebecClimateController::class, 'updateSeasonal'])->name('quebec.climates.seasonal.update');
+    Route::resource('quebec/climates/{id}/packing-list',QuebecClimatePackingListController::class,['as' => 'quebec.climates']);
 
                 ////Quebec historical Events////
     Route::get('quebec/historical/events/index',[HistoricalEventsController::class,'index'])->name('quebec.historical.event.index');

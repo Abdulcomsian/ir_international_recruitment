@@ -188,9 +188,9 @@ class QuebecClimateController extends Controller
                 ]
             );
 
-            return redirect()->route('quebec.climates.index')->with('success', 'Quebec Climate updated successfully');
+            return redirect()->route('quebec.climates.index')->with('success', 'Quebec Climate Seasonal updated successfully');
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.index')->with('error', 'An error occured while updating Quebec Climate');
+            return redirect()->route('quebec.climates.index')->with('error', 'An error occured while updating Quebec Climate Seasonal');
         }
 
     }
