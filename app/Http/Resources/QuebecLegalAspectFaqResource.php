@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class QuebecClimateSeasonalResource extends JsonResource
+class QuebecLegalAspectFaqResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,10 +17,8 @@ class QuebecClimateSeasonalResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'duration_from' => $this->duration_from,
-            'duration_to' => $this->duration_to,
             'description' => $this->description,
-            'climate' => new QuebecClimateResource($this->whenLoaded('quebecClimate')),
+            'legal_aspect' => new QuebecLegalAspectResource($this->whenLoaded('quebecLegalAspect')),
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
         ];

@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{QuebecClimatePackingList, QuebecClimate};
-use App\DataTables\QuebecClimatePackingListDataTable;
-use App\Http\Requests\Quebec\Climate\{PackingListStoreRequest, PackingListUpdateRequest};
-use App\Traits\RemoveFileTrait;
+use App\Models\{QuebecLegalAspectFaq, QuebecLegalAspect};
+use App\DataTables\QuebecLegalAspectFaqDataTable;
+use App\Http\Requests\Quebec\LegalAspect\{FaqStoreRequest, FaqUpdateRequest};
 
 class QuebecLegalAspectFaqController extends Controller
 {
-    use RemoveFileTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(QuebecClimatePackingListDataTable $dataTable,$id)
+    public function index(QuebecLegalAspectFaqDataTable $dataTable,$id)
     {
 
         try {
 
-            $quebecClimate = QuebecClimate::findOrFail($id);
-            return $dataTable->render('quebec.climate.packing-list.index',compact('quebecClimate'));
+            $quebecLegalAspect = QuebecLegalAspect::where('type', 'faq')->findOrFail($id);
+            return $dataTable->render('quebec.legal-aspects.faqs.index',compact('quebecLegalAspect'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.index')->with('error','Quebec Climate not found');
+            return redirect()->route('quebec.legal-aspects.index')->with('error','Quebec Legal Aspect Faq not found');
         }
 
     }
@@ -34,73 +32,63 @@ class QuebecLegalAspectFaqController extends Controller
     {
         try {
 
-            $quebecClimate = QuebecClimate::findOrFail($id);
-            return view('quebec.climate.packing-list.create',compact('quebecClimate'));
+            $quebecLegalAspect = QuebecLegalAspect::where('type', 'faq')->findOrFail($id);
+            return view('quebec.legal-aspects.faqs.create',compact('quebecLegalAspect'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error','Quebec Climate not found');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('error','Quebec Legal Aspect Faq not found');
         }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PackingListStoreRequest $request, $id)
+    public function store(FaqStoreRequest $request, $id)
     {
         try {
 
-            //handle img
-            if ($request->hasFile('img')) {
-
-                $image = $request->file('img');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $imagePath = public_path('assets/QuebecClimatePackingList');
-                $image->move($imagePath, $imageName);
-            }
-
-            QuebecClimatePackingList::create([
-                'quebec_climate_id' => $id,
-                'img' => $imageName,
+            QuebecLegalAspectFaq::create([
+                'quebec_legal_aspect_id' => $id,
                 'title' => $request->title,
                 'description' => $request->description
             ]);
 
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List created successfully');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('success', 'Faq created successfully');
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occured while creating Packing List');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('error', 'An error occured while creating Faq');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id,$quebecClimatePackingListId)
+    public function show($id,$quebecLegalAspectFaqId)
     {
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
+            $quebecLegalAspectFaq = QuebecLegalAspectFaq::findOrFail($quebecLegalAspectFaqId);
 
-            return view('quebec.climate.packing-list.show', compact('quebecClimatePackingList'));
+            return view('quebec.legal-aspects.faqs.show', compact('quebecLegalAspectFaq'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'Packing List not found');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('error', 'Faq not found');
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id,$quebecClimatePackingListId)
+    public function edit($id,$quebecLegalAspectFaqId)
     {
 
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::with('quebecClimate')->findOrFail($quebecClimatePackingListId);
+            $quebecLegalAspectFaq = QuebecLegalAspectFaq::with('quebecLegalAspect')->findOrFail($quebecLegalAspectFaqId);
 
-            return view('quebec.climate.packing-list.edit', compact('quebecClimatePackingList'));
+            return view('quebec.legal-aspects.faqs.edit', compact('quebecLegalAspectFaq'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'Packing List not found');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('error', 'Faq not found');
         }
 
     }
@@ -108,35 +96,21 @@ class QuebecLegalAspectFaqController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PackingListUpdateRequest $request, $id, $quebecClimatePackingListId)
+    public function update(FaqUpdateRequest $request, $id, $quebecLegalAspectFaqId)
     {
 
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
+            $quebecLegalAspectFaq = QuebecLegalAspectFaq::findOrFail($quebecLegalAspectFaqId);
 
-            //handle img
-            if ($request->hasFile('img')) {
+            $quebecLegalAspectFaq->title = $request->title;
+            $quebecLegalAspectFaq->description = $request->description;
 
-                // remove Old img
-                $this->unlinkFile("assets/QuebecClimatePackingList/$quebecClimatePackingList->img");
+            $quebecLegalAspectFaq->save();
 
-                $image = $request->file('img');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $imagePath = public_path('assets/QuebecClimatePackingList');
-                $image->move($imagePath, $imageName);
-
-                $quebecClimatePackingList->img = $imageName;
-            }
-
-            $quebecClimatePackingList->title = $request->title;
-            $quebecClimatePackingList->description = $request->description;
-
-            $quebecClimatePackingList->save();
-
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List updated successfully');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('success', 'Faq updated successfully');
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occured while updating Packing List');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('error', 'An error occured while updating Faq');
         }
 
     }
@@ -144,18 +118,17 @@ class QuebecLegalAspectFaqController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, $quebecClimatePackingListId)
+    public function destroy($id, $quebecLegalAspectFaqId)
     {
 
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
-            $this->unlinkFile("assets/QuebecClimatePackingList/$quebecClimatePackingList->img");
-            $quebecClimatePackingList->delete();
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List deleted successfully');
+            $quebecLegalAspectFaq = QuebecLegalAspectFaq::findOrFail($quebecLegalAspectFaqId);
+            $quebecLegalAspectFaq->delete();
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('success', 'Faq deleted successfully');
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occurred while deleting Packing List');
+            return redirect()->route('quebec.legal-aspects.faqs.index',$id)->with('error', 'An error occurred while deleting Faq');
         }
 
     }
