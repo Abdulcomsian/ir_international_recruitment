@@ -27,7 +27,7 @@
                 @enderror
 
             </div>
-            <button type="submit" class="btn btn-success">Create Quebec Food</button>
+            <button type="submit" class="btn btn-success">Create Packing List</button>
         </form>
     </div>
 @endsection
