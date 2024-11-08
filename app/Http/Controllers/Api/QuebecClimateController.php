@@ -20,8 +20,7 @@ class QuebecClimateController extends Controller
 
     public function seasonal($quebecClimateId)
     {
-
-        $quebecClimateSeasonal = QuebecClimateSeasonal::where('quebec_climate_id', $quebecClimateId)->first();
+        $quebecClimateSeasonal = QuebecClimateSeasonal::with('quebecClimate')->where('quebec_climate_id', $quebecClimateId)->first();
 
        // Return the single resource
         return new QuebecClimateSeasonalResource($quebecClimateSeasonal);

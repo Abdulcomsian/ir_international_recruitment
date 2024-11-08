@@ -15,4 +15,9 @@ class QuebecClimateSeasonal extends Model
         'description'
     ];
 
+    public function quebecClimate()
+    {
+        return $this->belongsTo(QuebecClimate::class);
+    }
+
 }
