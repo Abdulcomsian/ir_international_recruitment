@@ -17,6 +17,7 @@ class QuebecLegalAspectResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'type' => $this->type,
             'description' => $this->description,
             'image_path' => $this->image_path,
             'created_at' => $this->created_at->toDateTimeString(),

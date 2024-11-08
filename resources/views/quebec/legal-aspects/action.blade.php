@@ -1,8 +1,17 @@
-<!-- resources/views/services/action.blade.php -->
-<a href="{{ route('quebec.legal-aspects.show', $id) }}" class="btn btn-info btn-sm">View</a>
-<a href="{{ route('quebec.legal-aspects.edit', $id) }}" class="btn btn-primary btn-sm">Edit</a>
-<form action="{{ route('quebec.legal-aspects.destroy', $id) }}" method="POST" style="display:inline;">
-    @csrf
-    @method('DELETE')
-    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-</form>
+<a href="{{ route('quebec.legal-aspects.show', $row->id) }}" class="btn btn-info btn-sm">View</a>
+<a href="{{ route('quebec.legal-aspects.edit', $row->id) }}" class="btn btn-primary btn-sm">Edit</a>
+
+@php
+    $extraButton = match ($row->type) {
+        'key_navigation' => ['route' => 'quebec.legal-aspects.navigations.index', 'label' => 'Key Navigations'],
+        'faq' => ['route' => 'quebec.legal-aspects.faqs.index', 'label' => 'FAQs'],
+        'useful_links' => ['route' => 'quebec.legal-aspects.useful-links.index', 'label' => 'Useful Links'],
+        'legal_aid' => ['route' => 'quebec.legal-aspects.legal-aids.index', 'label' => 'Legal Aid'],
+        default => null,
+    };
+@endphp
+
+@if ($extraButton)
+    <a href="{{ route($extraButton['route'], $row->id) }}" class="btn btn-secondary btn-sm">{{ $extraButton['label'] }}</a>
+@endif
+

@@ -20,7 +20,11 @@ use App\Http\Controllers\{
     QuebecClimateController,
     QuebecClimatePackingListController,
     QuebecClimateRecommendedActivitiesController,
-    QuebecLegalAspectController
+    QuebecLegalAspectController,
+    QuebecLegalAspectNavigationController,
+    QuebecLegalAspectFaqController,
+    QuebecLegalAspectUsefulLinkController,
+    QuebecLegalAspectLegalAidController
 };
 
 
@@ -67,6 +71,12 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::resource('quebec/climates/{id}/recommended-activities',QuebecClimateRecommendedActivitiesController::class,['as' => 'quebec.climates']);
     // qubec legal aspects
     Route::resource('quebec/legal-aspects',QuebecLegalAspectController::class,['as' => 'quebec']);
+    Route::prefix('quebec/legal-aspects/{id}')->name('quebec.legal-aspects.')->group(function () {
+        Route::resource('navigations', QuebecLegalAspectNavigationController::class);
+        Route::resource('faqs', QuebecLegalAspectFaqController::class);
+        Route::resource('useful-links', QuebecLegalAspectUsefulLinkController::class);
+        Route::resource('legal-aids', QuebecLegalAspectLegalAidController::class);
+    });
 
                 ////Quebec historical Events////
     Route::get('quebec/historical/events/index',[HistoricalEventsController::class,'index'])->name('quebec.historical.event.index');

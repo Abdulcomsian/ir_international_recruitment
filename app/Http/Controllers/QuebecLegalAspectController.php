@@ -23,6 +23,7 @@ class QuebecLegalAspectController extends Controller
      */
     public function create()
     {
+        abort(404);
         return view('quebec.legal-aspects.create');
     }
 
@@ -31,7 +32,7 @@ class QuebecLegalAspectController extends Controller
      */
     public function store(StoreRequest $request)
     {
-
+        abort(404);
         try {
 
             //handle img
@@ -130,7 +131,7 @@ class QuebecLegalAspectController extends Controller
      */
     public function destroy($quebecLegalAspectId)
     {
-
+        abort(404);
         try {
 
             $quebecLegalAspect = QuebecLegalAspect::findOrFail($quebecLegalAspectId);

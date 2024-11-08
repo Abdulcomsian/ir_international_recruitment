@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('quebec_legal_aspects', function (Blueprint $table) {
+        Schema::create('quebec_legal_aspect_navigations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('quebec_legal_aspect_id');
             $table->string('img');
             $table->string('title');
-            $table->enum('type',['key_navigation', 'faq', 'useful_links', 'legal_aid', 'quiz'])->nullable();
             $table->longText('description');
+            $table->foreign('quebec_legal_aspect_id')->references('id')->on('quebec_legal_aspects')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('quebec_legal_aspects');
+        Schema::dropIfExists('quebec_legal_aspect_navigations');
     }
 };
