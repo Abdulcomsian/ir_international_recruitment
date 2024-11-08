@@ -109,35 +109,35 @@ class QuebecClimatePackingListController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PackingListUpdateRequest $request, $QuebecClimatePackingListId)
+    public function update(PackingListUpdateRequest $request, $id, $quebecClimatePackingListId)
     {
 
         try {
 
-            $QuebecClimatePackingList = QuebecClimatePackingList::findOrFail($QuebecClimatePackingListId);
+            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
 
             //handle img
             if ($request->hasFile('img')) {
 
                 // remove Old img
-                $this->unlinkFile("assets/QuebecClimatePackingList/$QuebecClimatePackingList->img");
+                $this->unlinkFile("assets/QuebecClimatePackingList/$quebecClimatePackingList->img");
 
                 $image = $request->file('img');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = public_path('assets/QuebecClimatePackingList');
                 $image->move($imagePath, $imageName);
 
-                $QuebecClimatePackingList->img = $imageName;
+                $quebecClimatePackingList->img = $imageName;
             }
 
-            $QuebecClimatePackingList->title = $request->title;
-            $QuebecClimatePackingList->description = $request->description;
+            $quebecClimatePackingList->title = $request->title;
+            $quebecClimatePackingList->description = $request->description;
 
-            $QuebecClimatePackingList->save();
+            $quebecClimatePackingList->save();
 
-            return redirect()->route('quebec.foods.index')->with('success', 'Packing List updated successfully');
+            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List updated successfully');
         } catch (\Exception $e) {
-            return redirect()->route('quebec.foods.index')->with('error', 'An error occured while updating Packing List');
+            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occured while updating Packing List');
         }
 
     }
@@ -145,18 +145,18 @@ class QuebecClimatePackingListController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($QuebecClimatePackingListId)
+    public function destroy($id, $quebecClimatePackingListId)
     {
 
         try {
 
-            $QuebecClimatePackingList = QuebecClimatePackingList::findOrFail($QuebecClimatePackingListId);
-            $this->unlinkFile("assets/QuebecClimatePackingList/$QuebecClimatePackingList->img");
-            $QuebecClimatePackingList->delete();
-            return redirect()->route('quebec.foods.index')->with('success', 'Packing List deleted successfully');
+            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
+            $this->unlinkFile("assets/QuebecClimatePackingList/$quebecClimatePackingList->img");
+            $quebecClimatePackingList->delete();
+            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List deleted successfully');
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.foods.index')->with('error', 'An error occurred while deleting Packing List');
+            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occurred while deleting Packing List');
         }
 
     }
