@@ -9,6 +9,7 @@ class QuebecLegalAspect extends Model
     protected $fillable = [
         'img',
         'title',
+        'type',
         'description'
     ];
 

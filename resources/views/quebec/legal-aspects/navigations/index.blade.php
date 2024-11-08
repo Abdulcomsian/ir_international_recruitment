@@ -3,7 +3,8 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Quebec Legal Aspects
+            <div class="card-header">Quebec Lega Aspect Navigations ({{ $quebecLegalAspect->title }})
+            <a href="{{ route('quebec.legal-aspects.navigations.create',$quebecLegalAspect->id) }}" class="btn btn-primary float-right">Create New Navigation</a>
 
             </div>
             <div class="card-body">

@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\QuebecLegalAspect;
+use App\Models\QuebecLegalAspectNavigation;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class QuebecLegalAspectDataTable extends DataTable
+class QuebecLegalAspectNavigationDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -24,7 +24,7 @@ class QuebecLegalAspectDataTable extends DataTable
                 return '<img src="' . asset($row->image_path) . '" width="50" height="50" />';
             })
             ->addColumn('action', function($row) {
-                return view('quebec.legal-aspects.action', ['row' => $row]);
+                return view('quebec.legal-aspects.navigations.action', ['row' => $row]);
             })
             ->rawColumns(['image', 'action'])
             ->setRowId('id');
@@ -33,7 +33,7 @@ class QuebecLegalAspectDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(QuebecLegalAspect $model): QueryBuilder
+    public function query(QuebecLegalAspectNavigation $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -44,7 +44,7 @@ class QuebecLegalAspectDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('QuebecLegalAspects-table')
+                    ->setTableId('QuebecLegalAspectNavigation-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->orderBy(0)
