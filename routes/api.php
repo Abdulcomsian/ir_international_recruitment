@@ -14,7 +14,8 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\Api\{
     QuebecFoodController,
-    QuebecClimateController
+    QuebecClimateController,
+    QuebecLegalAspectController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -41,6 +42,7 @@ Route::middleware(['auth:api'])->group(function(){
         Route::get('/climates/seasonal/{id}', [QuebecClimateController::class, 'seasonal']);
         Route::get('/climates/packing-list/{id}', [QuebecClimateController::class, 'packingList']);
         Route::get('/climates/recommended-activities/{id}', [QuebecClimateController::class, 'recommendedActivities']);
+        Route::get('/legal-aspects', [QuebecLegalAspectController::class, 'index']);
 
     });
     //Quebec information culture///
