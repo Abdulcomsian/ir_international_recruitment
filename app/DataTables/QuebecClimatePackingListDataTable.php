@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\QuebecClimate;
+use App\Models\QuebecClimatePackingList;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class QuebecClimateDataTable extends DataTable
+class QuebecClimatePackingListDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,7 +23,9 @@ class QuebecClimateDataTable extends DataTable
             ->addColumn('image', function($row) {
                 return '<img src="' . asset($row->image_path) . '" width="50" height="50" />';
             })
-            ->addColumn('action', 'quebec.climate.action')
+            ->addColumn('action', function($row) {
+                return view('quebec.climate.packing-list.action', ['row' => $row]);
+            })
             ->rawColumns(['image', 'action'])
             ->setRowId('id');
     }
@@ -31,7 +33,7 @@ class QuebecClimateDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(QuebecClimate $model): QueryBuilder
+    public function query(QuebecClimatePackingList $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -42,7 +44,7 @@ class QuebecClimateDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('QuebecClimate-table')
+                    ->setTableId('QuebecClimatePackingList-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->orderBy(0)
@@ -66,7 +68,7 @@ class QuebecClimateDataTable extends DataTable
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')
-            ->width(180)
+            ->width(150)
             ->addClass('text-center')
         ];
     }
