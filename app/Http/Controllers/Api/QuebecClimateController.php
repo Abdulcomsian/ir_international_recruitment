@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\{QuebecClimateResource, QuebecClimateSeasonalResource, QuebecClimatePackingListResource};
-use App\Models\{QuebecClimate, QuebecClimatePackingList, QuebecClimateSeasonal};
+use App\Http\Resources\{QuebecClimateResource, QuebecClimateSeasonalResource, QuebecClimatePackingListResource, QuebecClimateRecommendedActivityResource};
+use App\Models\{QuebecClimate, QuebecClimatePackingList, QuebecClimateSeasonal, QuebecClimateRecommendedActivity};
 
 class QuebecClimateController extends Controller
 {
@@ -34,6 +34,15 @@ class QuebecClimateController extends Controller
         $quebecClimatePackingList = QuebecClimatePackingList::with('quebecClimate')->where('quebec_climate_id', $quebecClimateId)->get();
 
         return QuebecClimatePackingListResource::collection($quebecClimatePackingList);
+
+    }
+
+    public function recommendedActivities($quebecClimateId)
+    {
+
+        $quebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::with('quebecClimate')->where('quebec_climate_id', $quebecClimateId)->get();
+
+        return QuebecClimateRecommendedActivityResource::collection($quebecClimateRecommendedActivity);
 
     }
 

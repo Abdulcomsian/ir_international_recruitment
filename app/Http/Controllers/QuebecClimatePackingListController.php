@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuebecClimatePackingList;
+use App\Models\{QuebecClimatePackingList, QuebecClimate};
 use App\DataTables\QuebecClimatePackingListDataTable;
 use App\Http\Requests\Quebec\Climate\{PackingListStoreRequest, PackingListUpdateRequest};
-use App\Models\QuebecClimate;
 use App\Traits\RemoveFileTrait;
 
 class QuebecClimatePackingListController extends Controller
@@ -23,7 +22,7 @@ class QuebecClimatePackingListController extends Controller
             return $dataTable->render('quebec.climate.packing-list.index',compact('quebecClimate'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error','Quebec Climate not found');
+            return redirect()->route('quebec.climates.index')->with('error','Quebec Climate not found');
         }
 
     }
