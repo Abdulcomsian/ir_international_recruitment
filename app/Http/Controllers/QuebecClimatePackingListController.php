@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuebecClimatePackingList;
+use App\Models\{QuebecClimatePackingList, QuebecClimate};
 use App\DataTables\QuebecClimatePackingListDataTable;
 use App\Http\Requests\Quebec\Climate\{PackingListStoreRequest, PackingListUpdateRequest};
-use App\Models\QuebecClimate;
 use App\Traits\RemoveFileTrait;
 
 class QuebecClimatePackingListController extends Controller
