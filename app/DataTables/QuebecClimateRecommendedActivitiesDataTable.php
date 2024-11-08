@@ -65,6 +65,7 @@ class QuebecClimateRecommendedActivitiesDataTable extends DataTable
             ->width(60)
             ->addClass('text-center'),
             Column::make('title'),
+            Column::make('type'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')

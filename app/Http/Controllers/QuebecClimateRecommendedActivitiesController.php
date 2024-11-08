@@ -15,14 +15,13 @@ class QuebecClimateRecommendedActivitiesController extends Controller
      */
     public function index(QuebecClimateRecommendedActivitiesDataTable $dataTable,$id)
     {
-
         try {
 
             $quebecClimate = QuebecClimate::findOrFail($id);
             return $dataTable->render('quebec.climate.recommended-activities.index',compact('quebecClimate'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.recommended-activities.index',$id)->with('error','Quebec Climate not found');
+            return redirect()->route('quebec.climates.index')->with('error','Quebec Climate not found');
         }
 
     }
@@ -75,13 +74,13 @@ class QuebecClimateRecommendedActivitiesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id,$QuebecClimateRecommendedActivityId)
+    public function show($id,$quebecClimateRecommendedActivityId)
     {
         try {
 
-            $QuebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::findOrFail($QuebecClimateRecommendedActivityId);
+            $quebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::findOrFail($quebecClimateRecommendedActivityId);
 
-            return view('quebec.climate.recommended-activities.show', compact('QuebecClimateRecommendedActivity'));
+            return view('quebec.climate.recommended-activities.show', compact('quebecClimateRecommendedActivity'));
 
         } catch (\Exception $e) {
             return redirect()->route('quebec.climates.recommended-activities.index',$id)->with('error', 'Recommended Activity not found');
@@ -91,14 +90,14 @@ class QuebecClimateRecommendedActivitiesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id,$QuebecClimateRecommendedActivityId)
+    public function edit($id,$quebecClimateRecommendedActivityId)
     {
 
         try {
 
-            $QuebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::with('quebecClimate')->findOrFail($QuebecClimateRecommendedActivityId);
+            $quebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::with('quebecClimate')->findOrFail($quebecClimateRecommendedActivityId);
 
-            return view('quebec.climate.recommended-activities.edit', compact('QuebecClimateRecommendedActivity'));
+            return view('quebec.climate.recommended-activities.edit', compact('quebecClimateRecommendedActivity'));
 
         } catch (\Exception $e) {
             return redirect()->route('quebec.climates.recommended-activities.index',$id)->with('error', 'Recommended Activity not found');
@@ -109,32 +108,32 @@ class QuebecClimateRecommendedActivitiesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(RecommendedActivityUpdateRequest $request, $id, $QuebecClimateRecommendedActivityId)
+    public function update(RecommendedActivityUpdateRequest $request, $id, $quebecClimateRecommendedActivityId)
     {
 
         try {
 
-            $QuebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::findOrFail($QuebecClimateRecommendedActivityId);
+            $quebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::findOrFail($quebecClimateRecommendedActivityId);
 
             //handle img
             if ($request->hasFile('img')) {
 
                 // remove Old img
-                $this->unlinkFile("assets/QuebecClimateRecommendedActivity/$QuebecClimateRecommendedActivity->img");
+                $this->unlinkFile("assets/QuebecClimateRecommendedActivity/$quebecClimateRecommendedActivity->img");
 
                 $image = $request->file('img');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = public_path('assets/QuebecClimateRecommendedActivity');
                 $image->move($imagePath, $imageName);
 
-                $QuebecClimateRecommendedActivity->img = $imageName;
+                $quebecClimateRecommendedActivity->img = $imageName;
             }
 
-            $QuebecClimateRecommendedActivity->title = $request->title;
-            $QuebecClimateRecommendedActivity->type = $request->type;
-            $QuebecClimateRecommendedActivity->description = $request->description;
+            $quebecClimateRecommendedActivity->title = $request->title;
+            $quebecClimateRecommendedActivity->type = $request->type;
+            $quebecClimateRecommendedActivity->description = $request->description;
 
-            $QuebecClimateRecommendedActivity->save();
+            $quebecClimateRecommendedActivity->save();
 
             return redirect()->route('quebec.climates.recommended-activities.index',$id)->with('success', 'Recommended Activity updated successfully');
         } catch (\Exception $e) {
@@ -146,14 +145,14 @@ class QuebecClimateRecommendedActivitiesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, $QuebecClimateRecommendedActivityId)
+    public function destroy($id, $quebecClimateRecommendedActivityId)
     {
 
         try {
 
-            $QuebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::findOrFail($QuebecClimateRecommendedActivityId);
-            $this->unlinkFile("assets/QuebecClimateRecommendedActivity/$QuebecClimateRecommendedActivity->img");
-            $QuebecClimateRecommendedActivity->delete();
+            $quebecClimateRecommendedActivity = QuebecClimateRecommendedActivity::findOrFail($quebecClimateRecommendedActivityId);
+            $this->unlinkFile("assets/QuebecClimateRecommendedActivity/$quebecClimateRecommendedActivity->img");
+            $quebecClimateRecommendedActivity->delete();
             return redirect()->route('quebec.climates.recommended-activities.index',$id)->with('success', 'Recommended Activity deleted successfully');
 
         } catch (\Exception $e) {

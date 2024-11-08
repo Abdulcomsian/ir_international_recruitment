@@ -20,7 +20,7 @@ class QuebecClimateRecommendedActivity extends Model
 
     public function getImagePathAttribute()
     {
-        return $this->img ? asset("assets/QuebecClimatePackingList/$this->img") : null;
+        return $this->img ? asset("assets/QuebecClimateRecommendedActivity/$this->img") : null;
     }
 
     public function quebecClimate()

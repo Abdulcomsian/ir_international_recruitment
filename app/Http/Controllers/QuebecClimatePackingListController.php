@@ -22,7 +22,7 @@ class QuebecClimatePackingListController extends Controller
             return $dataTable->render('quebec.climate.packing-list.index',compact('quebecClimate'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error','Quebec Climate not found');
+            return redirect()->route('quebec.climates.index')->with('error','Quebec Climate not found');
         }
 
     }
