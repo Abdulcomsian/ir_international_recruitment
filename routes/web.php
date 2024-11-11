@@ -25,7 +25,8 @@ use App\Http\Controllers\{
     QuebecLegalAspectNavigationController,
     QuebecLegalAspectFaqController,
     QuebecLegalAspectUsefulLinkController,
-    QuebecLegalAspectAidController
+    QuebecLegalAspectAidController,
+    TransportationController
 };
 
 
@@ -79,6 +80,10 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::resource('faqs', QuebecLegalAspectFaqController::class);
         Route::resource('useful-links', QuebecLegalAspectUsefulLinkController::class);
         Route::resource('legal-aids', QuebecLegalAspectAidController::class);
+    });
+    // city guide //transportations
+    Route::prefix('city-guide')->name('city-guide.')->group(function () {
+        Route::resource('transportations',TransportationController::class);
     });
 
                 ////Quebec historical Events////

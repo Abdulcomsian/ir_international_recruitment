@@ -12,7 +12,12 @@ class City extends Model
 
     public function legalAid()
     {
-        return $this->hasOne(QuebecLegalAspectAid::class);
+        return $this->hasMany(QuebecLegalAspectAid::class);
+    }
+
+    public function transportation()
+    {
+        return $this->hasMany(Transportation::class);
     }
 
 }
