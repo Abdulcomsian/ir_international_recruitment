@@ -6,7 +6,7 @@
         'key_navigation' => ['route' => 'quebec.legal-aspects.navigations.index', 'label' => 'Key Navigations'],
         'faq' => ['route' => 'quebec.legal-aspects.faqs.index', 'label' => 'FAQs'],
         'useful_links' => ['route' => 'quebec.legal-aspects.useful-links.index', 'label' => 'Useful Links'],
-        'legal_aid' => ['route' => 'quebec.legal-aspects.legal-aids.index', 'label' => 'Legal Aid'],
+        'legal_aid' => ['route' => 'quebec.legal-aspects.legal-aids.index', 'label' => 'Legal Aids'],
         default => null,
     };
 @endphp

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\{Route, Auth};
 use App\Http\Controllers\{
+    CityController,
     HomeController,
     UserController,
     HistoryController,
@@ -24,7 +25,7 @@ use App\Http\Controllers\{
     QuebecLegalAspectNavigationController,
     QuebecLegalAspectFaqController,
     QuebecLegalAspectUsefulLinkController,
-    QuebecLegalAspectLegalAidController
+    QuebecLegalAspectAidController
 };
 
 
@@ -61,6 +62,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::put('quebec/history/update/{id}',[QuebecHistoryController::class,'update'])->name('quebec.history.update');
     Route::DELETE('quebec/history/delete/{id}',[QuebecHistoryController::class,'delete'])->name('quebec.history.delete');
 
+    //cities
+    Route::resource('cities',CityController::class);
     // qubec foods
     Route::resource('quebec/foods',QuebecFoodController::class,['as' => 'quebec']);
     // qubec climates
@@ -75,7 +78,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::resource('navigations', QuebecLegalAspectNavigationController::class);
         Route::resource('faqs', QuebecLegalAspectFaqController::class);
         Route::resource('useful-links', QuebecLegalAspectUsefulLinkController::class);
-        Route::resource('legal-aids', QuebecLegalAspectLegalAidController::class);
+        Route::resource('legal-aids', QuebecLegalAspectAidController::class);
     });
 
                 ////Quebec historical Events////
