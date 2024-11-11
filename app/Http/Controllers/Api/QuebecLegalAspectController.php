@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\{QuebecLegalAspectResource, QuebecLegalAspectNavigationResource, QuebecLegalAspectFaqResource, QuebecLegalAspectUsefulLinkResource};
-use App\Models\{QuebecLegalAspect, QuebecLegalAspectFaq, QuebecLegalAspectNavigation, QuebecLegalAspectUsefulLink};
+use App\Http\Resources\{QuebecLegalAspectResource, QuebecLegalAspectNavigationResource, QuebecLegalAspectFaqResource, QuebecLegalAspectUsefulLinkResource, QuebecLegalAspectAidResource};
+use App\Models\{QuebecLegalAspect, QuebecLegalAspectFaq, QuebecLegalAspectNavigation, QuebecLegalAspectUsefulLink, QuebecLegalAspectAid};
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class QuebecLegalAspectController extends Controller
 {
@@ -67,6 +68,28 @@ class QuebecLegalAspectController extends Controller
 
             return response()->json([
                 'message' => 'Failed to retrieve useful links data.',
+                'error' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function legalAids(Request $request)
+    {
+        try {
+
+            $cityId = $request->city ?? '';
+
+            $quebecLegalAspectAids = QuebecLegalAspectAid::when(!empty($cityId), function ($query) use ($cityId) {
+                $query->where('city_id', $cityId);
+            })->with(['quebecLegalAspect','city'])->get();
+
+            return QuebecLegalAspectAidResource::collection($quebecLegalAspectAids);
+        } catch (\Throwable $th) {
+            // Log the error for debugging if needed
+            Log::error('Failed to retrieve legal aids: ' . $th->getMessage());
+
+            return response()->json([
+                'message' => 'Failed to retrieve legal aids data.',
                 'error' => $th->getMessage()
             ], 500);
         }

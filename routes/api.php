@@ -13,6 +13,7 @@ use App\Http\Controllers\{
 
 };
 use App\Http\Controllers\Api\{
+    CityController,
     QuebecFoodController,
     QuebecClimateController,
     QuebecLegalAspectController
@@ -34,7 +35,9 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 Route::middleware(['auth:api'])->group(function(){
     Route::get('get-services',[ServiceController::class,'getService']);
 
-    // // Quebec
+    // Cities
+    Route::get('cities',CityController::class);
+    // Quebec
     Route::prefix('quebec')->group(function (){
         // foods
         Route::get('/foods', [QuebecFoodController::class, 'index']);
@@ -51,6 +54,7 @@ Route::middleware(['auth:api'])->group(function(){
             Route::get('/navigations', [QuebecLegalAspectController::class, 'navigations']);
             Route::get('/faqs', [QuebecLegalAspectController::class, 'faqs']);
             Route::get('/useful-links', [QuebecLegalAspectController::class, 'usefulLinks']);
+            Route::get('/legal-aids', [QuebecLegalAspectController::class, 'legalAids']);
         });
     });
     //Quebec information culture///
