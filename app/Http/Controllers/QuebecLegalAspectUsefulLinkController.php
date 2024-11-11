@@ -2,27 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{QuebecClimatePackingList, QuebecClimate};
-use App\DataTables\QuebecClimatePackingListDataTable;
-use App\Http\Requests\Quebec\Climate\{PackingListStoreRequest, PackingListUpdateRequest};
-use App\Traits\RemoveFileTrait;
+use App\Models\{QuebecLegalAspectUsefulLink, QuebecLegalAspect};
+use App\DataTables\QuebecLegalAspectUsefulLinkDataTable;
+use App\Http\Requests\Quebec\LegalAspect\{UsefulLinkStoreRequest, UsefulLinkUpdateRequest};
 
 class QuebecLegalAspectUsefulLinkController extends Controller
 {
-    use RemoveFileTrait;
     /**
      * Display a listing of the resource.
      */
-    public function index(QuebecClimatePackingListDataTable $dataTable,$id)
+    public function index(QuebecLegalAspectUsefulLinkDataTable $dataTable,$id)
     {
 
         try {
 
-            $quebecClimate = QuebecClimate::findOrFail($id);
-            return $dataTable->render('quebec.climate.packing-list.index',compact('quebecClimate'));
+            $quebecLegalAspect = QuebecLegalAspect::where('type', 'useful_links')->findOrFail($id);
+            return $dataTable->render('quebec.legal-aspects.useful-links.index',compact('quebecLegalAspect'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.index')->with('error','Quebec Climate not found');
+            return redirect()->route('quebec.legal-aspects.index')->with('error','Quebec Legal Aspect Useful Link not found');
         }
 
     }
@@ -34,73 +32,63 @@ class QuebecLegalAspectUsefulLinkController extends Controller
     {
         try {
 
-            $quebecClimate = QuebecClimate::findOrFail($id);
-            return view('quebec.climate.packing-list.create',compact('quebecClimate'));
+            $quebecLegalAspect = QuebecLegalAspect::where('type', 'useful_links')->findOrFail($id);
+            return view('quebec.legal-aspects.useful-links.create',compact('quebecLegalAspect'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error','Quebec Climate not found');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('error','Quebec Legal Aspect Useful Link not found');
         }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(PackingListStoreRequest $request, $id)
+    public function store(UsefulLinkStoreRequest $request, $id)
     {
         try {
 
-            //handle img
-            if ($request->hasFile('img')) {
-
-                $image = $request->file('img');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $imagePath = public_path('assets/QuebecClimatePackingList');
-                $image->move($imagePath, $imageName);
-            }
-
-            QuebecClimatePackingList::create([
-                'quebec_climate_id' => $id,
-                'img' => $imageName,
+            QuebecLegalAspectUsefulLink::create([
+                'quebec_legal_aspect_id' => $id,
                 'title' => $request->title,
-                'description' => $request->description
+                'link' => $request->link
             ]);
 
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List created successfully');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('success', 'Useful link created successfully');
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occured while creating Packing List');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('error', 'An error occured while creating Useful link');
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id,$quebecClimatePackingListId)
+    public function show($id, $quebecLegalAspectUsefulLinkId)
     {
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
+            $quebecLegalAspectUsefulLink = QuebecLegalAspectUsefulLink::findOrFail($quebecLegalAspectUsefulLinkId);
 
-            return view('quebec.climate.packing-list.show', compact('quebecClimatePackingList'));
+            return view('quebec.legal-aspects.useful-links.show', compact('quebecLegalAspectUsefulLink'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'Packing List not found');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('error', 'Useful Link not found');
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id,$quebecClimatePackingListId)
+    public function edit($id, $quebecLegalAspectUsefulLinkId)
     {
 
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::with('quebecClimate')->findOrFail($quebecClimatePackingListId);
+            $quebecLegalAspectUsefulLink = QuebecLegalAspectUsefulLink::with('quebecLegalAspect')->findOrFail($quebecLegalAspectUsefulLinkId);
 
-            return view('quebec.climate.packing-list.edit', compact('quebecClimatePackingList'));
+            return view('quebec.legal-aspects.useful-links.edit', compact('quebecLegalAspectUsefulLink'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'Packing List not found');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('error', 'Useful Link not found');
         }
 
     }
@@ -108,35 +96,21 @@ class QuebecLegalAspectUsefulLinkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PackingListUpdateRequest $request, $id, $quebecClimatePackingListId)
+    public function update(UsefulLinkUpdateRequest $request, $id, $quebecLegalAspectUsefulLinkId)
     {
 
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
+            $quebecLegalAspectUsefulLink = QuebecLegalAspectUsefulLink::findOrFail($quebecLegalAspectUsefulLinkId);
 
-            //handle img
-            if ($request->hasFile('img')) {
+            $quebecLegalAspectUsefulLink->title = $request->title;
+            $quebecLegalAspectUsefulLink->link = $request->link;
 
-                // remove Old img
-                $this->unlinkFile("assets/QuebecClimatePackingList/$quebecClimatePackingList->img");
+            $quebecLegalAspectUsefulLink->save();
 
-                $image = $request->file('img');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $imagePath = public_path('assets/QuebecClimatePackingList');
-                $image->move($imagePath, $imageName);
-
-                $quebecClimatePackingList->img = $imageName;
-            }
-
-            $quebecClimatePackingList->title = $request->title;
-            $quebecClimatePackingList->description = $request->description;
-
-            $quebecClimatePackingList->save();
-
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List updated successfully');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('success', 'Useful Link updated successfully');
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occured while updating Packing List');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('error', 'An error occured while updating Useful Link');
         }
 
     }
@@ -144,18 +118,17 @@ class QuebecLegalAspectUsefulLinkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, $quebecClimatePackingListId)
+    public function destroy($id, $quebecLegalAspectUsefulLinkId)
     {
 
         try {
 
-            $quebecClimatePackingList = QuebecClimatePackingList::findOrFail($quebecClimatePackingListId);
-            $this->unlinkFile("assets/QuebecClimatePackingList/$quebecClimatePackingList->img");
-            $quebecClimatePackingList->delete();
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('success', 'Packing List deleted successfully');
+            $quebecLegalAspectUsefulLink = QuebecLegalAspectUsefulLink::findOrFail($quebecLegalAspectUsefulLinkId);
+            $quebecLegalAspectUsefulLink->delete();
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('success', 'Useful Link deleted successfully');
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.climates.packing-list.index',$id)->with('error', 'An error occurred while deleting Packing List');
+            return redirect()->route('quebec.legal-aspects.useful-links.index',$id)->with('error', 'An error occurred while deleting Useful Link');
         }
 
     }

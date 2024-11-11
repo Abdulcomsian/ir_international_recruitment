@@ -30,27 +30,27 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
 
-
 ////////Service Routes////////////////
 Route::middleware(['auth:api'])->group(function(){
     Route::get('get-services',[ServiceController::class,'getService']);
 
-    // Quebec
+    // // Quebec
     Route::prefix('quebec')->group(function (){
         // foods
         Route::get('/foods', [QuebecFoodController::class, 'index']);
         // Group routes related to "climates"
         Route::prefix('climates')->group(function () {
-            Route::get('/', [QuebecClimateController::class, 'index'])->name('index');
-            Route::get('/seasonal/{id}', [QuebecClimateController::class, 'seasonal'])->name('seasonal');
-            Route::get('/packing-list/{id}', [QuebecClimateController::class, 'packingList'])->name('packing-list');
-            Route::get('/recommended-activities/{id}', [QuebecClimateController::class, 'recommendedActivities'])->name('recommended-activities');
+            Route::get('/', [QuebecClimateController::class, 'index']);
+            Route::get('/seasonal/{id}', [QuebecClimateController::class, 'seasonal']);
+            Route::get('/packing-list/{id}', [QuebecClimateController::class, 'packingList']);
+            Route::get('/recommended-activities/{id}', [QuebecClimateController::class, 'recommendedActivities']);
         });
         // Group routes related to "legal-aspects"
         Route::prefix('legal-aspects')->group(function () {
-            Route::get('/', [QuebecLegalAspectController::class, 'index'])->name('index');
-            Route::get('/navigations', [QuebecLegalAspectController::class, 'navigations'])->name('navigations');
-            Route::get('/faqs', [QuebecLegalAspectController::class, 'faqs'])->name('faqs');
+            Route::get('/', [QuebecLegalAspectController::class, 'index']);
+            Route::get('/navigations', [QuebecLegalAspectController::class, 'navigations']);
+            Route::get('/faqs', [QuebecLegalAspectController::class, 'faqs']);
+            Route::get('/useful-links', [QuebecLegalAspectController::class, 'usefulLinks']);
         });
     });
     //Quebec information culture///
