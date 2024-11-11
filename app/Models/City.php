@@ -10,4 +10,9 @@ class City extends Model
         'name'
     ];
 
+    public function legalAid()
+    {
+        return $this->hasOne(QuebecLegalAspectAid::class);
+    }
+
 }
