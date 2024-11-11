@@ -17,8 +17,12 @@ class CityController extends Controller
             $type = $request->type;
 
             $cities = City::when($type === 'legalAids' && $type !== 'all', function ($query) {
-                $query->has('legalAid');
-            })->get();
+                $query->has('legalAid')->withCount('legalAid');
+            })
+            ->when($type === 'transportations' && $type !== 'all', function ($query) {
+                $query->has('transportation')->withCount('transportation');
+            })
+            ->get();
 
             return CityResource::collection($cities);
 

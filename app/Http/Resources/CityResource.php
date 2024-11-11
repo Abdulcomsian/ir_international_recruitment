@@ -19,6 +19,12 @@ class CityResource extends JsonResource
             'name' => $this->name,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),
+            'total_legal_aids' => $this->when(isset($this->legal_aid_count), function () {
+                return $this->legal_aid_count;
+            }),
+            'total_transportations' => $this->when(isset($this->transportation_count), function () {
+                return $this->transportation_count;
+            }),
         ];
     }
 }

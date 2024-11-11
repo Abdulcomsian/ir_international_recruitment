@@ -65,11 +65,11 @@ if($pageName == "view.history"){
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#city_guide" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#city_guide" aria-expanded="false" aria-controls="customization">
                     <i class="las la-map-marked"></i> <span>City Guide
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse" id="city_guide" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'show' : '' }}" id="city_guide" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Carte interactive</a>
@@ -81,7 +81,10 @@ if($pageName == "view.history"){
                                 <a href="#" class="nav-link">Points of Interest:</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Transportation options:</a>
+                                <a href="#" class="nav-link">Points of Interest:</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('city-guide.transportations.index') }}" class="nav-link {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'active' : '' }}">Transportation options</a>
                             </li>
                         </ul>
                     </div>

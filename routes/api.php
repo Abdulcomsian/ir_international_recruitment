@@ -16,12 +16,12 @@ use App\Http\Controllers\Api\{
     CityController,
     QuebecFoodController,
     QuebecClimateController,
-    QuebecLegalAspectController
+    QuebecLegalAspectController,
+    TransportationController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
-
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
@@ -57,6 +57,9 @@ Route::middleware(['auth:api'])->group(function(){
             Route::get('/legal-aids', [QuebecLegalAspectController::class, 'legalAids']);
         });
     });
+    // Tranportations
+    Route::get('city-guide/transportations',[TransportationController::class, 'index']);
+
     //Quebec information culture///
     Route::get('quebec/history',[QuebecHistoryController::class,'quebecHistory']);
     Route::get('indeed/jobs',[IndeedJobController::class,'fetchJobs']);
