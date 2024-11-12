@@ -29,6 +29,7 @@ use App\Http\Controllers\{
     TransportationController,
     FinancialAidController,
     ProgramController,
+    SocialServiceLegalAidController,
 };
 
 
@@ -87,6 +88,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::prefix('city-guide')->name('city-guide.')->group(function () {
         Route::resource('transportations',TransportationController::class);
     });
+    // health & social services // social services
+    Route::resource('social-services',SocialServiceLegalAidController::class);
 
                 ////Quebec historical Events////
     Route::get('quebec/historical/events/index',[HistoricalEventsController::class,'index'])->name('quebec.historical.event.index');
@@ -195,7 +198,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::prefix('financial/aid/')->name('financial.aid.')->group(function() {
         Route::resource('programs', FinancialAidController::class);
     });
-    
+
 
     Route::prefix('programs')->group(function() {
         Route::get('/index',[ProgramController::class,'index'])->name('programs.index');
@@ -209,6 +212,6 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::prefix('financial/aid/')->name('financial.aid.')->group(function() {
         Route::resource('programs', FinancialAidController::class);
     });
-    
+
 
     });
