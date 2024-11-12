@@ -157,11 +157,11 @@ if($pageName == "view.history"){
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#health_insurance" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('social-services') || request()->is('social-services/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#health_insurance" aria-expanded="false" aria-controls="customization">
                     <i class="las la-users"></i> <span>Health and Social Services
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse" id="health_insurance" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('social-services') || request()->is('social-services/*') ? 'show' : '' }}" id="health_insurance" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Quebec Health System</a>
@@ -173,7 +173,7 @@ if($pageName == "view.history"){
                                 <a href="#" class="nav-link">First Aid</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Social Services</a>
+                                <a href="{{ route('social-services.index') }}" class="nav-link {{ request()->is('social-services') || request()->is('social-services/*') ? 'active' : '' }}">Social Services</a>
                             </li>
                         </ul>
                     </div>
