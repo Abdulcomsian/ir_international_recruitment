@@ -22,6 +22,9 @@ class CityController extends Controller
             ->when($type === 'transportations' && $type !== 'all', function ($query) {
                 $query->has('transportation')->withCount('transportation');
             })
+            ->when($type === 'socialServiceLegalAids' && $type !== 'all', function ($query) {
+                $query->has('socialServiceLegalAid')->withCount('socialServiceLegalAid');
+            })
             ->get();
 
             return CityResource::collection($cities);

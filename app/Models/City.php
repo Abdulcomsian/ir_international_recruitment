@@ -20,4 +20,9 @@ class City extends Model
         return $this->hasMany(Transportation::class);
     }
 
+    public function socialServiceLegalAid()
+    {
+        return $this->hasMany(SocialServiceLegalAid::class);
+    }
+
 }

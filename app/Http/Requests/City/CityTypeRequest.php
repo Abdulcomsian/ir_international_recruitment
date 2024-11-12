@@ -24,7 +24,7 @@ class CityTypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|string|in:all,legalAids,transportations',
+            'type' => 'required|string|in:all,legalAids,transportations,socialServiceLegalAids',
         ];
     }
 

@@ -25,6 +25,9 @@ class CityResource extends JsonResource
             'total_transportations' => $this->when(isset($this->transportation_count), function () {
                 return $this->transportation_count;
             }),
+            'total_social_service_legal_aids' => $this->when(isset($this->social_service_legal_aid_count), function () {
+                return $this->social_service_legal_aid_count;
+            }),
         ];
     }
 }

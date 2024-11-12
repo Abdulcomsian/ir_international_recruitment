@@ -17,7 +17,8 @@ use App\Http\Controllers\Api\{
     QuebecFoodController,
     QuebecClimateController,
     QuebecLegalAspectController,
-    TransportationController
+    TransportationController,
+    SocialServiceLegalAidController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -30,6 +31,7 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/send-email-forgot-password', [UserController::class, 'sendEmailPassword']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
+
 
 ////////Service Routes////////////////
 Route::middleware(['auth:api'])->group(function(){
@@ -59,6 +61,8 @@ Route::middleware(['auth:api'])->group(function(){
     });
     // Tranportations
     Route::get('city-guide/transportations',[TransportationController::class, 'index']);
+    // Social services
+    Route::get('social-service/legal-aids',[SocialServiceLegalAidController::class, 'index']);
 
     //Quebec information culture///
     Route::get('quebec/history',[QuebecHistoryController::class,'quebecHistory']);
