@@ -28,7 +28,7 @@
             @if($trend->media_url)
                 <div class="form-group">
                     <label>Current Image</label><br>
-                    <img src="{{ $trend->media_url }}" alt="Current Image" style="width: 150px; height: auto;">
+                    <img src="{{ asset($trend->media_url) }}" alt="Current Image" style="width: 150px; height: auto;">
                 </div>
             @endif
             

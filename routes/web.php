@@ -16,6 +16,8 @@ use App\Http\Controllers\{
     DiplomaResourceController,
     EductionalProgramsController,
     EducationProgramsDetailsController,
+    FinancialAidController,
+    ProgramController,
 };
 
 
@@ -146,5 +148,19 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::put('/update/{id}',[EducationProgramsDetailsController::class,'update'])->name('eductional.programs.details.update');
         Route::DELETE('/delete/{id}',[EducationProgramsDetailsController::class,'delete'])->name('eductional.programs.details.delete');
     });
+
+    Route::prefix('programs')->group(function() {
+        Route::get('/index',[ProgramController::class,'index'])->name('programs.index');
+        Route::get('/create',[ProgramController::class,'create'])->name('programs.create');
+        Route::post('/store',[ProgramController::class,'store'])->name('programs.store');
+        Route::get('/edit/{id}',[ProgramController::class,'edit'])->name('programs.edit');
+        Route::put('/update/{id}',[ProgramController::class,'update'])->name('programs.update');
+        Route::DELETE('/delete/{id}',[ProgramController::class,'delete'])->name('programs.delete');
+    });
+
+    Route::prefix('financial/aid/')->name('financial.aid.')->group(function() {
+        Route::resource('programs', FinancialAidController::class);
+    });
+    
 
     });

@@ -78,7 +78,7 @@ class JobSearchAdviceController extends Controller
             $imagePath = public_path('assets/jobSearch_images');
             $image->move($imagePath, $imageName);
 
-            $jobsearch->image_url = 'assets/jobSearch_images/' . $imageName;
+            $jobsearch->media_url = 'assets/jobSearch_images/' . $imageName;
 
         }
 

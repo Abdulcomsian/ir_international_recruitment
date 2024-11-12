@@ -23,6 +23,12 @@ class EductionProgramDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'EductionalPrograms.action')
+            ->editColumn('featured_image',function($raw){
+                $imagePath = asset($raw->featured_image);
+                return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
+
+            })
+            ->rawColumns(['action','featured_image'])
             ->setRowId('id');
     }
 
@@ -62,16 +68,17 @@ class EductionProgramDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
             Column::make('title'),
             Column::make('university_type'),
             Column::make('location'),
             Column::make('featured_image'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(60)
+                  ->addClass('text-center'),
+        
             // Column::make('created_at'),
             // Column::make('updated_at'),
         ];

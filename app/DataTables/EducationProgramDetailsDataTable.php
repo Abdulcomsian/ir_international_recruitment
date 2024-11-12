@@ -63,11 +63,7 @@ class EducationProgramDetailsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+           
             Column::make('id'),
             Column::make('eduction_programs_id'),
             Column::make('address'),
@@ -77,6 +73,11 @@ class EducationProgramDetailsDataTable extends DataTable
             Column::make('additional_program'),
             Column::make('research'),
             Column::make('student_life'),
+            Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->width(60)
+            ->addClass('text-center'),
             // Column::make('created_at'),
             // Column::make('updated_at'),
         ];

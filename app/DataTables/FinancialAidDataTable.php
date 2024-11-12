@@ -2,17 +2,18 @@
 
 namespace App\DataTables;
 
-use App\Models\ForeignDiploma;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use App\Models\FinancialAid;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Illuminate\Support\Facades\Log;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
-class ForeignDiplomaDataTable extends DataTable
+class FinancialAidDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,20 +23,19 @@ class ForeignDiplomaDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'foreignDiploma.action')
-            ->editColumn('media_url', function($row){
-                $imagePath = asset($row->media_url);
+            ->addColumn('action', 'financialAid.action')
+            ->editColumn('featured_image', function ($row) {
+                $imagePath = asset($row->featured_image); // Adjust the path if necessary
                 return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
-
             })
-            ->rawColumns(['action','media_url'])
+            ->rawColumns(['featured_image', 'action']) // Ensure HTML is rendered
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ForeignDiploma $model): QueryBuilder
+    public function query(FinancialAid $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -46,7 +46,7 @@ class ForeignDiplomaDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('foreigndiploma-table')
+                    ->setTableId('financial_aid_table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -69,8 +69,10 @@ class ForeignDiplomaDataTable extends DataTable
     {
         return [
             Column::make('id'),
+            Column::make('program_id'),
             Column::make('title'),
-            Column::make('media_url'),
+            Column::make('featured_image'),
+            Column::make('link'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
@@ -85,6 +87,6 @@ class ForeignDiplomaDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ForeignDiploma_' . date('YmdHis');
+        return 'FinancialAid_' . date('YmdHis');
     }
 }

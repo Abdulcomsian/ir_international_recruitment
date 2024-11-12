@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit Current Trend</h1>
+        <h1>Edit Employee Statistics</h1>
         <form action="{{ route('quebec.employee.statistics.update', $state->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT') <!-- This is important for PUT requests -->
@@ -31,7 +31,7 @@
             @if($state->media_url)
                 <div class="form-group">
                     <label>Current Image</label><br>
-                    <img src="{{ $state->media_url }}" alt="Current Image" style="width: 150px; height: auto;">
+                    <img src="{{ asset($state->media_url) }}" alt="Current Image" style="width: 150px; height: auto;">
                 </div>
             @endif
             

@@ -24,6 +24,12 @@ class EmployeeStatisticsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'employeeStatistics.action')
+            ->editColumn('media_url',function($row){
+                $imagePath = asset($row->media_url);
+                return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
+
+            })
+            ->rawColumns(['media_url','action'])
             ->setRowId('id');
     }
 
@@ -63,18 +69,17 @@ class EmployeeStatisticsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
             Column::make('title'),
             Column::make('state'),
             Column::make('label'),
             Column::make('media_url'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(60)
+                  ->addClass('text-center'),
+            
         ];
     }
 

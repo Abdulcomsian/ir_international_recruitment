@@ -62,18 +62,17 @@ class ValidationGuideDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
             Column::make('diploma_id'),
             Column::make('validation_organization'),
             Column::make('visit_website'),
             Column::make('validation_guides'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(60)
+                  ->addClass('text-center'),
+            
         ];
     }
 

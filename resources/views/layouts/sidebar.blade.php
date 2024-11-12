@@ -140,7 +140,10 @@ if($pageName == "view.history"){
                                 <a href="{{route('eductional.programs.details.index')}}" class="nav-link">University Details</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('quebec.employee.statistics.index')}}" class="nav-link">Employee Statistics</a>
+                                <a href="{{route('programs.index')}}" class="nav-link">Programs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('financial.aid.programs.index')}}" class="nav-link">Financial Aid</a>
                             </li>
                             
                           

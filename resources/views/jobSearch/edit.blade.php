@@ -26,7 +26,7 @@
             @if($jobsearch->media_url)
                 <div class="form-group">
                     <label>Current Image</label><br>
-                    <img src="{{ $jobsearch->media_url }}" alt="Current Image" style="width: 150px; height: auto;">
+                    <img src="{{ asset($jobsearch->media_url) }}" alt="Current Image" style="width: 150px; height: auto;">
                 </div>
             @endif
             

@@ -62,17 +62,16 @@ class UsefulResourceDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('diploma_id'),
+            Column::make('title'),
+            Column::make('visit_website'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('diploma_id'),
-            Column::make('title'),
-            Column::make('visit_website'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+         
         ];
     }
 

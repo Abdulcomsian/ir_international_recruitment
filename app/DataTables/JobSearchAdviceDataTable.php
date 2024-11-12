@@ -23,6 +23,11 @@ class JobSearchAdviceDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'jobSearch.action')
+            ->editColumn('media_url', function($row){
+                $imagePath = asset($row->media_url);
+                return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
+            })
+            ->rawColumns(['media_url','action'])
             ->setRowId('id');
     }
 
@@ -62,17 +67,16 @@ class JobSearchAdviceDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id'),
+            Column::make('title'),
+            Column::make('description'),
+            Column::make('media_url'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('title'),
-            Column::make('description'),
-            Column::make('media_url'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+         
         ];
     }
 

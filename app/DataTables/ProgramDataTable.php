@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\ForeignDiploma;
+use App\Models\Program;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class ForeignDiplomaDataTable extends DataTable
+class ProgramDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,20 +22,14 @@ class ForeignDiplomaDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'foreignDiploma.action')
-            ->editColumn('media_url', function($row){
-                $imagePath = asset($row->media_url);
-                return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
-
-            })
-            ->rawColumns(['action','media_url'])
+            ->addColumn('action', 'programs.action')
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ForeignDiploma $model): QueryBuilder
+    public function query(Program $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -46,7 +40,7 @@ class ForeignDiplomaDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('foreigndiploma-table')
+                    ->setTableId('program-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -68,15 +62,16 @@ class ForeignDiplomaDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            
             Column::make('id'),
             Column::make('title'),
-            Column::make('media_url'),
+            Column::make('created_at'),
+            Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-            
         ];
     }
 
@@ -85,6 +80,6 @@ class ForeignDiplomaDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'ForeignDiploma_' . date('YmdHis');
+        return 'Program_' . date('YmdHis');
     }
 }

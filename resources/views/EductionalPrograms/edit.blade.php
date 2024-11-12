@@ -35,7 +35,7 @@
             @if($program->featured_image)
                 <div class="form-group">
                     <label>Current Image</label><br>
-                    <img src="{{ $program->featured_image }}" alt="Current Image" style="width: 150px; height: auto;">
+                    <img src="{{ asset($program->featured_image) }}" alt="Current Image" style="width: 150px; height: auto;">
                 </div>
             @endif
             
