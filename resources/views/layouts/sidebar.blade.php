@@ -12,7 +12,7 @@
             <i class="ri-record-circle-line"></i>
         </button>
     </div>
-@php 
+@php
 $pageName = \Request::route()->getName();
 $aria_expansion = "false";
 if($pageName == "view.history"){
@@ -38,11 +38,11 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
+                    <a class="nav-link menu-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
                     <i class="las la-file-alt"></i> <span>Quebec Informations
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse @if($pageName == "view.history") show @endif" id="customization" style="">
+                    <div class="menu-dropdown collapse @if($pageName == "view.history") show @endif {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('quebec.history.index')}}" class="nav-link @if($pageName == "view.history") active @endif">History of Quebec</a>
@@ -53,20 +53,23 @@ if($pageName == "view.history"){
                                 <!-- <a href="#" class="nav-link">Quebec culture</a> -->
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Quebec climate</a>
+                                <a href="{{ route('quebec.foods.index') }}" class="nav-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') ? 'active' : '' }}">Quebec Food</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Important Legal Aspects</a>
+                                <a href="{{ route('quebec.climates.index') }}" class="nav-link {{ request()->is('quebec/climates') || request()->is('quebec/climates/*') ? 'active' : '' }}">Quebec Climate</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('quebec.legal-aspects.index') }}" class="nav-link {{ request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}">Important Legal Aspects</a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#city_guide" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#city_guide" aria-expanded="false" aria-controls="customization">
                     <i class="las la-map-marked"></i> <span>City Guide
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse" id="city_guide" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'show' : '' }}" id="city_guide" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Carte interactive</a>
@@ -78,7 +81,10 @@ if($pageName == "view.history"){
                                 <a href="#" class="nav-link">Points of Interest:</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Transportation options:</a>
+                                <a href="#" class="nav-link">Points of Interest:</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('city-guide.transportations.index') }}" class="nav-link {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'active' : '' }}">Transportation options</a>
                             </li>
                         </ul>
                     </div>
@@ -145,8 +151,8 @@ if($pageName == "view.history"){
                             <li class="nav-item">
                                 <a href="{{route('financial.aid.programs.index')}}" class="nav-link">Financial Aid</a>
                             </li>
-                            
-                          
+
+
                         </ul>
                     </div>
                 </li>

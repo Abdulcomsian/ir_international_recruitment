@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\{Route, Auth};
 use App\Http\Controllers\{
+    CityController,
     HomeController,
     UserController,
     HistoryController,
@@ -16,6 +17,16 @@ use App\Http\Controllers\{
     DiplomaResourceController,
     EductionalProgramsController,
     EducationProgramsDetailsController,
+    QuebecFoodController,
+    QuebecClimateController,
+    QuebecClimatePackingListController,
+    QuebecClimateRecommendedActivitiesController,
+    QuebecLegalAspectController,
+    QuebecLegalAspectNavigationController,
+    QuebecLegalAspectFaqController,
+    QuebecLegalAspectUsefulLinkController,
+    QuebecLegalAspectAidController,
+    TransportationController,
     FinancialAidController,
     ProgramController,
 };
@@ -54,6 +65,29 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::put('quebec/history/update/{id}',[QuebecHistoryController::class,'update'])->name('quebec.history.update');
     Route::DELETE('quebec/history/delete/{id}',[QuebecHistoryController::class,'delete'])->name('quebec.history.delete');
 
+    //cities
+    Route::resource('cities',CityController::class);
+    // qubec foods
+    Route::resource('quebec/foods',QuebecFoodController::class,['as' => 'quebec']);
+    // qubec climates
+    Route::resource('quebec/climates',QuebecClimateController::class,['as' => 'quebec']);
+    Route::get('quebec/climates/seasonal/{id}',[QuebecClimateController::class, 'editSeasonal'])->name('quebec.climates.seasonal');
+    Route::put('quebec/climates/seasonal/update/{id}',[QuebecClimateController::class, 'updateSeasonal'])->name('quebec.climates.seasonal.update');
+    Route::resource('quebec/climates/{id}/packing-list',QuebecClimatePackingListController::class,['as' => 'quebec.climates']);
+    Route::resource('quebec/climates/{id}/recommended-activities',QuebecClimateRecommendedActivitiesController::class,['as' => 'quebec.climates']);
+    // qubec legal aspects
+    Route::resource('quebec/legal-aspects',QuebecLegalAspectController::class,['as' => 'quebec']);
+    Route::prefix('quebec/legal-aspects/{id}')->name('quebec.legal-aspects.')->group(function () {
+        Route::resource('navigations', QuebecLegalAspectNavigationController::class);
+        Route::resource('faqs', QuebecLegalAspectFaqController::class);
+        Route::resource('useful-links', QuebecLegalAspectUsefulLinkController::class);
+        Route::resource('legal-aids', QuebecLegalAspectAidController::class);
+    });
+    // city guide //transportations
+    Route::prefix('city-guide')->name('city-guide.')->group(function () {
+        Route::resource('transportations',TransportationController::class);
+    });
+
                 ////Quebec historical Events////
     Route::get('quebec/historical/events/index',[HistoricalEventsController::class,'index'])->name('quebec.historical.event.index');
     Route::get('quebec/historical/events/create',[HistoricalEventsController::class,'create'])->name('quebec.historical.event.create');
@@ -64,7 +98,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
 
     //////////////////////////Employment and Recogination////////////////
     //////////////Current Trned///////
-    
+
     Route::prefix('quebec/current/trend')->group(function () {
         Route::get('/index', [QuebecCurrentTrendController::class, 'index'])->name('quebec.current.trend.index');
         Route::get('/create', [QuebecCurrentTrendController::class, 'create'])->name('quebec.current.trend.create');
@@ -73,7 +107,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::put('/update/{id}', [QuebecCurrentTrendController::class, 'update'])->name('quebec.current.trend.update');
         Route::delete('/delete/{id}', [QuebecCurrentTrendController::class, 'delete'])->name('quebec.current.trend.delete');
     });
-    
+
     ///////EmployeeStatistics//////////////////////////
     Route::prefix('quebec/employee/statistics')->group(function() {
         Route::get('/index',[EmployeeStatisticsController::class,'index'])->name('quebec.employee.statistics.index');
@@ -127,8 +161,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::get('/edit/{id}',[DiplomaResourceController::class,'edit'])->name('diploma.resource.edit');
         Route::put('/update/{id}',[DiplomaResourceController::class,'update'])->name('diploma.resource.update');
         Route::DELETE('/delete/{id}',[DiplomaResourceController::class,'delete'])->name('diploma.resource.delete');
-    }); 
-    
+    });
+
     ////////Eductional Institutions and Programs////////////////////
 
     Route::prefix('eductional/programs')->group(function() {
@@ -148,6 +182,20 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::put('/update/{id}',[EducationProgramsDetailsController::class,'update'])->name('eductional.programs.details.update');
         Route::DELETE('/delete/{id}',[EducationProgramsDetailsController::class,'delete'])->name('eductional.programs.details.delete');
     });
+
+    Route::prefix('programs')->group(function() {
+        Route::get('/index',[ProgramController::class,'index'])->name('programs.index');
+        Route::get('/create',[ProgramController::class,'create'])->name('programs.create');
+        Route::post('/store',[ProgramController::class,'store'])->name('programs.store');
+        Route::get('/edit/{id}',[ProgramController::class,'edit'])->name('programs.edit');
+        Route::put('/update/{id}',[ProgramController::class,'update'])->name('programs.update');
+        Route::DELETE('/delete/{id}',[ProgramController::class,'delete'])->name('programs.delete');
+    });
+
+    Route::prefix('financial/aid/')->name('financial.aid.')->group(function() {
+        Route::resource('programs', FinancialAidController::class);
+    });
+    
 
     Route::prefix('programs')->group(function() {
         Route::get('/index',[ProgramController::class,'index'])->name('programs.index');
