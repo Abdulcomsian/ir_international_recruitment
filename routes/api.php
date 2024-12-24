@@ -32,7 +32,6 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
 
-
 ////////Service Routes////////////////
 Route::middleware(['auth:api'])->group(function(){
     
