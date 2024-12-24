@@ -18,12 +18,12 @@ class CurrentTrendResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'title' => $this->title, 
+            'title' => $this->title,
             'category' => $this->category,
-            'media_url' => $this->media_url,
+            'image_path' => $this->image_path,
 
         ];
-        
+
     }
 
     // public function with($request)
