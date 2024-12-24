@@ -12,6 +12,13 @@ use Yajra\DataTables\Services\DataTable;
 
 class QuebecClimateRecommendedActivitiesDataTable extends DataTable
 {
+    protected $climateId;
+
+    public function forClimate($id)
+    {
+        $this->climateId = $id;
+        return $this;
+    }
     /**
      * Build the DataTable class.
      *
@@ -35,7 +42,7 @@ class QuebecClimateRecommendedActivitiesDataTable extends DataTable
      */
     public function query(QuebecClimateRecommendedActivity $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->where('quebec_climate_id', $this->climateId)->newQuery();
     }
 
     /**

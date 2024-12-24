@@ -19,7 +19,7 @@ class QuebecClimatePackingListController extends Controller
         try {
 
             $quebecClimate = QuebecClimate::findOrFail($id);
-            return $dataTable->render('quebec.climate.packing-list.index',compact('quebecClimate'));
+            return $dataTable->forClimate($id)->render('quebec.climate.packing-list.index',compact('quebecClimate'));
 
         } catch (\Exception $e) {
             return redirect()->route('quebec.climates.index')->with('error','Quebec Climate not found');

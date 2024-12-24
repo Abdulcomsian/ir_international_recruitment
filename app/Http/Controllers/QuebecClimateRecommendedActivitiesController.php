@@ -18,7 +18,7 @@ class QuebecClimateRecommendedActivitiesController extends Controller
         try {
 
             $quebecClimate = QuebecClimate::findOrFail($id);
-            return $dataTable->render('quebec.climate.recommended-activities.index',compact('quebecClimate'));
+            return $dataTable->forClimate($id)->render('quebec.climate.recommended-activities.index',compact('quebecClimate'));
 
         } catch (\Exception $e) {
             return redirect()->route('quebec.climates.index')->with('error','Quebec Climate not found');

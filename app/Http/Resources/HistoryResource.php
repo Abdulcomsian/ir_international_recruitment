@@ -27,7 +27,7 @@ class HistoryResource extends JsonResource
                     'id' => $media->id,
                     'quebec_history_id' => $media->quebec_history_id,
                     'is_featured' => $media->is_featured,
-                    'media_url' => $media->media_url,
+                    'media_path' => $media->media_path,
                 ];
             }),
         ];

@@ -33,8 +33,8 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
 
 ////////Service Routes////////////////
-Route::middleware(['auth:api'])->group(function(){
-    
+Route::middleware(['api_auth'])->group(function(){
+
     // Quebec
     Route::prefix('quebec')->group(function (){
         Route::get('get-services',[ServiceController::class,'getService']);
@@ -75,7 +75,7 @@ Route::middleware(['auth:api'])->group(function(){
         Route::get('history',[QuebecHistoryController::class,'quebecHistory']);
         Route::get('indeed/jobs',[IndeedJobController::class,'fetchJobs']);
     });
-   
 
-   
+
+
 });
