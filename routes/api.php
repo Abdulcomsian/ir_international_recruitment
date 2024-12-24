@@ -32,15 +32,15 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
 
-
 ////////Service Routes////////////////
 Route::middleware(['auth:api'])->group(function(){
-    Route::get('get-services',[ServiceController::class,'getService']);
-
-    // Cities
-    Route::get('cities',CityController::class);
+    
     // Quebec
     Route::prefix('quebec')->group(function (){
+        Route::get('get-services',[ServiceController::class,'getService']);
+
+        // Cities
+        Route::get('cities',CityController::class);
         // foods
         Route::get('/foods', [QuebecFoodController::class, 'index']);
         // Group routes related to "climates"
@@ -58,21 +58,24 @@ Route::middleware(['auth:api'])->group(function(){
             Route::get('/useful-links', [QuebecLegalAspectController::class, 'usefulLinks']);
             Route::get('/legal-aids', [QuebecLegalAspectController::class, 'legalAids']);
         });
+         ///Employee statistics///
+        Route::prefix('employee')->group(function(){
+            Route::get('/statistics',[EmployeeStatisticsController::class,'getStatistics']);
+            Route::get('/currentTrends',[QuebecCurrentTrendController::class,'getCurrentTrends']);
+            Route::get('/foreignDiploma',[ForeignDiplomaController::class,'foreignDiploma']);
+
+        });
+
+         // Tranportations
+        Route::get('city-guide/transportations',[TransportationController::class, 'index']);
+        // Social services
+        Route::get('social-service/legal-aids',[SocialServiceLegalAidController::class, 'index']);
+
+        //Quebec information culture///
+        Route::get('history',[QuebecHistoryController::class,'quebecHistory']);
+        Route::get('indeed/jobs',[IndeedJobController::class,'fetchJobs']);
     });
-    // Tranportations
-    Route::get('city-guide/transportations',[TransportationController::class, 'index']);
-    // Social services
-    Route::get('social-service/legal-aids',[SocialServiceLegalAidController::class, 'index']);
+   
 
-    //Quebec information culture///
-    Route::get('quebec/history',[QuebecHistoryController::class,'quebecHistory']);
-    Route::get('indeed/jobs',[IndeedJobController::class,'fetchJobs']);
-
-    ///Employee statistics///
-    Route::prefix('employee')->group(function(){
-        Route::get('/statistics',[EmployeeStatisticsController::class,'getStatistics']);
-        Route::get('/currentTrends',[QuebecCurrentTrendController::class,'getCurrentTrends']);
-        Route::get('/foreignDiploma',[ForeignDiplomaController::class,'foreignDiploma']);
-
-    });
+   
 });
