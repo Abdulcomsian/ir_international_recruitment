@@ -18,7 +18,7 @@ class ForeignDiplomaResource extends JsonResource
         return [
             'id' =>$this->id,
             'title' => $this->title,
-            'media_url' => $this->media_url,
+            'media_path' => $this->media_path,
             'validation_guide' => $this->ValidationGuide->map(function($validation){
                 return [
                     'id' =>$validation->id,

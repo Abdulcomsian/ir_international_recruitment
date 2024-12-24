@@ -21,7 +21,7 @@ class EmployeeStatisticsResource extends JsonResource
             'title' => $this->title,
             'state' => $this->state,
             'label' => $this->label,
-            'media_url' =>$this->media_url
+            'image_path' => $this->image_path
         ];
     }
 
