@@ -3,9 +3,9 @@
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Light Logo-->
-        <a href="index" class="logo logo-light">
+        <a href="{{ route('home') }}" class="logo logo-light">
             <span class="logo-lg">
-                <img src="{{ URL::asset('build/images/logo-light.svg') }}" alt="" height="30">
+                <img src="{{ asset('logo/logo.png') }}" alt="logo" height="30" />
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
@@ -197,19 +197,19 @@ if($pageName == "view.history"){
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#activities" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') || request()->is('support-and-advice/with-my-name') || request()->is('support-and-advice/with-my-name/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#supportAndAdvice" aria-expanded="false" aria-controls="customization">
                     <i class="las la-envelope-open-text"></i>
                         <span>
                             Support and Advice
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') ? 'show' : '' }}" id="activities" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') || request()->is('support-and-advice/with-my-name') || request()->is('support-and-advice/with-my-name/*') ? 'show' : '' }}" id="supportAndAdvice" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{ route('support-and-advice.stay-anonymous.index') }}" class="nav-link {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') ? 'active' : '' }}">Stay Anonymous</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">With My Name</a>
+                                <a href="{{ route('support-and-advice.with-my-name.index') }}" class="nav-link {{ request()->is('support-and-advice/with-my-name') || request()->is('support-and-advice/with-my-name/*') ? 'active' : '' }}">With My Name</a>
                             </li>
                         </ul>
                     </div>

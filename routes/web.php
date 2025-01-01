@@ -31,7 +31,8 @@ use App\Http\Controllers\{
     FinancialAidController,
     ProgramController,
     SocialServiceLegalAidController,
-    StayAnonymousController
+    StayAnonymousController,
+    WithMyNameController
 };
 
 
@@ -97,6 +98,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     // support and advice
     Route::prefix('support-and-advice')->name('support-and-advice.')->group(function () {
         Route::resource('stay-anonymous',StayAnonymousController::class)->except(['create', 'store', 'edit' , 'update']);
+        Route::resource('with-my-name',WithMyNameController::class)->except(['create', 'store', 'edit' , 'update']);
     });
     // health & social services // social services
     Route::resource('social-services',SocialServiceLegalAidController::class);
