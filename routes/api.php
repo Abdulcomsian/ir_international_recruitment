@@ -19,7 +19,8 @@ use App\Http\Controllers\Api\{
     QuebecLegalAspectController,
     TransportationController,
     SocialServiceLegalAidController,
-    AgoraEventController
+    AgoraEventController,
+    StayAnonymousController,
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -32,7 +33,10 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/send-email-forgot-password', [UserController::class, 'sendEmailPassword']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
-
+// Group routes related to "climates"
+Route::prefix('support-and-advice')->group(function () {
+    Route::post('/stay-anonymous/store', [StayAnonymousController::class, 'store']);
+});
 
 ////////Service Routes////////////////
 Route::middleware(['api_auth'])->group(function(){
