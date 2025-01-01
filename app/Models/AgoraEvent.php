@@ -10,8 +10,11 @@ class AgoraEvent extends Model
         'img',
         'title',
         'price',
+        'event_datetime',
         'hosted_by',
-        'address'
+        'members',
+        'location',
+        'description'
     ];
 
     public $appends = [

@@ -16,8 +16,11 @@ return new class extends Migration
             $table->string('img');
             $table->string('title');
             $table->decimal('price', 65, 2)->nullable();
+            $table->dateTime('event_datetime');
             $table->string('hosted_by');
-            $table->text('address');
+            $table->integer('members');
+            $table->string('location');
+            $table->text('description');
             $table->timestamps();
         });
     }

@@ -26,15 +26,33 @@
                         </div>
                     </div>
                     <div class="col-sm-12">
+                        <label for="price">Event DateTime</label>
+                        <div>
+                            {{ $agoraEvent->event_datetime }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <label for="hostedBy">Hosted By</label>
                         <div>
                             {{ $agoraEvent->hosted_by }}
                         </div>
                     </div>
                     <div class="col-sm-12">
-                        <label for="address">Address</label>
+                        <label for="members">Members</label>
                         <div>
-                            {{ $agoraEvent->address }}
+                            {{ $agoraEvent->members }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="location">Location</label>
+                        <div>
+                            {{ $agoraEvent->location }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="description">Description</label>
+                        <div>
+                            {{ $agoraEvent->description }}
                         </div>
                     </div>
                 </div>

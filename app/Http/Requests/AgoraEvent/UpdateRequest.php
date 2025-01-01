@@ -26,8 +26,11 @@ class UpdateRequest extends FormRequest
             'img' => 'nullable|image|max:10240|mimes:png,jpg,jpeg,gif',
             'title' => 'required|string',
             'price' => 'required|numeric',
+            'event_datetime' => 'required|date_format:Y-m-d\TH:i',
             'hosted_by' => 'required|string',
-            'address' => 'required|string',
+            'members' => 'required|integer',
+            'location' => 'required|string',
+            'description' => 'required|string',
         ];
     }
 
@@ -35,6 +38,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'price.numeric' => 'Price must be a number',
+            'members.integer' => 'Members must be a whole number',
         ];
     }
 

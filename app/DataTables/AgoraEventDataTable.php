@@ -64,7 +64,9 @@ class AgoraEventDataTable extends DataTable
             ->addClass('text-center'),
             Column::make('title'),
             Column::make('price'),
+            Column::make('event_datetime'),
             Column::make('hosted_by'),
+            Column::make('members'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')

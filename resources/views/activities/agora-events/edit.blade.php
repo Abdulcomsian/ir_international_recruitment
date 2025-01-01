@@ -34,9 +34,17 @@
 
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="text" class="form-control" id="price" name="price"
+                <input type="number" class="form-control" id="price" name="price"
                     value="{{ old('price', $agoraEvent->price) }}" required />
                 @error('price')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="event_datetime">Event DateTime</label>
+                <input type="datetime-local" class="form-control" id="event_datetime" name="event_datetime" value="{{ old('event_datetime', $agoraEvent->event_datetime) }}" required />
+                @error('event_datetime')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
@@ -51,10 +59,27 @@
             </div>
 
             <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" name="address"
-                    value="{{ old('address', $agoraEvent->address) }}" required />
-                @error('address')
+                <label for="members">Members</label>
+                <input type="number" class="form-control" id="members" name="members"
+                    value="{{ old('members', $agoraEvent->members) }}" required />
+                @error('members')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" class="form-control" id="location" name="location"
+                    value="{{ old('location', $agoraEvent->location) }}" required />
+                @error('location')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="description" required>{{ old('description', $agoraEvent->description) }}</textarea>
+                @error('description')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>

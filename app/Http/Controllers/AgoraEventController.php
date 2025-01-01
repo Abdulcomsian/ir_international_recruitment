@@ -46,8 +46,11 @@ class AgoraEventController extends Controller
                 'img' => $imageName,
                 'title' => $request->title,
                 'price' => $request->price,
+                'event_datetime' => $request->event_datetime,
                 'hosted_by' => $request->hosted_by,
-                'address' => $request->address
+                'members' => $request->members,
+                'location' => $request->location,
+                'description' => $request->description
             ]);
 
             return redirect()->route('activities.agora-events.index')->with('success', 'Agora Event created successfully');
@@ -116,8 +119,11 @@ class AgoraEventController extends Controller
 
             $agoraEvent->title = $request->title;
             $agoraEvent->price = $request->price;
+            $agoraEvent->event_datetime = $request->event_datetime;
             $agoraEvent->hosted_by = $request->hosted_by;
-            $agoraEvent->address = $request->address;
+            $agoraEvent->members = $request->members;
+            $agoraEvent->location = $request->location;
+            $agoraEvent->description = $request->description;
 
             $agoraEvent->save();
 
