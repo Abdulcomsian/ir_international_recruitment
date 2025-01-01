@@ -31,6 +31,7 @@ use App\Http\Controllers\{
     FinancialAidController,
     ProgramController,
     SocialServiceLegalAidController,
+    StayAnonymousController
 };
 
 
@@ -92,6 +93,10 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     // activities
     Route::prefix('activities')->name('activities.')->group(function () {
         Route::resource('agora-events',AgoraEventController::class);
+    });
+    // support and advice
+    Route::prefix('support-and-advice')->name('support-and-advice.')->group(function () {
+        Route::resource('stay-anonymous',StayAnonymousController::class)->except(['create', 'store', 'edit' , 'update']);
     });
     // health & social services // social services
     Route::resource('social-services',SocialServiceLegalAidController::class);

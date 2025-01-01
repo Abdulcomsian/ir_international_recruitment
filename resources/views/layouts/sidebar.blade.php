@@ -180,14 +180,14 @@ if($pageName == "view.history"){
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#activities" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('activities/agora-events') || request()->is('activities/agora-events/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#activities" aria-expanded="false" aria-controls="customization">
                     <i class="las la-users"></i> <span>Activities
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse" id="activities" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('activities/agora-events') || request()->is('activities/agora-events/*') ? 'show' : '' }}" id="activities" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('activities.agora-events.index') }}" class="nav-link">Agora Events</a>
+                                <a href="{{ route('activities.agora-events.index') }}" class="nav-link {{ request()->is('activities/agora-events') || request()->is('activities/agora-events/*') ? 'active' : '' }}">Agora Events</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Tickets</a>
@@ -197,10 +197,22 @@ if($pageName == "view.history"){
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse" href="#">
-                    <i class="las la-envelope-open-text"></i></i> <span>Support and Advice
+                    <a class="nav-link menu-link collapse {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#activities" aria-expanded="false" aria-controls="customization">
+                    <i class="las la-envelope-open-text"></i>
+                        <span>
+                            Support and Advice
                         </span>
                     </a>
+                    <div class="menu-dropdown collapse {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') ? 'show' : '' }}" id="activities" style="">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('support-and-advice.stay-anonymous.index') }}" class="nav-link {{ request()->is('support-and-advice/stay-anonymous') || request()->is('support-and-advice/stay-anonymous/*') ? 'active' : '' }}">Stay Anonymous</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">With My Name</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#">
