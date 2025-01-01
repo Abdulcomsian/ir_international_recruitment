@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\{
     SocialServiceLegalAidController,
     AgoraEventController,
     StayAnonymousController,
+    WithMyNameController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -33,10 +34,6 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/send-email-forgot-password', [UserController::class, 'sendEmailPassword']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
-// Group routes related to "climates"
-Route::prefix('support-and-advice')->group(function () {
-    Route::post('/stay-anonymous/store', [StayAnonymousController::class, 'store']);
-});
 
 ////////Service Routes////////////////
 Route::middleware(['api_auth'])->group(function(){
@@ -79,6 +76,12 @@ Route::middleware(['api_auth'])->group(function(){
 
         // activities
         Route::get('activities/agora-events',[AgoraEventController::class, 'index']);
+
+        // Group routes support and advice
+        Route::prefix('support-and-advice')->group(function () {
+            Route::post('/stay-anonymous/store', [StayAnonymousController::class, 'store']);
+            Route::post('/with-my-name/store', [WithMyNameController::class, 'store']);
+        });
 
         //Quebec information culture///
         Route::get('history',[QuebecHistoryController::class,'quebecHistory']);
