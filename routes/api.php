@@ -18,7 +18,8 @@ use App\Http\Controllers\Api\{
     QuebecClimateController,
     QuebecLegalAspectController,
     TransportationController,
-    SocialServiceLegalAidController
+    SocialServiceLegalAidController,
+    AgoraEventController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -31,6 +32,7 @@ Route::post('/verify-otp', [UserController::class, 'verifyOtp']);
 // Route::post('/send-email-forgot-password', [UserController::class, 'sendEmailPassword']);
 // Route::post('/verfiy-code', [UserController::class, 'verifyCode']);
 // Route::post('/update-password', [UserController::class, 'updatePassword']);
+
 
 ////////Service Routes////////////////
 Route::middleware(['api_auth'])->group(function(){
@@ -70,6 +72,9 @@ Route::middleware(['api_auth'])->group(function(){
         Route::get('city-guide/transportations',[TransportationController::class, 'index']);
         // Social services
         Route::get('social-service/legal-aids',[SocialServiceLegalAidController::class, 'index']);
+
+        // activities
+        Route::get('activities/agora-events',[AgoraEventController::class, 'index']);
 
         //Quebec information culture///
         Route::get('history',[QuebecHistoryController::class,'quebecHistory']);

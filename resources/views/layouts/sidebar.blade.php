@@ -187,7 +187,7 @@ if($pageName == "view.history"){
                     <div class="menu-dropdown collapse" id="activities" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Events</a>
+                                <a href="{{ route('activities.agora-events.index') }}" class="nav-link">Agora Events</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Tickets</a>

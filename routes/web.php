@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\{Route, Auth};
 use App\Http\Controllers\{
+    AgoraEventController,
     CityController,
     HomeController,
     UserController,
@@ -87,6 +88,10 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     // city guide //transportations
     Route::prefix('city-guide')->name('city-guide.')->group(function () {
         Route::resource('transportations',TransportationController::class);
+    });
+    // activities
+    Route::prefix('activities')->name('activities.')->group(function () {
+        Route::resource('agora-events',AgoraEventController::class);
     });
     // health & social services // social services
     Route::resource('social-services',SocialServiceLegalAidController::class);
