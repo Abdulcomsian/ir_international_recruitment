@@ -19,12 +19,11 @@
                 </select>
             </div>
 
-          
+
             <div class="form-group">
                 <label for="title">Image</label>
                 <input type="file" class="form-control" id="image" name="media_url" required>
             </div>
-            <br>
             <button type="submit" class="btn btn-success">Create History</button>
         </form>
     </div>

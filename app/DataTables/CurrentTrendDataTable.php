@@ -76,11 +76,11 @@ class CurrentTrendDataTable extends DataTable
             ->searchable(false)
             ->width(60),
             Column::make('title'),
-            Column::make('category'),
+            Column::make('category_name'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(110)
                   ->addClass('text-center'),
         ];
     }

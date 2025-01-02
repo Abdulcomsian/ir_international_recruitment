@@ -6,7 +6,7 @@
         <form action="{{ route('quebec.current.trend.update', $trend->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT') <!-- This is important for PUT requests -->
-            
+
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $trend->title) }}" required>
@@ -15,8 +15,8 @@
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category" required>
                     <option value="">Select Category</option>
-                    <option value="growing_sectors">Growing Sectors</option>
-                    <option value="demand_professionals">In demand Professions</option>
+                    <option value="growing_sectors" @selected($trend->category === 'growing_sectors')>Growing Sectors</option>
+                    <option value="demand_professionals" @selected($trend->category === 'demand_professionals')>In demand Professions</option>
                 </select>
             </div>
             <div class="form-group">
@@ -31,7 +31,7 @@
                     <img src="{{ asset($trend->media_url) }}" alt="Current Image" style="width: 150px; height: auto;">
                 </div>
             @endif
-            
+
             <button type="submit" class="btn btn-success">Update Trend</button>
         </form>
     </div>

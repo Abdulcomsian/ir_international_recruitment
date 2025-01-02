@@ -96,14 +96,14 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/current/trend1/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
                     <i class="las la-book-reader"></i> <span>Employment and Diploma Recognition
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse" id="employment_education" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') || request()->is('city-guide/transportations1/*') ? 'show' : '' }}" id="employment_education" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('quebec.current.trend.index')}}" class="nav-link">Current Trends</a>
+                                <a href="{{route('quebec.current.trend.index')}}" class="nav-link {{ request()->is('quebec/current/trend/*') ? 'active' : '' }}">Current Trends</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('quebec.employee.statistics.index')}}" class="nav-link">Employee Statistics</a>
