@@ -96,11 +96,11 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
                     <i class="las la-book-reader"></i> <span>Employment and Diploma Recognition
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') ? 'show' : '' }}" id="employment_education" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') ? 'show' : '' }}" id="employment_education" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('quebec.current.trend.index')}}" class="nav-link {{ request()->is('quebec/current/trend/*') ? 'active' : '' }}">Current Trends</a>
@@ -112,7 +112,7 @@ if($pageName == "view.history"){
                                 <a href="{{route('job.search.advice.index')}}" class="nav-link {{ request()->is('job/search/advice/*') ? 'active' : '' }}">Job Search Advice</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('foreign.diploma.fields.index')}}" class="nav-link">Validation of Foreign Diploma</a>
+                                <a href="{{route('foreign.diploma.fields.index')}}" class="nav-link {{ request()->is('foreign/diploma/fields/*') ? 'active' : '' }}">Validation of Foreign Diploma</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('diploma.validation.index')}}" class="nav-link">Validation Guide</a>

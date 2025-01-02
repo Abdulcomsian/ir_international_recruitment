@@ -7,14 +7,15 @@ use App\Http\Resources\ForeignDiplomaResource;
 use Illuminate\Http\Request;
 use App\Models\ForeignDiploma;
 use App\Traits\ApiResponseTrait;
+use App\Traits\RemoveFileTrait;
 
 class ForeignDiplomaController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, RemoveFileTrait;
     ////////////API//////////////////
     public function foreignDiploma()
     {
-        try{        
+        try{
             $diploma = ForeignDiploma::with('ValidationGuide','resources')->get();
             $data = ForeignDiplomaResource::collection($diploma);
 
@@ -49,7 +50,7 @@ class ForeignDiplomaController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('assets/foreignDiploma_images');
             $image->move($imagePath, $imageName);
-            
+
             // Create the image URL
             $imageUrl = 'assets/foreignDiploma_images/' . $imageName;
 
@@ -59,11 +60,11 @@ class ForeignDiplomaController extends Controller
         // Create a new jobserach
         $diploma = new ForeignDiploma();
         $diploma->title = $request->title;
-        $diploma->media_url = $imageUrl ?? null; 
+        $diploma->media_url = $imageUrl ?? null;
         $diploma->save();
-        
+
         return redirect()->route('foreign.diploma.fields.index')->with('success', 'Foreign Diploma Fields Created created Successfully.');
-    
+
     }
 
     public function edit($id)
@@ -86,6 +87,8 @@ class ForeignDiplomaController extends Controller
         if ($request->hasFile('media_url')) {
             // Delete the old image if necessary
             // Storage::delete(public_path('assets/services/' . basename($service->image_url))); // Optional cleanup
+            // remove Old img
+            $this->unlinkFile($diploma->media_url);
 
             $image = $request->file('media_url');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -104,20 +107,20 @@ class ForeignDiplomaController extends Controller
     public function delete($id)
     {
         $diploma = ForeignDiploma::find($id);
-    
+
         if ($diploma) {
             if ($diploma->media_url) {
-                $imagePath = public_path($diploma->media_url); 
-    
+                $imagePath = public_path($diploma->media_url);
+
                 if (file_exists($imagePath)) {
                     unlink($imagePath); // Delete the image file
                 }
             }
               $diploma->delete();
-    
+
             return redirect()->route('foreign.diploma.fields.index')->with('success', 'foreign diploma deleted successfully.');
         }
-    
+
         return redirect()->route('foreign.diploma.fields.index')->with('error', 'foreign diploma not found.');
     }
 }
