@@ -76,13 +76,13 @@ class ServicesDataTable extends DataTable
             ->width(60)
             ->addClass('text-center'),
             Column::make('title'),
+            Column::make('created_at'),
+            Column::make('updated_at'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
-            ->width(60)
-            ->addClass('text-center'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            ->width(110)
+            ->addClass('text-center')
         ];
     }
 
