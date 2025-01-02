@@ -49,7 +49,7 @@ class JobSearchAdviceDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -68,15 +68,19 @@ class JobSearchAdviceDataTable extends DataTable
     {
         return [
             Column::make('id'),
+            Column::computed('media_url')
+            ->title('Image')
+            ->orderable(false)
+            ->searchable(false)
+            ->width(60),
             Column::make('title'),
             Column::make('description'),
-            Column::make('media_url'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(110)
                   ->addClass('text-center'),
-         
+
         ];
     }
 

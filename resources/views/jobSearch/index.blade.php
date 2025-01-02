@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">Job Search Advice
-            <button id="createNewService" class="btn btn-primary float-right">Create Job Search</button>
+            <button id="createNewService" class="btn btn-primary float-right">Create Job Search Advice</button>
 
             </div>
             <div class="card-body">

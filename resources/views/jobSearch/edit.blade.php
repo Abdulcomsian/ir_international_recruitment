@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit JobSearch</h1>
+        <h1>Edit Job Search Advice</h1>
         <form action="{{ route('job.search.advice.update', $jobsearch->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -29,8 +29,8 @@
                     <img src="{{ asset($jobsearch->media_url) }}" alt="Current Image" style="width: 150px; height: auto;">
                 </div>
             @endif
-            
-            <button type="submit" class="btn btn-success">Update jobSearch</button>
+
+            <button type="submit" class="btn btn-success">Update Job Search Advice</button>
         </form>
     </div>
 @endsection
