@@ -44,7 +44,7 @@ class QuebecHistoryDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -68,13 +68,13 @@ class QuebecHistoryDataTable extends DataTable
             Column::make('details'),
             // Column::make('featured_image'),
             // Column::make('extra_images'),
+            Column::make('created_at'),
+            Column::make('updated_at'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
-            ->width(60)
+            ->width(110)
             ->addClass('text-center'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
         ];
     }
 
