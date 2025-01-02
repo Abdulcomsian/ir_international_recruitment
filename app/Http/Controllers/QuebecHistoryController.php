@@ -110,7 +110,6 @@ class QuebecHistoryController extends Controller
             'extra_images.*' => 'nullable|image|max:10240|mimes:png,jpg,jpeg,gif',
         ]);
 
-        // dd($request->all());
         DB::beginTransaction();
 
         try {
@@ -172,7 +171,6 @@ class QuebecHistoryController extends Controller
 
         } catch (\Exception $e) {
             DB::rollback();
-            dd('asfdsaf');
             return response()->json(['error' => $e->getMessage().' on line '.$e->getLine().' in file '.$e->getFile()], 500);
         }
     }

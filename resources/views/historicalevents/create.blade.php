@@ -26,7 +26,6 @@
                 <label for="image">Extra Images</label>
                 <input type="file" class="form-control" id="image" name="extra_images" required>
             </div>
-            <br>
             <button type="submit" class="btn btn-success">Create History</button>
         </form>
     </div>

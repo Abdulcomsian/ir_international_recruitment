@@ -45,7 +45,7 @@ class HistoricalEventsDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -63,17 +63,17 @@ class HistoricalEventsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
             Column::make('id'),
             Column::make('title'),
             Column::make('description'),
             Column::make('details'),
             Column::make('created_at'),
             Column::make('updated_at'),
+            Column::computed('action')
+                  ->exportable(false)
+                  ->printable(false)
+                  ->width(110)
+                  ->addClass('text-center'),
         ];
     }
 

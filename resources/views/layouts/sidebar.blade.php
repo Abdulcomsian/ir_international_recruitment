@@ -38,17 +38,17 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('quebec/history/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
+                    <a class="nav-link menu-link {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
                     <i class="las la-file-alt"></i> <span>Quebec Informations
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('quebec/history/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('quebec.history.index')}}" class="nav-link {{ request()->is('quebec/history/*') ? 'active' : '' }}">History of Quebec</a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{route('quebec.historical.event.index')}}" class="nav-link @if($pageName == "view.history") active @endif">Historical Events of Quebec</a>
+                            <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>
 
                                 <!-- <a href="#" class="nav-link">Quebec culture</a> -->
                             </li>

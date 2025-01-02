@@ -62,7 +62,7 @@ class HistoricalEventsController extends Controller
                 //store in db
                 $media = new HistoricalEventsMedia();
                 $media->historical_events_id = $Historical_events->id;
-                $media->is_featured = 'true';
+                $media->is_featured = true;
                 $media->media_url = $imageName;
                 $media->save();
 
@@ -72,14 +72,14 @@ class HistoricalEventsController extends Controller
             if(isset($request->extra_images)){
                 $images = is_array($request->extra_images) ? $request->extra_images : [$request->extra_images];
                 foreach($images as $image){
-                    $imageName = time() . '.' . $image->getClientOriginalName();
+                    $imageName = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
                     $imagePath = public_path('assets/HistoricalEvents_image');
                     $image->move($imagePath,$imageName);
 
                     //store image
                     $media = new HistoricalEventsMedia();
-                    $media->historical_events_id = $Historical_events->id; 
-                    $media->is_featured = 'false';
+                    $media->historical_events_id = $Historical_events->id;
+                    $media->is_featured = false;
                     $media->media_url = $imageName;
                     $media->save();
 
@@ -97,12 +97,12 @@ class HistoricalEventsController extends Controller
     public function edit($id)
     {
         $historical_event = HistoricalEvents::with('media')->find($id);
-        $featured_image = $historical_event->media->where('is_featured','true')->first();
-        $extra_images  = $historical_event->media->where('is_featured','false')->first();
+        $featured_image = $historical_event->media->where('is_featured',true)->first();
+        $extra_images  = $historical_event->media->where('is_featured',false);
 
 
         // dd()
-        return view('historicalevents.edit',compact('historical_event'));
+        return view('historicalevents.edit',compact('historical_event', 'featured_image', 'extra_images'));
     }
 
     public function delete($id)
@@ -115,7 +115,7 @@ class HistoricalEventsController extends Controller
                 if (file_exists($mediaPath)) {
                     unlink($mediaPath); // Deletes the file from storage
                 }
-            
+
                 // Optionally delete the media record from the database
                 $media->delete();
             }
