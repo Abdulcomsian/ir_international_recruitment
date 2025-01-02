@@ -13,4 +13,10 @@ class ValidationGuide extends Model
         'visit_website',
         'validation_guides',
     ];
+
+    public function diploma()
+    {
+        return $this->belongsTo(ForeignDiploma::class, 'diploma_id');
+    }
+
 }

@@ -22,6 +22,9 @@ class ValidationGuideDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addColumn('diploma', function ($row) {
+                return $row->diploma->title ?? ''; // Access the related diploma title
+            })
             ->addColumn('action', 'validationguide.action')
             ->setRowId('id');
     }
@@ -31,7 +34,7 @@ class ValidationGuideDataTable extends DataTable
      */
     public function query(ValidationGuide $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('diploma');
     }
 
     /**
@@ -44,7 +47,7 @@ class ValidationGuideDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -63,16 +66,18 @@ class ValidationGuideDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('diploma_id'),
+            Column::make('diploma')
+            ->sortable()
+            ->searchable(),
             Column::make('validation_organization'),
             Column::make('visit_website'),
             Column::make('validation_guides'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(110)
                   ->addClass('text-center'),
-            
+
         ];
     }
 
