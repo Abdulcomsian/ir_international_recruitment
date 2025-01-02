@@ -7,10 +7,11 @@ use App\Http\Resources\EmployeeStatisticsResource;
 use Illuminate\Http\Request;
 use App\Models\EmployeeStatistics;
 use App\Traits\ApiResponseTrait;
+use App\Traits\RemoveFileTrait;
 
 class EmployeeStatisticsController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, RemoveFileTrait;
 
     public function getStatistics()
     {
@@ -52,7 +53,7 @@ class EmployeeStatisticsController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('assets/employee_statistics');
             $image->move($imagePath, $imageName);
-            
+
             // Create the image URL
             $imageUrl = 'assets/employee_statistics/' . $imageName;
 
@@ -62,9 +63,9 @@ class EmployeeStatisticsController extends Controller
         $state->title = $request->title;
         $state->state = $request->state;
         $state->label = $request->label;
-        $state->media_url = $imageUrl ?? null; 
+        $state->media_url = $imageUrl ?? null;
         $state->save();
-        
+
         // Optionally redirect if not using JSON response
         return redirect()->route('quebec.employee.statistics.index')->with('success', 'Service created successfully.');
     }
@@ -90,6 +91,8 @@ class EmployeeStatisticsController extends Controller
         $state->label = $request->label;
         // Handle image upload if a new image is provided
         if ($request->hasFile('media_url')) {
+            // remove Old img
+            $this->unlinkFile($state->media_url);
             $image = $request->file('media_url');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('assets/employee_statistics');
@@ -98,7 +101,7 @@ class EmployeeStatisticsController extends Controller
             $media_url = 'assets/employee_statistics/' . $imageName;
 
         }
-        $state->media_url = $media_url ?? null; 
+        $state->media_url = $media_url ?? null;
 
         $state->save();
 
