@@ -22,6 +22,14 @@
             height: auto;
         }
 
+        .action-col a , .action-col form{
+            margin: 0.13rem;
+        }
+
+        form .form-group{
+            padding-bottom : 0.7rem;
+        }
+
     </style>
     @stack('page-css')
 </head>

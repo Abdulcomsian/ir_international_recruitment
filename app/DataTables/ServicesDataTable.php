@@ -23,7 +23,11 @@ class ServicesDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addColumn('image', function($row) {
+                return '<img src="' . asset($row->image_path) . '" width="50" height="50" />';
+            })
             ->addColumn('action', 'services.action')
+            ->rawColumns(['image', 'action'])
             ->setRowId('id');
     }
 
@@ -45,7 +49,7 @@ class ServicesDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     // ->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -63,10 +67,15 @@ class ServicesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-          
+
             Column::make('id'),
+            Column::computed('image')
+            ->title('Image')
+            ->orderable(false)
+            ->searchable(false)
+            ->width(60)
+            ->addClass('text-center'),
             Column::make('title'),
-            Column::make('image_url'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)

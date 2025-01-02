@@ -13,7 +13,6 @@
                 <label for="image">Service Image</label>
                 <input type="file" class="form-control" id="image" name="image" required>
             </div>
-            <br>
             <button type="submit" class="btn btn-success">Create Service</button>
         </form>
     </div>

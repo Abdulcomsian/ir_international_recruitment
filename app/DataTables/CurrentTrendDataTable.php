@@ -50,7 +50,7 @@ class CurrentTrendDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -68,11 +68,15 @@ class CurrentTrendDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            
+
             Column::make('id'),
+            Column::computed('media_url')
+            ->title('Image')
+            ->orderable(false)
+            ->searchable(false)
+            ->width(60),
             Column::make('title'),
             Column::make('category'),
-            Column::make('media_url'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
