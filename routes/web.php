@@ -184,6 +184,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::get('/index',[EductionalProgramsController::class,'index'])->name('eductional.programs.index');
         Route::get('/create',[EductionalProgramsController::class,'create'])->name('eductional.programs.create');
         Route::post('/store',[EductionalProgramsController::class,'store'])->name('eductional.programs.store');
+        Route::get('/show/{id}',[EductionalProgramsController::class,'show'])->name('eductional.programs.show');
         Route::get('/edit/{id}',[EductionalProgramsController::class,'edit'])->name('eductional.programs.edit');
         Route::put('/update/{id}',[EductionalProgramsController::class,'update'])->name('eductional.programs.update');
         Route::DELETE('/delete/{id}',[EductionalProgramsController::class,'delete'])->name('eductional.programs.delete');
