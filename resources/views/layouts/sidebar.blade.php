@@ -139,11 +139,17 @@ if($pageName == "view.history"){
                     </a>
                     <div class="menu-dropdown collapse {{ request()->is('eductional/programs/*') ? 'show' : '' }}" id="eductional_institutes" style="">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('eductional.programs.index')}}" class="nav-link {{ request()->is('eductional/programs/*') ? 'active' : '' }}">University</a>
+                        <li class="nav-item">
+                                <a href="{{route('eductional.programs.index')}}" 
+                                class="nav-link {{ request()->is('eductional/programs/*') && !request()->is('eductional/programs/details/*') ? 'active' : '' }}">
+                                    University
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('eductional.programs.details.index')}}" class="nav-link">University Details</a>
+                                <a href="{{route('eductional.programs.details.index')}}" 
+                                class="nav-link {{ request()->is('eductional/programs/details/*') ? 'active' : '' }}">
+                                    University Details
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('programs.index')}}" class="nav-link">Programs</a>

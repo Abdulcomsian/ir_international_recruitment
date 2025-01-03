@@ -195,6 +195,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::get('/create',[EducationProgramsDetailsController::class,'create'])->name('eductional.programs.details.create');
         Route::post('/store',[EducationProgramsDetailsController::class,'store'])->name('eductional.programs.details.store');
         Route::get('/edit/{id}',[EducationProgramsDetailsController::class,'edit'])->name('eductional.programs.details.edit');
+        Route::get('/view/{id}',[EducationProgramsDetailsController::class,'view'])->name('eductional.programs.details.view');
         Route::put('/update/{id}',[EducationProgramsDetailsController::class,'update'])->name('eductional.programs.details.update');
         Route::DELETE('/delete/{id}',[EducationProgramsDetailsController::class,'delete'])->name('eductional.programs.details.delete');
     });

@@ -22,9 +22,13 @@
                 <input type="text" class="form-control" id="label" name="address" value="{{ old('address', $program->address) }}" required>
             </div>
 
-            <div class="form-group">
-                <label for="label">About</label>
-                <textarea class="form-control" id="about" name="about"  rows="4" cols="50" required>{{ old('about', $program->about) }}</textarea>
+            <div class="form-group mb-3">
+                <label for="about">About</label>
+                <div id="aboutQuill" class="bg-white"></div>
+                <textarea class="form-control d-none" id="about" name="about" required>{{ old('about', $program->about) }}</textarea>
+                @error('about')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
@@ -63,7 +67,29 @@
             </div>
           
             
-            <button type="submit" class="btn btn-success">Update UniversityDetail</button>
+            <button type="submit" class="btn btn-success">Update University Detail</button>
         </form>
     </div>
 @endsection
+@push('page-css')
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <!-- cutom Css Quill-->
+    <link href="{{ URL::asset('build/css/quill-custom.css') }}"  rel="stylesheet" type="text/css" />
+@endpush
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
+    <script>
+        var aboutQuill = new Quill('#aboutQuill', {
+            theme: 'snow'
+        });
+        // Your content in HTML format (retrieved from the backend)
+        let savedContent = `{!! old('about', $program->about) !!}`;
+        // Load the saved content into the editor
+        aboutQuill.clipboard.dangerouslyPasteHTML(savedContent);
+        aboutQuill.on('text-change', function() {
+            document.querySelector('#about').value = aboutQuill.root.innerHTML;
+        });
+    </script>
+@endpush

@@ -61,6 +61,13 @@ class EducationProgramsDetailsController extends Controller
         return view('educationprogramdetails.edit',compact('program','programList'));
     }
 
+    public function view($id)
+    {
+        $program = EducationProgramsDetails::find($id);
+        $programList = EductionProgram::get();
+        return view('educationprogramdetails.view',compact('program','programList'));
+    }
+
     public function update(Request $request, $id)
     {
         // dd($request->all());

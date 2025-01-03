@@ -24,6 +24,10 @@ class EducationProgramDetailsDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'educationprogramdetails.action')
+            ->addColumn('title', function ($row) {
+                return $row->educationProgram->title ?? 'N/A';
+            })
+            ->rawColumns(['about','campus','additional_program','research','student_life','action']) // Add the columns to be rendered as raw HTML
             ->setRowId('id');
     }
 
@@ -32,7 +36,7 @@ class EducationProgramDetailsDataTable extends DataTable
      */
     public function query(EducationProgramsDetails $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('educationProgram');
     }
 
     /**
@@ -45,7 +49,7 @@ class EducationProgramDetailsDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -65,7 +69,8 @@ class EducationProgramDetailsDataTable extends DataTable
         return [
            
             Column::make('id'),
-            Column::make('eduction_programs_id'),
+            // Column::make('eduction_programs_id'),
+            Column::make('title')->title('University'),
             Column::make('address'),
             Column::make('about'),
             Column::make('campus'),
