@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">Employee Statistics
-            <button id="createNewService" class="btn btn-primary float-right">Create Statistics</button>
+            <button id="createNewService" class="btn btn-primary float-right">Create Employee Statistics</button>
 
         </div>
         <div class="card-body">

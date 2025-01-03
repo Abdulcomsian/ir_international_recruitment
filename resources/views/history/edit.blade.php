@@ -26,7 +26,7 @@
             @if($featuredImage)
                 <div class="form-group">
                     <label>Current Featured Image</label><br>
-                    <img src="{{ $featuredImage->media_url }}" alt="Current Featured Image" style="width: 150px; height: auto;">
+                    <img src="{{ asset("assets/QuebecHistory_images/$featuredImage->media_url") }}" alt="Current Featured Image" style="width: 150px; height: auto;">
                 </div>
             @endif
 
@@ -45,11 +45,11 @@
                 <div class="form-group">
                     <label>Current Extra Images</label><br>
                     @foreach($extraImages as $image)
-                        <img src="{{ $image->media_url }}" alt="Current Extra Image" style="width: 150px; height: auto; margin-right: 10px;">
+                        <img src="{{ asset("assets/QuebecHistory_images/$image->media_url") }}" alt="Current Extra Image" style="width: 150px; height: auto; margin-right: 10px;">
                     @endforeach
                 </div>
             @endif
-            
+
             <button type="submit" class="btn btn-success">Update History</button>
         </form>
     </div>

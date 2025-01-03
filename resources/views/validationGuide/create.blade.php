@@ -37,8 +37,7 @@
             <input type="text" class="form-control" id="validation_guides" name="validation_guides" required>
         </div>
 
-        <br>
-        <button type="submit" class="btn btn-success">Create JobSearch</button>
+        <button type="submit" class="btn btn-success">Create Validation Guide</button>
     </form>
 </div>
 @endsection

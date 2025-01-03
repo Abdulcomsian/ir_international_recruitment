@@ -56,11 +56,11 @@ class QuebecHistoryController extends Controller
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = public_path('assets/QuebecHistory_images');
                 $image->move($imagePath, $imageName);
-                
+
                  //store Path
                  $media = new QueueHistoryMedia;
                  $media->quebec_history_id = $history->id;
-                 $media->is_featured = 'true';
+                 $media->is_featured = true;
                  $media->media_url =  $imageName;
                  $media->save();
             }
@@ -72,14 +72,14 @@ class QuebecHistoryController extends Controller
 
                 foreach($images as $image)
                 {
-                    $imageName = time() . '_' . $image->getClientOriginalName();
+                    $imageName = time() . '_' . uniqid() . '_' . $image->getClientOriginalName();
                     $imagePath = public_path('assets/QuebecHistory_images');
                     $image->move($imagePath, $imageName);
 
                     //store Path
                     $media = new QueueHistoryMedia;
                     $media->quebec_history_id = $history->id;
-                    $media->is_featured = 'false';
+                    $media->is_featured = false;
                     $media->media_url =  $imageName;
                     $media->save();
                 }
@@ -94,8 +94,8 @@ class QuebecHistoryController extends Controller
     public function edit($id)
     {
         $history = QuebecHistory::with('media')->find($id);
-        $featuredImage = $history->media->where('is_featured', 'true')->first();
-        $extraImages = $history->media->where('is_featured', 'false');
+        $featuredImage = $history->media->where('is_featured', true)->first();
+        $extraImages = $history->media->where('is_featured', false);
 
         return view('history.edit', compact('history','featuredImage','extraImages'));
     }
@@ -125,13 +125,13 @@ class QuebecHistoryController extends Controller
 
                 // If an existing featured image exists, delete it
                 if ($existingFeaturedImage) {
-                    $oldImagePath = public_path($existingFeaturedImage->media_url);
+                    $oldImagePath = public_path("assets/QuebecHistory_images/$existingFeaturedImage->media_url");
                     if (file_exists($oldImagePath)) {
                         unlink($oldImagePath); // Remove old image
                     }
                     // Update the existing featured image record
-                    $existingFeaturedImage->media_url = 'assets/history_images/' . time() . '.' . $request->file('featured_image')->getClientOriginalExtension();
-                    $existingFeaturedImage->save();
+                    // $existingFeaturedImage->media_url = time() . '_' . $request->file('featured_image')->getClientOriginalExtension();
+                    // $existingFeaturedImage->save();
                 } else {
                     // Create a new entry if none exists
                     $existingFeaturedImage = new QueueHistoryMedia();
@@ -139,11 +139,11 @@ class QuebecHistoryController extends Controller
 
                 $image = $request->file('featured_image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $imagePath = public_path('assets/history_images');
+                $imagePath = public_path('assets/QuebecHistory_images');
                 $image->move($imagePath, $imageName);
 
                 // Save or update the featured image entry
-                $existingFeaturedImage->media_url = 'assets/history_images/' . $imageName;
+                $existingFeaturedImage->media_url = $imageName;
                 $existingFeaturedImage->is_featured = true;
                 $existingFeaturedImage->quebec_history_id = $history->id; // Assuming you have this relationship
                 $existingFeaturedImage->save();
@@ -152,13 +152,13 @@ class QuebecHistoryController extends Controller
             // Handle extra images upload if provided
             if ($request->hasFile('extra_images')) {
                 foreach ($request->file('extra_images') as $extraImage) {
-                    $extraImageName = time() . '_' . uniqid() . '.' . $extraImage->getClientOriginalExtension();
-                    $extraImagePath = public_path('assets/history_images');
+                    $extraImageName = time() . '_' . uniqid() . '_' . $extraImage->getClientOriginalExtension();
+                    $extraImagePath = public_path('assets/QuebecHistory_images');
                     $extraImage->move($extraImagePath, $extraImageName);
 
                     // Store the new image in the media table
                     $history->media()->create([
-                        'media_url' => 'assets/history_images/' . $extraImageName,
+                        'media_url' => $extraImageName,
                         'is_featured' => false, // Mark as not featured
                     ]);
                 }

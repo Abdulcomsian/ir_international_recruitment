@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">Validation Guide
-            <button id="createNewService" class="btn btn-primary float-right">Add Validation Guide</button>
+            <button id="createNewService" class="btn btn-primary float-right">Create Validation Guide</button>
 
             </div>
             <div class="card-body">

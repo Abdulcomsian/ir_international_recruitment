@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit JobSearch</h1>
+        <h1>Edit Validation Guide</h1>
         <form action="{{ route('diploma.validation.update', $diploma->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -12,7 +12,7 @@
                 <select name="diploma_id" id="diploma_id" class="form-control" required>
                     <option value="">Select a diploma</option>
                     @foreach ($fields as $field)
-                    <option value="{{ $field->id }}">{{ $field->title }}</option>
+                    <option value="{{ $field->id }}" @selected($diploma->diploma_id == $field->id)>{{ $field->title }}</option>
                     @endforeach
                 </select>
             </div>
@@ -32,8 +32,8 @@
             <input type="text" class="form-control" id="validation_guides" name="validation_guides" value="{{old('validation_guides',$diploma->validation_guides)}}" required>
             </div>
 
-            
-            <button type="submit" class="btn btn-success">Update Validation</button>
+
+            <button type="submit" class="btn btn-success">Update Validation Guide</button>
         </form>
     </div>
 @endsection

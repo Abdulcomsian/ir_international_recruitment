@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">Current Trends
-            <button id="createNewService" class="btn btn-primary float-right">Create New Trend</button>
+            <button id="createNewService" class="btn btn-primary float-right">Create Current Trend</button>
 
             </div>
             <div class="card-body">

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">Validation of Foreign Diploma Fields
-            <button id="createNewService" class="btn btn-primary float-right">Create Diploma Field</button>
+            <button id="createNewService" class="btn btn-primary float-right">Create Foreign Diploma</button>
 
             </div>
             <div class="card-body">

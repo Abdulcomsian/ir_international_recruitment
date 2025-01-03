@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit Foreign diploma</h1>
+        <h1>Edit Foreign Diploma</h1>
         <form action="{{ route('foreign.diploma.fields.update', $diploma->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -21,11 +21,11 @@
             @if($diploma->media_url)
                 <div class="form-group">
                     <label>Current Image</label><br>
-                    <img src="{{ $diploma->media_url }}" alt="Current Image" style="width: 150px; height: auto;">
+                    <img src="{{ asset($diploma->media_url) }}" alt="Current Image" style="width: 150px; height: auto;">
                 </div>
             @endif
-            
-            <button type="submit" class="btn btn-success">Update diploma</button>
+
+            <button type="submit" class="btn btn-success">Update Foreign Diploma</button>
         </form>
     </div>
 @endsection

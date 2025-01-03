@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Create New Trend</h1>
+        <h1>Create Current Trend</h1>
         <form action="{{ route('quebec.current.trend.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -19,13 +19,12 @@
                 </select>
             </div>
 
-          
+
             <div class="form-group">
                 <label for="title">Image</label>
                 <input type="file" class="form-control" id="image" name="media_url" required>
             </div>
-            <br>
-            <button type="submit" class="btn btn-success">Create History</button>
+            <button type="submit" class="btn btn-success">Create Current Trend</button>
         </form>
     </div>
 @endsection

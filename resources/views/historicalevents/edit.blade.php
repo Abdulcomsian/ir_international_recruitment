@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <h1>Edit Historical Event</h1>
-        <form action="{{ route('quebec.historical.event.update', $history->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('quebec.historical.event.update', $historical_event->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -23,10 +23,10 @@
                 <small class="form-text text-muted">Leave blank if you don't want to change the image.</small>
             </div>
 
-            @if($featuredImage)
+            @if($featured_image)
                 <div class="form-group">
                     <label>Current Featured Image</label><br>
-                    <img src="{{ $featuredImage->media_url }}" alt="Current Featured Image" style="width: 150px; height: auto;">
+                    <img src="{{ asset("assets/HistoricalEvents_image/$featured_image->media_url") }}" alt="Current Featured Image" style="width: 150px; height: auto;">
                 </div>
             @endif
 
@@ -41,15 +41,15 @@
                 <small class="form-text text-muted">Leave blank if you don't want to change the images.</small>
             </div>
 
-            @if($extraImages->count())
+            @if($extra_images->count())
                 <div class="form-group">
                     <label>Current Extra Images</label><br>
-                    @foreach($extraImages as $image)
-                        <img src="{{ $image->media_url }}" alt="Current Extra Image" style="width: 150px; height: auto; margin-right: 10px;">
+                    @foreach($extra_images as $image)
+                        <img src="{{ asset("assets/HistoricalEvents_image/$image->media_url") }}" alt="Current Extra Image" style="width: 150px; height: auto; margin-right: 10px;">
                     @endforeach
                 </div>
             @endif
-            
+
             <button type="submit" class="btn btn-success">Update History</button>
         </form>
     </div>

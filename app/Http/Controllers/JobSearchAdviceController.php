@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\DataTables\JobSearchAdviceDataTable;
 use App\Models\JobSearchAdvice;
 use Illuminate\Http\Request;
+use App\Traits\RemoveFileTrait;
 
 class JobSearchAdviceController extends Controller
 {
+    use RemoveFileTrait;
     public function index(JobSearchAdviceDataTable $dataTables)
     {
         return $dataTables->render('jobSearch.index');
@@ -32,7 +34,7 @@ class JobSearchAdviceController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('assets/jobSearch_images');
             $image->move($imagePath, $imageName);
-            
+
             // Create the image URL
             $imageUrl = 'assets/jobSearch_images/' . $imageName;
 
@@ -43,9 +45,9 @@ class JobSearchAdviceController extends Controller
         $jobsearch = new JobSearchAdvice();
         $jobsearch->title = $request->title;
         $jobsearch->description = $request->description;
-        $jobsearch->media_url = $imageUrl ?? null; 
+        $jobsearch->media_url = $imageUrl ?? null;
         $jobsearch->save();
-        
+
         return redirect()->route('job.search.advice.index')->with('success', 'Job Search Advice created successfully.');
     }
 
@@ -72,6 +74,8 @@ class JobSearchAdviceController extends Controller
         if ($request->hasFile('media_url')) {
             // Delete the old image if necessary
             // Storage::delete(public_path('assets/services/' . basename($service->image_url))); // Optional cleanup
+            // remove Old img
+            $this->unlinkFile($jobsearch->media_url);
 
             $image = $request->file('media_url');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -85,26 +89,26 @@ class JobSearchAdviceController extends Controller
         $jobsearch->save();
 
         return redirect()->route('job.search.advice.index')->with('success', 'jobSearch updated successfully.');
-    
+
     }
 
     public function delete($id)
     {
         $jobsearch = JobSearchAdvice::find($id);
-    
+
         if ($jobsearch) {
             if ($jobsearch->media_url) {
-                $imagePath = public_path($jobsearch->media_url); 
-    
+                $imagePath = public_path($jobsearch->media_url);
+
                 if (file_exists($imagePath)) {
                     unlink($imagePath); // Delete the image file
                 }
             }
               $jobsearch->delete();
-    
+
             return redirect()->route('job.search.advice.index')->with('success', 'jobsearch deleted successfully.');
         }
-    
+
         return redirect()->route('job.search.advice.index')->with('error', 'jobsearch not found.');
     }
 }

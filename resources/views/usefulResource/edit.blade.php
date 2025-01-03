@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit JobSearch</h1>
+        <h1>Edit Useful Resource</h1>
         <form action="{{ route('diploma.resource.update', $resource->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -12,7 +12,7 @@
                 <select name="diploma_id" id="diploma_id" class="form-control" required>
                     <option value="">Select a diploma</option>
                     @foreach ($fields as $field)
-                    <option value="{{ $field->id }}">{{ $field->title }}</option>
+                    <option value="{{ $field->id }}" @selected($resource->diploma_id == $field->id)>{{ $field->title }}</option>
                     @endforeach
                 </select>
             </div>
@@ -28,8 +28,8 @@
             <input type="text" class="form-control" id="title" name="title" value="{{old('title',$resource->title)}}" required>
             </div>
 
-            
-            <button type="submit" class="btn btn-success">Update Resource</button>
+
+            <button type="submit" class="btn btn-success">Update Useful Resource</button>
         </form>
     </div>
 @endsection

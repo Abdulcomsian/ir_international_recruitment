@@ -32,23 +32,23 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{route('fetch-services')}}">
+                    <a class="nav-link menu-link {{ request()->is('fetch-services') || request()->is('fetch-services/*') || request()->is('edit-service/*') ? 'active' : '' }}" href="{{route('fetch-services')}}">
                         <i class="las la-cog"></i> <span>Services
                         </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
+                    <a class="nav-link menu-link {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
                     <i class="las la-file-alt"></i> <span>Quebec Informations
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse @if($pageName == "view.history") show @endif {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('quebec.history.index')}}" class="nav-link @if($pageName == "view.history") active @endif">History of Quebec</a>
+                                <a href="{{route('quebec.history.index')}}" class="nav-link {{ request()->is('quebec/history/*') ? 'active' : '' }}">History of Quebec</a>
                             </li>
                             <li class="nav-item">
-                            <a href="{{route('quebec.historical.event.index')}}" class="nav-link @if($pageName == "view.history") active @endif">Historical Events of Quebec</a>
+                            <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>
 
                                 <!-- <a href="#" class="nav-link">Quebec culture</a> -->
                             </li>
@@ -96,29 +96,29 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') || request()->is('diploma/resource/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
                     <i class="las la-book-reader"></i> <span>Employment and Diploma Recognition
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse" id="employment_education" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') || request()->is('diploma/resource/*') ? 'show' : '' }}" id="employment_education" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('quebec.current.trend.index')}}" class="nav-link">Current Trends</a>
+                                <a href="{{route('quebec.current.trend.index')}}" class="nav-link {{ request()->is('quebec/current/trend/*') ? 'active' : '' }}">Current Trends</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('quebec.employee.statistics.index')}}" class="nav-link">Employee Statistics</a>
+                                <a href="{{route('quebec.employee.statistics.index')}}" class="nav-link  {{ request()->is('quebec/employee/statistics/*') ? 'active' : '' }}">Employee Statistics</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('job.search.advice.index')}}" class="nav-link">Job Search Advice</a>
+                                <a href="{{route('job.search.advice.index')}}" class="nav-link {{ request()->is('job/search/advice/*') ? 'active' : '' }}">Job Search Advice</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('foreign.diploma.fields.index')}}" class="nav-link">Validation of Foreign Diploma</a>
+                                <a href="{{route('foreign.diploma.fields.index')}}" class="nav-link {{ request()->is('foreign/diploma/fields/*') ? 'active' : '' }}">Validation of Foreign Diploma</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('diploma.validation.index')}}" class="nav-link">Validation Guide</a>
+                                <a href="{{route('diploma.validation.index')}}" class="nav-link {{ request()->is('diploma/validation/*') ? 'active' : '' }}">Validation Guide</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('diploma.resource.index')}}" class="nav-link">Useful Resource</a>
+                                <a href="{{route('diploma.resource.index')}}" class="nav-link {{ request()->is('diploma/resource/*') ? 'active' : '' }}">Useful Resource</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Local Services</a>

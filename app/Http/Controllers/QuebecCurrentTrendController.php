@@ -7,10 +7,11 @@ use App\Http\Resources\CurrentTrendResource;
 use App\Models\CurrentTrend;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
+use App\Traits\RemoveFileTrait;
 
 class QuebecCurrentTrendController extends Controller
 {
-    use ApiResponseTrait;
+    use ApiResponseTrait, RemoveFileTrait;
     public function getCurrentTrends()
     {
         try{
@@ -22,7 +23,7 @@ class QuebecCurrentTrendController extends Controller
             return response()->json(['status_code'=>500, 'status'=>false, 'error'=>$e->getMessage().'on line'.$e->getLine().'onFile'.$e->getFile()]);
 
         }
-      
+
     }
 
     ////////////////ADMIN PANEL///////////////////////
@@ -30,7 +31,7 @@ class QuebecCurrentTrendController extends Controller
     {
         // $trends = CurrentTrend::get();
         return $dataTable->render('currenttrend.index');
-        
+
     }
 
     public function create()
@@ -52,7 +53,7 @@ class QuebecCurrentTrendController extends Controller
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('assets/currentTrend_logos');
             $image->move($imagePath, $imageName);
-            
+
             // Create the image URL
             $imageUrl = 'assets/currentTrend_logos/' . $imageName;
 
@@ -63,9 +64,9 @@ class QuebecCurrentTrendController extends Controller
         $service = new CurrentTrend();
         $service->title = $request->title;
         $service->category = $request->category;
-        $service->media_url = $imageUrl ?? null; 
+        $service->media_url = $imageUrl ?? null;
         $service->save();
-        
+
         return redirect()->route('quebec.current.trend.index')->with('success', 'Current Trend created successfully.');
     }
 
@@ -92,13 +93,15 @@ class QuebecCurrentTrendController extends Controller
         if ($request->hasFile('media_url')) {
             // Delete the old image if necessary
             // Storage::delete(public_path('assets/services/' . basename($service->image_url))); // Optional cleanup
+            // remove Old img
+            $this->unlinkFile($trend->media_url);
 
             $image = $request->file('media_url');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('assets/currentTrend_logos');
             $image->move($imagePath, $imageName);
 
-            $trend->image_url = 'assets/currentTrend_logos/' . $imageName;
+            $trend->media_url = 'assets/currentTrend_logos/' . $imageName;
 
         }
 
@@ -110,20 +113,20 @@ class QuebecCurrentTrendController extends Controller
     public function delete($id)
     {
         $trend = CurrentTrend::find($id);
-    
+
         if ($trend) {
             if ($trend->media_url) {
-                $imagePath = public_path($trend->media_url); 
-    
+                $imagePath = public_path($trend->media_url);
+
                 if (file_exists($imagePath)) {
                     unlink($imagePath); // Delete the image file
                 }
             }
               $trend->delete();
-    
+
             return redirect()->route('quebec.current.trend.index')->with('success', 'trend deleted successfully.');
         }
-    
+
         return redirect()->route('quebec.current.trend.index')->with('error', 'trend not found.');
     }
 }
