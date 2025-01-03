@@ -23,12 +23,21 @@ class EductionProgramDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'EductionalPrograms.action')
-            ->editColumn('featured_image',function($raw){
+            ->addColumn('university_type_name', function($raw){
+                return ucfirst($raw->university_type) ?? '';
+            })
+            ->filterColumn('university_type_name', function ($query, $keyword) {
+                $query->where('university_type', 'like', "%{$keyword}%");
+            })
+            ->addColumn('city_name', function($raw){
+                return $raw->city->name ?? '';
+            })
+            ->addColumn('image',function($raw){
                 $imagePath = asset($raw->featured_image);
                 return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
 
             })
-            ->rawColumns(['action','featured_image'])
+            ->rawColumns(['action','image'])
             ->setRowId('id');
     }
 
@@ -50,7 +59,7 @@ class EductionProgramDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -68,17 +77,31 @@ class EductionProgramDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('title'),
-            Column::make('university_type'),
-            Column::make('location'),
-            Column::make('featured_image'),
+            Column::make('id')->width(20),
+            Column::computed('image')
+            ->title('Image')
+            ->orderable(false)
+            ->searchable(false)
+            ->width(60)
+            ->addClass('text-center'),
+            Column::make('title')->title('Name'),
+            Column::computed('university_type_name', 'university_type')
+            ->title('University Type')
+            ->orderable(true)
+            ->searchable(true)
+            ->width(160),
+            Column::computed('city_name','city.name')
+            ->title('City')
+            ->orderable(true)
+            ->searchable(true)
+            ->width(170)
+            ->addClass('text-center'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(110)
                   ->addClass('text-center'),
-        
+
             // Column::make('created_at'),
             // Column::make('updated_at'),
         ];
