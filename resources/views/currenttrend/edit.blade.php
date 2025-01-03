@@ -32,7 +32,7 @@
                 </div>
             @endif
 
-            <button type="submit" class="btn btn-success">Update Trend</button>
+            <button type="submit" class="btn btn-success">Update Current Trend</button>
         </form>
     </div>
 @endsection

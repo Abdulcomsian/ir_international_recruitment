@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header">Useful Resource
-            <button id="createNewService" class="btn btn-primary float-right">Add usefulResource</button>
+            <button id="createNewService" class="btn btn-primary float-right">Create Useful Resource</button>
 
             </div>
             <div class="card-body">

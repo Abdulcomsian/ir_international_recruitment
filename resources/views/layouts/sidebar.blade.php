@@ -96,11 +96,11 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
+                    <a class="nav-link menu-link collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') || request()->is('diploma/resource/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#employment_education" aria-expanded="false" aria-controls="customization">
                     <i class="las la-book-reader"></i> <span>Employment and Diploma Recognition
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') ? 'show' : '' }}" id="employment_education" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') || request()->is('diploma/resource/*') ? 'show' : '' }}" id="employment_education" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('quebec.current.trend.index')}}" class="nav-link {{ request()->is('quebec/current/trend/*') ? 'active' : '' }}">Current Trends</a>
@@ -118,7 +118,7 @@ if($pageName == "view.history"){
                                 <a href="{{route('diploma.validation.index')}}" class="nav-link {{ request()->is('diploma/validation/*') ? 'active' : '' }}">Validation Guide</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('diploma.resource.index')}}" class="nav-link">Useful Resource</a>
+                                <a href="{{route('diploma.resource.index')}}" class="nav-link {{ request()->is('diploma/resource/*') ? 'active' : '' }}">Useful Resource</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Local Services</a>

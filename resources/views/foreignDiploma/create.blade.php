@@ -14,7 +14,7 @@
                 <label for="image">Image</label>
                 <input type="file" class="form-control" id="image" name="media_url" required>
             </div>
-            <button type="submit" class="btn btn-success">Create</button>
+            <button type="submit" class="btn btn-success">Create Foreign Diploma</button>
         </form>
     </div>
 @endsection

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Create UsefulResource</h1>
+    <h1>Create Useful Resource</h1>
     <form action="{{ route('diploma.resource.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -26,7 +26,7 @@
         </div>
 
         <br>
-        <button type="submit" class="btn btn-success">Create usefulResource</button>
+        <button type="submit" class="btn btn-success">Create Useful Resource</button>
     </form>
 </div>
 @endsection

@@ -22,6 +22,9 @@ class UsefulResourceDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addColumn('diploma', function ($row) {
+                return $row->diploma->title ?? '';
+            })
             ->addColumn('action', 'usefulresource.action')
             ->setRowId('id');
     }
@@ -31,7 +34,7 @@ class UsefulResourceDataTable extends DataTable
      */
     public function query(UsefulResource $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('diploma');
     }
 
     /**
@@ -44,7 +47,7 @@ class UsefulResourceDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -63,15 +66,17 @@ class UsefulResourceDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('diploma_id'),
+            Column::make('diploma','diploma.title')
+            ->sortable()
+            ->searchable(),
             Column::make('title'),
             Column::make('visit_website'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(110)
                   ->addClass('text-center'),
-         
+
         ];
     }
 

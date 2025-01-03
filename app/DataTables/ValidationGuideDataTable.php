@@ -66,7 +66,7 @@ class ValidationGuideDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('diploma')
+            Column::make('diploma','diploma.title')
             ->sortable()
             ->searchable(),
             Column::make('validation_organization'),
