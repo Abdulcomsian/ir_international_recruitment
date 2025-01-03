@@ -16,7 +16,7 @@ class ForeignDiplomaController extends Controller
     public function foreignDiploma()
     {
         try{
-            $diploma = ForeignDiploma::with('ValidationGuide','resources')->get();
+            $diploma = ForeignDiploma::with('ValidationGuide.diploma','resources.diploma')->get();
             $data = ForeignDiplomaResource::collection($diploma);
 
             return $this->apiResponse($data,'Foreign Diploma Data Fetched');

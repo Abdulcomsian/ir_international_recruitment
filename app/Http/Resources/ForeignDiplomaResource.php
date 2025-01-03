@@ -26,6 +26,10 @@ class ForeignDiplomaResource extends JsonResource
                     'validation_organization' =>$validation->validation_organization,
                     'visit_website' => $validation->visit_website,
                     'validation_guides' => $validation->validation_guides,
+                    'diploma' => [
+                        'title' => $validation->diploma->title,
+                        'media_path' => $validation->diploma->media_path
+                    ]
                 ];
             }),
             'resources' => $this->resources->map(function($resource){
@@ -34,6 +38,10 @@ class ForeignDiplomaResource extends JsonResource
                     'diploma_id ' => $resource ->diploma_id,
                     'title' => $resource->title,
                     'visit_website' => $resource->visit_website,
+                    'diploma' => [
+                        'title' => $resource->diploma->title,
+                        'media_path' => $resource->diploma->media_path
+                    ]
                 ];
             }),
         ];
