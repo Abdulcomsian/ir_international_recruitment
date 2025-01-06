@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Create University</h1>
+        <h1>Create University Details</h1>
         <form action="{{ route('eductional.programs.details.store') }}" method="POST" enctype="multipart/form-data">
             @csrf   
 
@@ -48,9 +48,12 @@
                 @enderror
             </div>
 
+
             <div class="form-group">
-                <label for="faculties ">Faculties</label>
-                <textarea class="form-control" id="faculties" name="faculties" rows="4" cols="50" required></textarea>
+                <label for="faculties">Faculties</label>
+                <br>
+                <button type="button" id="addTitleButton" class="btn btn-primary">Add</button>
+                <div id="facultiesContainer"></div>
             </div>
 
             <div class="form-group mb-3">
@@ -97,6 +100,8 @@
         var studentLifeQuill = new Quill('#student-life-quill', {
             theme: 'snow'
         });
+        studentLifeQuill.root.style.minHeight = '150px';
+
         studentLifeQuill.on('text-change', function() {
             document.querySelector('#student_life').value = studentLifeQuill.root.innerHTML;
         });
@@ -104,6 +109,8 @@
         var researchQuill = new Quill('#research-quill', {
             theme: 'snow'
         });
+        researchQuill.root.style.minHeight = '150px';
+
         researchQuill.on('text-change', function() {
             document.querySelector('#research').value = researchQuill.root.innerHTML;
         });
@@ -111,6 +118,8 @@
         var additionalProgramQuill = new Quill('#additional-program-quill', {
             theme: 'snow'
         });
+        additionalProgramQuill.root.style.minHeight = '150px';
+
         additionalProgramQuill.on('text-change', function() {
             document.querySelector('#additional_program').value = additionalProgramQuill.root.innerHTML;
         });
@@ -118,6 +127,8 @@
         var campusQuill = new Quill('#campus-quill', {
             theme: 'snow'
         });
+        campusQuill.root.style.minHeight = '150px';
+
         campusQuill.on('text-change', function() {
             document.querySelector('#campus').value = campusQuill.root.innerHTML;
         });
@@ -125,6 +136,8 @@
         var financialAidQuill = new Quill('#financial-aid-quill', {
             theme: 'snow'
         });
+        financialAidQuill.root.style.minHeight = '150px';
+
         financialAidQuill.on('text-change', function() {
             document.querySelector('#financial_aid').value = financialAidQuill.root.innerHTML;
         });
@@ -132,8 +145,66 @@
         var aboutQuill = new Quill('#aboutQuill', {
             theme: 'snow'
         });
+        aboutQuill.root.style.minHeight = '150px';
+
         aboutQuill.on('text-change', function() {
             document.querySelector('#about').value = aboutQuill.root.innerHTML;
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addTitleButton = document.getElementById('addTitleButton');
+            const facultiesContainer = document.getElementById('facultiesContainer');
+
+            let titleIndex = 0; // Index to track titles and subheadings
+
+            // Function to create a new title block with subheadings
+            const createTitleBlock = () => {
+                const titleBlock = document.createElement('div');
+                titleBlock.classList.add('title-block', 'mb-3');
+                titleBlock.dataset.index = titleIndex; // Set index for this title block
+
+                // Title input
+                titleBlock.innerHTML = `
+                
+                    <input type="text" name="titles[]" class="form-control mb-2" required>
+                    <button type="button" class="btn btn-secondary addSubheadingButton">Add Program</button>
+                    <div class="subheadings-container mt-2"></div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label>Department</label>
+                        <button type="button" class="btn btn-danger btn-sm removeTitleButton">Remove Department</button>
+                    </div>
+                `;
+
+                // Add event listener to "Remove Department" button
+                titleBlock.querySelector('.removeTitleButton').addEventListener('click', () => {
+                    titleBlock.remove();
+                });
+
+                // Add event listener to "Add Subheading" button
+                titleBlock.querySelector('.addSubheadingButton').addEventListener('click', () => {
+                    const subheadingsContainer = titleBlock.querySelector('.subheadings-container');
+                    const subheadingInput = document.createElement('div');
+                    subheadingInput.classList.add('subheading-block', 'mb-2');
+                    subheadingInput.innerHTML = `
+                        <input type="text" name="subheadings[${titleIndex}][]" class="form-control mb-1" required>
+                        <button type="button" class="btn btn-danger btn-sm removeSubheadingButton">Remove</button>
+                    `;
+
+                    // Add event listener to remove button
+                    subheadingInput.querySelector('.removeSubheadingButton').addEventListener('click', () => {
+                        subheadingInput.remove();
+                    });
+
+                    subheadingsContainer.appendChild(subheadingInput);
+                });
+
+                facultiesContainer.appendChild(titleBlock);
+                titleIndex++;
+            };
+
+            // Event listener for adding title blocks
+            addTitleButton.addEventListener('click', createTitleBlock);
         });
     </script>
 @endpush

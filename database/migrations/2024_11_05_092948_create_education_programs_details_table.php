@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->ForeignId('eduction_programs_id')->constrained('eduction_programs')->onDelete('cascade');
             $table->string('address')->nullable();
-            $table->text('about')->nullable();
-            $table->text('financial_aid')->nullable();
-            $table->text('campus')->nullable();
-            $table->text('faculties')->nullable();
-            $table->text('additional_program')->nullable();
-            $table->text('research')->nullable();
-            $table->text('student_life')->nullable();
+            $table->longText('about')->nullable();
+            $table->longText('financial_aid')->nullable();
+            $table->longText('campus')->nullable();
+            $table->longText('faculties')->nullable();
+            $table->longText('additional_program')->nullable();
+            $table->longText('research')->nullable();
+            $table->longText('student_life')->nullable();
             $table->timestamps();
         });
     }

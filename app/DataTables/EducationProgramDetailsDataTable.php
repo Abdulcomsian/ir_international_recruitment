@@ -27,6 +27,9 @@ class EducationProgramDetailsDataTable extends DataTable
             ->addColumn('title', function ($row) {
                 return $row->educationProgram->title ?? 'N/A';
             })
+            // ->addColumn('faculties',function($raw) {
+            //     return $row->
+            // })
             ->rawColumns(['about','campus','additional_program','research','student_life','action']) // Add the columns to be rendered as raw HTML
             ->setRowId('id');
     }
@@ -72,12 +75,12 @@ class EducationProgramDetailsDataTable extends DataTable
             // Column::make('eduction_programs_id'),
             Column::make('title')->title('University'),
             Column::make('address'),
-            Column::make('about'),
-            Column::make('campus'),
-            Column::make('faculties'),
-            Column::make('additional_program'),
-            Column::make('research'),
-            Column::make('student_life'),
+            // Column::make('about'),
+            // Column::make('campus'),
+            // Column::make('faculties'),
+            // Column::make('additional_program'),
+            // Column::make('research'),
+            // Column::make('student_life'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
