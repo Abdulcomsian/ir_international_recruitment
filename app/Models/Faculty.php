@@ -17,7 +17,7 @@ class Faculty extends Model
         return $this->belongsTo(EducationProgramsDetails::class, 'education_program_id','id');
     }
 
-    public function subheadings()
+    public function subPrograms()
     {
         return $this->hasMany(Subheading::class, 'faculty_id', 'id');
     }

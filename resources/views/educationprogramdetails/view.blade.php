@@ -43,20 +43,30 @@
                     </div>
 
                     
-                    <div>
-    <h2>Faculties</h2>
-    @forelse($program->getFaculty as $faculty)
+                    <div class="col-sm-12">
+                        <label for="description">Faculties</label>
+                        <div>
+                            @forelse($program->getFaculty as $faculty)
+                            <p>Department</p>
+                                <p>{!! $faculty->title ?? 'Unnamed Faculty' !!}</p>
 
-        <h3>{{ $faculty->title ?? 'asfas' }}</h3>
+                                <!-- Subprograms under the Faculty -->
+                                @if($faculty->subPrograms && $faculty->subPrograms->isNotEmpty())
+                                    <ul>
+                                    <p>Programs</p>
 
-    @empty
-    @endforelse
-    
-</div>
-
-
-
-
+                                        @foreach($faculty->subPrograms as $subProgram)
+                                            <li>{!! $subProgram->subheading ?? 'Unnamed Subprogram' !!}</li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p>No subprograms available.</p>
+                                @endif
+                            @empty
+                                <p>No faculties available.</p>
+                            @endforelse
+                        </div>
+                    </div>
                     
 
                     <div class="col-sm-12">

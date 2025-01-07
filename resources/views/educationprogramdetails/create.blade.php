@@ -160,48 +160,52 @@
 
             // Function to create a new title block with subheadings
             const createTitleBlock = () => {
-                const titleBlock = document.createElement('div');
-                titleBlock.classList.add('title-block', 'mb-3');
-                titleBlock.dataset.index = titleIndex; // Set index for this title block
+            const titleBlock = document.createElement('div');
+            titleBlock.classList.add('title-block', 'mb-3');
+            titleBlock.dataset.index = titleIndex; // Set index for this title block
 
-                // Title input
-                titleBlock.innerHTML = `
-                
-                    <input type="text" name="titles[]" class="form-control mb-2" required>
-                    <button type="button" class="btn btn-secondary addSubheadingButton">Add Program</button>
-                    <div class="subheadings-container mt-2"></div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <label>Department</label>
-                        <button type="button" class="btn btn-danger btn-sm removeTitleButton">Remove Department</button>
-                    </div>
-                `;
+            // Title input
+            titleBlock.innerHTML = `
+                <input type="text" name="titles[${titleIndex}]" class="form-control mb-2" required>
+                <button type="button" class="btn btn-secondary addSubheadingButton">Add Program</button>
+                <div class="subheadings-container mt-2"></div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <label>Department</label>
+                    <button type="button" class="btn btn-danger btn-sm removeTitleButton">Remove Department</button>
+                </div>
+            `;
 
-                // Add event listener to "Remove Department" button
-                titleBlock.querySelector('.removeTitleButton').addEventListener('click', () => {
-                    titleBlock.remove();
-                });
+            // Add event listener to "Remove Department" button
+            titleBlock.querySelector('.removeTitleButton').addEventListener('click', () => {
+                titleBlock.remove();
+            });
 
-                // Add event listener to "Add Subheading" button
-                titleBlock.querySelector('.addSubheadingButton').addEventListener('click', () => {
-                    const subheadingsContainer = titleBlock.querySelector('.subheadings-container');
-                    const subheadingInput = document.createElement('div');
-                    subheadingInput.classList.add('subheading-block', 'mb-2');
-                    subheadingInput.innerHTML = `
-                        <input type="text" name="subheadings[${titleIndex}][]" class="form-control mb-1" required>
-                        <button type="button" class="btn btn-danger btn-sm removeSubheadingButton">Remove</button>
-                    `;
+            // Add event listener to "Add Subheading" button
+         // Add event listener to "Add Subheading" button
+            titleBlock.querySelector('.addSubheadingButton').addEventListener('click', () => {
+            const subheadingsContainer = titleBlock.querySelector('.subheadings-container');
+            const subheadingInput = document.createElement('div');
+            const currentIndex = titleBlock.dataset.index; // Get the title's index
 
-                    // Add event listener to remove button
-                    subheadingInput.querySelector('.removeSubheadingButton').addEventListener('click', () => {
-                        subheadingInput.remove();
-                    });
+            subheadingInput.classList.add('subheading-block', 'mb-2');
+            subheadingInput.innerHTML = `
+                <input type="text" name="subheadings[${currentIndex}][]" class="form-control mb-1" required>
+                <button type="button" class="btn btn-danger btn-sm removeSubheadingButton">Remove</button>
+            `;
 
-                    subheadingsContainer.appendChild(subheadingInput);
-                });
+        // Add event listener to remove button
+        subheadingInput.querySelector('.removeSubheadingButton').addEventListener('click', () => {
+        subheadingInput.remove();
+    });
 
-                facultiesContainer.appendChild(titleBlock);
-                titleIndex++;
-            };
+        subheadingsContainer.appendChild(subheadingInput);
+    });
+
+
+        facultiesContainer.appendChild(titleBlock);
+        titleIndex++;
+    };
+
 
             // Event listener for adding title blocks
             addTitleButton.addEventListener('click', createTitleBlock);

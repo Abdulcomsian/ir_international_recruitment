@@ -54,10 +54,48 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <label for="label">Faculties</label>
-                <textarea class="form-control" id="faculties" name="faculties"  rows="8" cols="50" required>{{ old('faculties', $program->faculties) }}</textarea>
+           
+           
+    
+
+
+            @php
+    // You already passed faculties data from the controller to the view
+    $faculties = $faculties;
+@endphp
+
+<div class="form-group">
+    <label for="faculties">Faculties</label>
+    <br>
+    <button type="button" id="addTitleButton" class="btn btn-primary">Add</button>
+    <div id="facultiesContainer">
+        @foreach($faculties as $faculty)
+            <div class="title-block mb-1" data-index="{{ $loop->index }}">
+                <!-- Faculty Title -->
+                <div class="d-flex align-items-center mb-2">
+                    <input type="text" name="titles[{{ $loop->index }}]" class="form-control flex-grow-1 me-2" value="{{ $faculty->title }}" required>
+                    <button type="button" class="btn btn-secondary addSubheadingButton btn-sm" style="width: 100px; height: calc(1.5em + .75rem + 2px);">Add Program</button>
+                </div>
+
+
+                <div class="subheadings-container mt-2">
+                    @foreach($faculty->subPrograms as $subheading)
+                        <div class="subheading-block mb-2">
+                            <input type="text" name="subheadings[{{ $loop->parent->index }}][]" class="form-control mb-1" value="{{ $subheading->subheading }}" required>
+                            <button type="button" class="btn btn-danger btn-sm removeSubheadingButton">Remove</button>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <label>Department</label>
+                    <button type="button" class="btn btn-danger btn-sm removeTitleButton">Remove Department</button>
+                </div>
             </div>
+        @endforeach
+    </div>
+</div>
+
+
 
             <div class="form-group mb-3">
             <label for="additional_program">Additional Program</label>
@@ -168,4 +206,111 @@
             document.querySelector('#student_life').value = studentLifeQuill.root.innerHTML;
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addTitleButton = document.getElementById('addTitleButton');
+            const facultiesContainer = document.getElementById('facultiesContainer');
+            // console.log($faculties);
+            // let titleIndex = {{ count($faculties) }}; // Start index for new faculties
+            let titleIndex=0;
+            // Function to create a new title block (faculty)
+            const createTitleBlock = () => {
+                const titleBlock = document.createElement('div');
+                titleBlock.classList.add('title-block', 'mb-3');
+                titleBlock.dataset.index = titleIndex; // Set index for this block
+
+                // Title block structure
+                titleBlock.innerHTML = `
+                    <input type="text" name="titles[${titleIndex}]" class="form-control mb-2" required>
+                    <button type="button" class="btn btn-secondary addSubheadingButton" data-index="${titleIndex}">Add Program</button>
+                    <div class="subheadings-container mt-2"></div>
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <label>Department</label>
+                        <button type="button" class="btn btn-danger btn-sm removeTitleButton">Remove Department</button>
+                    </div>
+                `;
+
+                // Add event listener to "Add Program" button
+                titleBlock.querySelector('.addSubheadingButton').addEventListener('click', (el) => {
+                    let facultyIndex = el.target.getAttribute('data-index')
+                    const subheadingsContainer = titleBlock.querySelector('.subheadings-container');
+                    addSubheading(subheadingsContainer, facultyIndex);
+                });
+
+                // Add event listener to "Remove Department" button
+                titleBlock.querySelector('.removeTitleButton').addEventListener('click', () => {
+                    titleBlock.remove();
+                });
+
+                facultiesContainer.appendChild(titleBlock);
+                titleIndex++;
+            };
+
+            // Function to add a subheading (program)
+            const addSubheading = (container, index) => {
+                const subheadingInput = document.createElement('div');
+                subheadingInput.classList.add('subheading-block', 'mb-2');
+                subheadingInput.innerHTML = `
+                    <input type="text" name="subheadings[${index}][]" class="form-control mb-1" required>
+                    <button type="button" class="btn btn-danger btn-sm removeSubheadingButton">Remove</button>
+                `;
+
+                // Add event listener to remove subheading
+                subheadingInput.querySelector('.removeSubheadingButton').addEventListener('click', () => {
+                    subheadingInput.remove();
+                });
+
+                container.appendChild(subheadingInput);
+            };
+
+            // Attach event listener for adding new title blocks
+            addTitleButton.addEventListener('click', createTitleBlock);
+
+            // Attach event listeners to existing title blocks and subheadings (if preloaded)
+            facultiesContainer.querySelectorAll('.title-block').forEach(titleBlock => {
+                const currentIndex = titleBlock.dataset.index;
+
+                // Preload existing subheadings for each faculty
+                @foreach($faculties as $faculty)
+                    if ({{ $faculty->id }} === currentIndex) {
+                        const subheadingsContainer = titleBlock.querySelector('.subheadings-container');
+                        @if($faculty->subheadings && count($faculty->subheadings) > 0)
+                            @foreach($faculty->subheadings as $subheading)
+                                const subheadingInput = document.createElement('div');
+                                subheadingInput.classList.add('subheading-block', 'mb-2');
+                                subheadingInput.innerHTML = `
+                                    <input type="text" name="subheadings[${currentIndex}][]" class="form-control mb-1" value="{{ $subheading->name }}" required>
+                                    <button type="button" class="btn btn-danger btn-sm removeSubheadingButton">Remove</button>
+                                `;
+                                // subheadingInput.querySelector('.removeSubheadingButton').addEventListener('click', () => {
+                                //     subheadingInput.remove();
+                                // });
+                                subheadingsContainer.appendChild(subheadingInput);
+                            @endforeach
+                        @endif
+                    }
+                @endforeach
+
+                // Attach listener for "Add Program" button
+                titleBlock.querySelector('.addSubheadingButton').addEventListener('click', () => {
+                    const subheadingsContainer = titleBlock.querySelector('.subheadings-container');
+                    addSubheading(subheadingsContainer, currentIndex);
+                });
+
+                // Attach listener for "Remove Department" button
+                titleBlock.querySelector('.removeTitleButton').addEventListener('click', () => {
+                    titleBlock.remove();
+                });
+
+                // Attach listeners for existing subheadings (if any)
+                titleBlock.querySelectorAll('.subheading-block').forEach(subheadingBlock => {
+                    subheadingBlock.querySelector('.removeSubheadingButton').addEventListener('click', () => {
+                        subheadingBlock.remove();
+                    });
+                });
+            });
+        });
+    </script>
+
 @endpush 
