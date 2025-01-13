@@ -44,14 +44,12 @@ if($pageName == "view.history"){
                     </a>
                     <div class="menu-dropdown collapse {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="{{route('quebec.history.index')}}" class="nav-link {{ request()->is('quebec/history/*') ? 'active' : '' }}">History of Quebec</a>
-                            </li>
-                            <li class="nav-item">
-                            <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>
-
-                                <!-- <a href="#" class="nav-link">Quebec culture</a> -->
-                            </li>
+                            </li> -->
+                            <!-- <li class="nav-item">
+                                <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>
+                            </li> -->
                             <li class="nav-item">
                                 <a href="{{ route('quebec.foods.index') }}" class="nav-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') ? 'active' : '' }}">Quebec Food</a>
                             </li>
@@ -139,11 +137,17 @@ if($pageName == "view.history"){
                     </a>
                     <div class="menu-dropdown collapse {{ request()->is('eductional/programs/*') ? 'show' : '' }}" id="eductional_institutes" style="">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{route('eductional.programs.index')}}" class="nav-link {{ request()->is('eductional/programs/*') ? 'active' : '' }}">University</a>
+                        <li class="nav-item">
+                                <a href="{{route('eductional.programs.index')}}" 
+                                class="nav-link {{ request()->is('eductional/programs/*') && !request()->is('eductional/programs/details/*') ? 'active' : '' }}">
+                                    University
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('eductional.programs.details.index')}}" class="nav-link">University Details</a>
+                                <a href="{{route('eductional.programs.details.index')}}" 
+                                class="nav-link {{ request()->is('eductional/programs/details/*') ? 'active' : '' }}">
+                                    University Details
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('programs.index')}}" class="nav-link">Programs</a>

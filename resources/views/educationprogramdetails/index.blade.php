@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <div class="card-header">Eductional Institutions and Programs/University Details
+        <div class="card-header">University Details
             <button id="createNewService" class="btn btn-primary float-right">Create University Details</button>
 
         </div>
