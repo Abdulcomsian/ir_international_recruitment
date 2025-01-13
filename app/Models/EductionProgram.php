@@ -20,4 +20,9 @@ class EductionProgram extends Model
     {
         return $this->featured_image ? asset($this->featured_image) : null;
     }
+
+    public function educationProgramDetail()
+    {
+        return $this->hasOne(EducationProgramsDetails::class,'eduction_programs_id','id');
+    }
 }

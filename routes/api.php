@@ -21,7 +21,8 @@ use App\Http\Controllers\Api\{
     SocialServiceLegalAidController,
     AgoraEventController,
     StayAnonymousController,
-    WithMyNameController
+    WithMyNameController,
+    UniversityController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -86,6 +87,11 @@ Route::middleware(['api_auth'])->group(function(){
         //Quebec information culture///
         Route::get('history',[QuebecHistoryController::class,'quebecHistory']);
         Route::get('indeed/jobs',[IndeedJobController::class,'fetchJobs']);
+
+        Route::prefix('university')->group(function() {
+            Route::get('',[UniversityController::class,'getAllUniversities']);
+            Route::get('details/{id}',[UniversityController::class,'getUniversitiesDetails']);
+        });
     });
 
 
