@@ -9,7 +9,9 @@ class QuebecFood extends Model
     protected $fillable = [
         'img',
         'title',
-        'description'
+        'description',
+        'latitude',
+        'longitude',
     ];
 
     public $appends = [

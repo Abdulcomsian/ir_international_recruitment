@@ -17,6 +17,8 @@ class QuebecFoodResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'description' => $this->description,
             'image_path' => $this->image_path,
             'created_at' => $this->created_at->toDateTimeString(),
