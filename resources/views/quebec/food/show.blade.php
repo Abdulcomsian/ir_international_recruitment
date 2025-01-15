@@ -25,6 +25,18 @@
                             {!! nl2br($quebecFood->description) !!}
                         </div>
                     </div>
+                    <div class="col-sm-12">
+                        <label for="description">Latitude</label>
+                        <div>
+                            {!! nl2br($quebecFood->latitude) !!}
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="description">Longitude</label>
+                        <div>
+                            {!! nl2br($quebecFood->longitude) !!}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -14,7 +14,9 @@ class QuebecLegalAspectAid extends Model
         'title',
         'email',
         'phone_no',
-        'address'
+        'address',
+        'latitude',
+        'longitude',
     ];
 
     public $appends = [

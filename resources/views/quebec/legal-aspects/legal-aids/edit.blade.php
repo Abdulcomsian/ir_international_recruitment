@@ -65,6 +65,24 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="text" class="form-control" id="latitude" name="latitude"
+                    value="{{ old('latitude', $quebecLegalAspectAid->latitude) }}" required />
+                @error('title')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="text" class="form-control" id="longitude" name="longitude"
+                    value="{{ old('longitude', $quebecLegalAspectAid->longitude) }}" required />
+                @error('title')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
             <button type="submit" class="btn btn-success">Update Legal Aid</button>
         </form>
     </div>

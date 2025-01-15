@@ -31,6 +31,7 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
+
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" required />
@@ -49,6 +50,20 @@
                 <label for="address">Address</label>
                 <textarea class="form-control" id="address" name="address" required></textarea>
                 @error('address')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="text" class="form-control" id="latitude" name="latitude" required />
+                @error('latitude')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="text" class="form-control" id="longitude" name="longitude" required />
+                @error('longitude')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
