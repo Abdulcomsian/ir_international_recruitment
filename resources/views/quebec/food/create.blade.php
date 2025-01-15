@@ -18,6 +18,20 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="text" class="form-control" id="latitude" name="latitude" required />
+                @error('latitude')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="text" class="form-control" id="longitude" name="longitude" required />
+                @error('longitude')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
             <div class="form-group mb-3">
                 <label for="description">Description</label>
                 <div id="quill-editor" class="bg-white"></div>

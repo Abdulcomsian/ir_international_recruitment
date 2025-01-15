@@ -22,6 +22,7 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
+
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title"
@@ -30,8 +31,26 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group mb-3">
 
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="text" class="form-control" id="latitude" name="latitude"
+                    value="{{ old('latitude', $quebecFood->latitude) }}" required />
+                @error('title')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="text" class="form-control" id="longitude" name="longitude"
+                    value="{{ old('longitude', $quebecFood->longitude) }}" required />
+                @error('title')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group mb-3">
                 <label for="description">Description</label>
                 <div id="quill-editor" class="bg-white"></div>
                 <textarea class="form-control d-none" id="description" name="description" required>{{ old('description', $quebecFood->description) }}</textarea>

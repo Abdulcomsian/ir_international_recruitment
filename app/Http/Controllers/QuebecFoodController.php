@@ -45,7 +45,9 @@ class QuebecFoodController extends Controller
             QuebecFood::create([
                 'img' => $imageName,
                 'title' => $request->title,
-                'description' => $request->description
+                'description' => $request->description,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
             ]);
 
             return redirect()->route('quebec.foods.index')->with('success', 'Quebec Food created successfully');
@@ -114,6 +116,8 @@ class QuebecFoodController extends Controller
 
             $quebecFood->title = $request->title;
             $quebecFood->description = $request->description;
+            $quebecFood->latitude = $request->latitude;
+            $quebecFood->longitude = $request->longitude;
 
             $quebecFood->save();
 
