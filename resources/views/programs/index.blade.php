@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Programs
-            <button id="createNewService" class="btn btn-primary float-right">Create Program</button>
+            <div class="card-header">Financial Aid
+            <button id="createNewService" class="btn btn-primary float-right">Create Financial Aid</button>
 
             </div>
             <div class="card-body">

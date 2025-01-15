@@ -44,7 +44,7 @@ class ProgramDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -63,14 +63,13 @@ class ProgramDataTable extends DataTable
     {
         return [
             
-            Column::make('id'),
+            Column::make('id')
+                        ->width(30),
             Column::make('title'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(300)
                   ->addClass('text-center'),
         ];
     }

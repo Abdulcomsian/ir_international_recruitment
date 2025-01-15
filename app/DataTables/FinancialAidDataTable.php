@@ -28,6 +28,9 @@ class FinancialAidDataTable extends DataTable
                 $imagePath = asset($row->featured_image); // Adjust the path if necessary
                 return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
             })
+            ->addColumn('programTitle', function ($row) {
+                return $row->program->title ?? 'N/A';
+            })
             ->rawColumns(['featured_image', 'action']) // Ensure HTML is rendered
             ->setRowId('id');
     }
@@ -50,7 +53,7 @@ class FinancialAidDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -69,9 +72,10 @@ class FinancialAidDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('program_id'),
-            Column::make('title'),
             Column::make('featured_image'),
+            Column::make('title'),
+            // Column::make('program_id'),
+            Column::make('programTitle')->title('Program Title'),
             Column::make('link'),
             Column::computed('action')
                   ->exportable(false)

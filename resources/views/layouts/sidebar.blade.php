@@ -131,35 +131,39 @@ if($pageName == "view.history"){
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link collapse {{ request()->is('eductional/programs/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#eductional_institutes" aria-expanded="false" aria-controls="customization">
-                    <i class="las la-book-reader"></i> <span>Eductional Institutions
-                        </span>
+                    <a class="nav-link menu-link collapse {{ request()->is('eductional/programs/*') || request()->is('programs/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#eductional_institutes" aria-expanded="{{ request()->is('eductional/programs/*') ? 'true' : 'false' }}" aria-controls="eductional_institutes">
+                        <i class="las la-book-reader"></i> <span>Educational Institutions</span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('eductional/programs/*') ? 'show' : '' }}" id="eductional_institutes" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('eductional/programs/*') || request()->is('programs/*') ? 'show' : '' }}" id="eductional_institutes">
                         <ul class="nav nav-sm flex-column">
-                        <li class="nav-item">
-                                <a href="{{route('eductional.programs.index')}}" 
-                                class="nav-link {{ request()->is('eductional/programs/*') && !request()->is('eductional/programs/details/*') ? 'active' : '' }}">
+                            <li class="nav-item">
+                                <a href="{{ route('eductional.programs.index') }}" 
+                                class="nav-link {{ request()->is('eductional/programs') || (request()->is('eductional/programs/*') && !request()->is('eductional/programs/details/*')) ? 'active' : '' }}">
                                     University
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('eductional.programs.details.index')}}" 
-                                class="nav-link {{ request()->is('eductional/programs/details/*') ? 'active' : '' }}">
+                                <a href="{{ route('eductional.programs.details.index') }}" 
+                                class="nav-link {{ request()->is('eductional/programs/details') || request()->is('eductional/programs/details/*') ? 'active' : '' }}">
                                     University Details
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('programs.index')}}" class="nav-link">Programs</a>
+                                <a href="{{ route('programs.index') }}" 
+                                class="nav-link {{ request()->is('programs/*') ? 'active' : '' }}">
+                                    Financial Aid
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('financial.aid.programs.index')}}" class="nav-link">Financial Aid</a>
+                                <a href="{{ route('financial.aid.programs.index') }}" 
+                                class="nav-link {{ request()->is('financial/aid/programs') || request()->is('financial/aid/programs/*') ? 'active' : '' }}">
+                                    Financial Aid Details
+                                </a>
                             </li>
-
-
                         </ul>
                     </div>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link menu-link collapse {{ request()->is('social-services') || request()->is('social-services/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#health_insurance" aria-expanded="false" aria-controls="customization">
                     <i class="las la-users"></i> <span>Health and Social Services
