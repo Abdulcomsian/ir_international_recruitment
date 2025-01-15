@@ -66,7 +66,9 @@ class QuebecLegalAspectAidController extends Controller
                 'title' => $request->title,
                 'email' => $request->email,
                 'phone_no' => $request->phone_no,
-                'address' => $request->address
+                'address' => $request->address,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
             ]);
 
             return redirect()->route('quebec.legal-aspects.legal-aids.index',$id)->with('success', 'LegalAid created successfully');
@@ -138,6 +140,8 @@ class QuebecLegalAspectAidController extends Controller
             $quebecLegalAspectLegalAid->email = $request->email;
             $quebecLegalAspectLegalAid->phone_no = $request->phone_no;
             $quebecLegalAspectLegalAid->address = $request->address;
+            $quebecLegalAspectLegalAid->latitude = $request->latitude;
+            $quebecLegalAspectLegalAid->longitude = $request->longitude;
 
             $quebecLegalAspectLegalAid->save();
 

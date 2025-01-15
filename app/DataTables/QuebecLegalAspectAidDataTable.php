@@ -72,8 +72,8 @@ class QuebecLegalAspectAidDataTable extends DataTable
             ->title('City')
             ->searchable(true)
             ->orderable(true),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('latitude'),
+            Column::make('longitude'),
             Column::computed('action')
             ->width(180)
             ->addClass('text-center')

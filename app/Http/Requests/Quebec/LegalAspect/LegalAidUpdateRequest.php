@@ -23,7 +23,7 @@ class LegalAidUpdateRequest extends FormRequest
     {
         return [
             'city_id' => 'required|string|exists:cities,id',
-            'img' => 'required|image|max:10240|mimes:png,jpg,jpeg,gif',
+            'img' => 'sometimes|image|max:10240|mimes:png,jpg,jpeg,gif',
             'title' => 'required|string',
             'email' => 'required|string|email',
             'phone_no' => 'required|string',

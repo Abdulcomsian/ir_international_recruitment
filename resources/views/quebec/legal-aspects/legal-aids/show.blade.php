@@ -43,6 +43,18 @@
                             {!! nl2br($quebecLegalAspectAid->address) !!}
                         </div>
                     </div>
+                    <div class="col-sm-12">
+                        <label for="address">Latitude</label>
+                        <div>
+                            {!! nl2br($quebecLegalAspectAid->latitude) !!}
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="address">Longitude</label>
+                        <div>
+                            {!! nl2br($quebecLegalAspectAid->longitude) !!}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

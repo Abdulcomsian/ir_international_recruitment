@@ -20,6 +20,8 @@ class QuebecLegalAspectAidResource extends JsonResource
             'email' => $this->email,
             'phone_no' => $this->phone_no,
             'address' => $this->address,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'image_path' => $this->image_path,
             'legal_aspect' => new QuebecLegalAspectResource($this->whenLoaded('quebecLegalAspect')),
             'city' => new CityResource($this->whenLoaded('city')),
