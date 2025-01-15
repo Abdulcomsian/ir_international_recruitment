@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Edit Financial Aid</h1>
+        <h1>Edit Financial Aid Details</h1>
         <form action="{{ route('financial.aid.programs.update', $aid->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT') 
@@ -45,7 +45,7 @@
             @endif
             
             <br>
-            <button type="submit" class="btn btn-success">Update FinancialAid</button>
+            <button type="submit" class="btn btn-success">Update FinancialAid Details</button>
         </form>
     </div>
 @endsection

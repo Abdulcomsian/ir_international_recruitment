@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Create Financial Aid</h1>
+        <h1>Create Financial Aid Details</h1>
         <form action="{{ route('financial.aid.programs.store') }}" method="POST" enctype="multipart/form-data">
             @csrf   
 
@@ -31,7 +31,7 @@
                 <input type="file" class="form-control" id="image" name="featured_image" required>
             </div>
             <br>
-            <button type="submit" class="btn btn-success">Create FinancialAid</button>
+            <button type="submit" class="btn btn-success">Create FinancialAid Details</button>
         </form>
     </div>
 @endsection

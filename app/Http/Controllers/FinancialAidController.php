@@ -6,9 +6,12 @@ use App\DataTables\FinancialAidDataTable;
 use Illuminate\Http\Request;
 use App\Models\Program;
 use App\Models\FinancialAid;
+use App\Traits\RemoveFileTrait;
 
 class FinancialAidController extends Controller
 {
+    use RemoveFileTrait;
+
     /**
      * Display a listing of the resource.
      */
@@ -107,15 +110,20 @@ class FinancialAidController extends Controller
             $financial_aid->link = $request->link;
             // Handle image upload if a new image is provided
             if ($request->hasFile('featured_image')) {
+                // remove old file
+                $this->unlinkFile($financial_aid->featured_image);
+
                 $image = $request->file('featured_image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
                 $imagePath = public_path('assets/financialAid_images/');
                 $image->move($imagePath, $imageName);
 
-                $media_url = 'assets/financialAid_images/' . $imageName;
+                // $media_url = 'assets/financialAid_images/' . $imageName;
+
+                $financial_aid->featured_image = 'assets/financialAid_images/' . $imageName;
 
             }
-            $financial_aid->featured_image = $media_url ?? null; 
+            // $financial_aid->featured_image = $media_url ?? null; 
 
             $financial_aid->save();
 
