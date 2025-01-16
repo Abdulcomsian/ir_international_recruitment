@@ -34,6 +34,7 @@ use App\Http\Controllers\{
     StayAnonymousController,
     WithMyNameController,
     CityCategoriesController,
+    CultureQuizController
 };
 
 
@@ -231,6 +232,11 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         ////city guide categories
         Route::prefix('city/guide/')->name('city.guide.')->group(function () {
             Route::resource('categories',CityCategoriesController::class);
+        });
+
+        //quebec culture quiz
+        Route::prefix('culture')->name('culture.')->group(function () {
+            Route::resource('quiz',CultureQuizController::class);
         });
 
 

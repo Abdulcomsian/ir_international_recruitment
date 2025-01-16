@@ -22,7 +22,8 @@ use App\Http\Controllers\Api\{
     AgoraEventController,
     StayAnonymousController,
     WithMyNameController,
-    UniversityController
+    UniversityController,
+    CultureQuizController,
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -92,6 +93,11 @@ Route::middleware(['api_auth'])->group(function(){
             Route::get('',[UniversityController::class,'getAllUniversities']);
             Route::get('details/{id}',[UniversityController::class,'getUniversitiesDetails']);
         });
+
+        Route::prefix('culture/quiz')->group(function() {
+            Route::get('',[CultureQuizController::class,'getCultureList']);
+        });
+
     });
 
 
