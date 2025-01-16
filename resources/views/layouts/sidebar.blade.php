@@ -44,9 +44,9 @@ if($pageName == "view.history"){
                     </a>
                     <div class="menu-dropdown collapse {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
-                            <!-- <li class="nav-item">
-                                <a href="{{route('quebec.history.index')}}" class="nav-link {{ request()->is('quebec/history/*') ? 'active' : '' }}">History of Quebec</a>
-                            </li> -->
+                            <li class="nav-item">
+                                <a href="{{route('culture.quiz.index')}}" class="nav-link {{ request()->is('culture/quiz/*') ? 'active' : '' }}">Quebec Culture Quiz</a>
+                            </li>
                             <!-- <li class="nav-item">
                                 <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>
                             </li> -->
@@ -69,17 +69,17 @@ if($pageName == "view.history"){
                     </a>
                     <div class="menu-dropdown collapse {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'show' : '' }}" id="city_guide" style="">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="{{ route('city.guide.categories.index') }}" class="nav-link">Categories</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Interactive Map Of Quebec</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Local Services</a>
+                                <a href="#" class="nav-link">Quebec Local Services:</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Points of Interest:</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">Points of Interest:</a>
+                                <a href="#" class="nav-link">Quebec Points of Interest:</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('city-guide.transportations.index') }}" class="nav-link {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'active' : '' }}">Transportation options</a>
