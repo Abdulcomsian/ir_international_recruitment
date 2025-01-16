@@ -30,7 +30,13 @@ class QuebecClimateController extends Controller
         try {
             $quebecClimateSeasonal = QuebecClimateSeasonal::with('quebecClimate')
                 ->where('quebec_climate_id', $quebecClimateId)
-                ->firstOrFail();
+                ->first();
+
+            if (!$quebecClimateSeasonal) {
+                return response()->json([
+                    'message' => 'Quebec Climate Not Found'
+                ], 404);
+            }
 
             return new QuebecClimateSeasonalResource($quebecClimateSeasonal);
 

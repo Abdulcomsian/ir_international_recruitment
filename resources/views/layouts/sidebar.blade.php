@@ -70,7 +70,7 @@ if($pageName == "view.history"){
                     <div class="menu-dropdown collapse {{ request()->is('city-guide/transportations') || request()->is('city-guide/transportations/*') ? 'show' : '' }}" id="city_guide" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Carte interactive</a>
+                                <a href="{{ route('city.guide.categories.index') }}" class="nav-link">Categories</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">Local Services</a>
