@@ -76,7 +76,6 @@ class QuebecClimateController extends Controller
      */
     public function edit($quebecClimateId)
     {
-
         try {
 
             $quebecClimate = QuebecClimate::findOrFail($quebecClimateId);
