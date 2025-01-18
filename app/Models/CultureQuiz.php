@@ -11,4 +11,14 @@ class CultureQuiz extends Model
         'featured_image',
         'description'
     ];
+
+    public function overview()
+    {
+        return $this->hasMany(CultureOverview::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }
