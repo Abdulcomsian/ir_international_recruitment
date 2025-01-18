@@ -96,6 +96,8 @@ Route::middleware(['api_auth'])->group(function(){
 
         Route::prefix('culture/quiz')->group(function() {
             Route::get('',[CultureQuizController::class,'getCultureList']);
+            Route::get('/details/{id}',[CultureQuizController::class,'getQuizDetails']);
+
         });
 
     });
