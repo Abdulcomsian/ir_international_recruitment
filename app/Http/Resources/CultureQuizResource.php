@@ -20,6 +20,9 @@ class CultureQuizResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'image_path' => $this->featured_image,
+            'overview' => CultureOverviewResource::collection($this->whenLoaded('overview')),
+            'questions' => QuestionResource::collection($this->whenLoaded('questions')),
+
 
         ];
     }

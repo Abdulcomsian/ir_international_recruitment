@@ -241,10 +241,12 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
             Route::resource('quiz',CultureQuizController::class);
             Route::controller(CultureOverviewController::class)->prefix('quiz-overview')->name('quiz.overview.')->group(function () {
                 Route::get('{id}', 'index')->name('index'); // Index route for overview
-                Route::get('{id}/create', 'create')->name('create'); // Index route for overview
-                Route::post('{quizId}', 'store')->name('store'); // Store route
-                Route::put('{id}', 'update')->name('update'); // Update route
-                Route::delete('{id}', 'destroy')->name('destroy'); // Destroy route
+                Route::get('{id}/create', 'create')->name('create'); 
+                Route::post('{quizId}', 'store')->name('store'); 
+                Route::put('{id}', 'update')->name('update'); 
+                Route::get('show/{id}', 'show')->name('show');
+                Route::get('edit/{id}', 'edit')->name('edit');
+                Route::delete('{id}', 'destroy')->name('destroy'); 
             });
             Route::controller(QuestionController::class)->prefix('quiz-questions')->name('quiz.questions.')->group(function () {
                 Route::get('{id}', 'index')->name('index'); // Index route for overview

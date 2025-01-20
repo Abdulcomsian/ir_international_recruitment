@@ -75,14 +75,15 @@ class CultureQuizDataTable extends DataTable
             ->title('Image')
             ->orderable(false)
             ->searchable(false)
-            ->width(60)
+            ->width(100)
             ->addClass('text-center'),
-            Column::make('title'),
-            Column::make('description'),
+            Column::make('title')
+                ->width(200),
+            // Column::make('description'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(190)
+                  ->width(290)
                   ->addClass('text-center'),
             // Column::make('created_at'),
             // Column::make('updated_at'),
