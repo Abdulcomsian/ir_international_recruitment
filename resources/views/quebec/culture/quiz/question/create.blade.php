@@ -5,8 +5,15 @@
     <div class="container">
         <h1>Add Question for Quiz: {{ $quiz->title }}</h1>
 
-        <form action="{{ route('culture.quiz.questions.store', $quiz->id) }}" method="POST">
+        <form action="{{ route('culture.quiz.questions.store', $quiz->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <div class="form-group">
+                <label for="featured_image">Featured Image</label>
+                <input type="file" class="form-control" id="featured_image" name="featured_image" required>
+                @error('featured_image')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
             <div class="form-group">
                 <label for="question_text">Question</label>
                 <input type="text" name="question_text" id="question_text" class="form-control @error('question_text') is-invalid @enderror" value="{{ old('question_text') }}" required>
