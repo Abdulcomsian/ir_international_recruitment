@@ -23,6 +23,10 @@ class CultureOverviewDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'quebec.culture.quiz.overview.action')
+            ->addColumn('cultureQuiz',function($row){
+                return $row->quiz->title ?? 'N/A';
+            })
+            ->rawColumns(['action','description'])
             ->setRowId('id');
     }
 
@@ -46,7 +50,7 @@ class CultureOverviewDataTable extends DataTable
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
-                    ->orderBy(1)
+                    ->orderBy(0)
                     ->selectStyleSingle()
                     ->buttons([
                         Button::make('excel'),
@@ -65,14 +69,15 @@ class CultureOverviewDataTable extends DataTable
     {
         return [
          
-            Column::make('id'),
-            Column::make('culture_quiz_id'),
+            Column::make('id')
+                ->width(20),
+            Column::make('cultureQuiz')->title('CultureQuiz'),
             Column::make('title_question'),
-            Column::make('description'),
+            // Column::make('description'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
-            ->width(60)
+            ->width(170)
             ->addClass('text-center'),
         ];
     }

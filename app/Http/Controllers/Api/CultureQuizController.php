@@ -29,7 +29,7 @@ class CultureQuizController extends Controller
         // dd();
         // Retrieve the quiz with all its relationships (overview, questions, answers)
         $quiz = CultureQuiz::with([
-            'overview', 
+            'overview.labels', 
             'questions.options' => function($query) {
                 $query->select('id', 'answer_text', 'is_correct', 'question_id');
             }

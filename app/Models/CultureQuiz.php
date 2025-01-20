@@ -14,7 +14,7 @@ class CultureQuiz extends Model
 
     public function overview()
     {
-        return $this->hasMany(CultureOverview::class);
+        return $this->hasOne(CultureOverview::class);
     }
 
     public function questions()

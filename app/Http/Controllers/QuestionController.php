@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CultureQuiz;
-use App\Models\Question;
 use App\Models\Answer;
+use App\Models\Question;
+use App\Models\CultureQuiz;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\DataTables\CultureQuestionDataTable;
 
 class QuestionController extends Controller
@@ -32,9 +33,13 @@ class QuestionController extends Controller
     {
         $validated = $request->validate([
             'question_text' => 'required|string|max:255',
-            'options' => 'required|array|min:2', // At least 2 options required
-            'options.*' => 'required|string|max:255', // Each option should be a string
-            'correct_option' => 'required|integer|in:0,' . (count($request->options) - 1), // Correct option index
+            'options' => 'required|array|min:2',
+            'options.*' => 'required|string|max:255', 
+            'correct_option' => [
+                                'required',
+                                'integer',
+                                Rule::in(range(0, count($request->options) - 1)),
+                            ],
         ]);
 
         // Create the question
