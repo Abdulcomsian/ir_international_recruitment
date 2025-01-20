@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     protected $fillable = [
+        'featured_image',
         'culture_quiz_id', // Add culture_quiz_id here
         'question_text',
        
