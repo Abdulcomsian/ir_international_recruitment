@@ -23,6 +23,12 @@ class CultureQuestionDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'quebec.culture.quiz.question.action')
+            ->addColumn('featured_image',function($raw){
+                $imagePath = asset($raw->featured_image);
+                return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
+
+            })
+            ->rawColumns(['action','featured_image'])
             ->setRowId('id');
     }
 
@@ -62,7 +68,14 @@ class CultureQuestionDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('id')
+            ->width(20),
+            Column::computed('featured_image')
+            ->title('featured_image')
+            ->orderable(false)
+            ->searchable(false)
+            ->width(80)
+            ->addClass('text-center'),
             Column::make('question_text'),
             Column::computed('action')
                   ->exportable(false)

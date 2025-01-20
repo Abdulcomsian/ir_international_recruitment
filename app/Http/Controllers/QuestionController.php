@@ -31,7 +31,7 @@ class QuestionController extends Controller
 
     public function store(Request $request, $quizId)
     {
-        
+
         $validated = $request->validate([
             'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'question_text' => 'required|string|max:255',
@@ -52,7 +52,6 @@ class QuestionController extends Controller
             $image->move($imagePath,$imageName);
 
             $imageUrl = 'assets/questionImages/' . $imageName;
-
         }
         // Create the question
         $question = Question::create([
@@ -78,13 +77,23 @@ class QuestionController extends Controller
         $question = Question::with('options')->findOrFail($id);
         $quizID = $question->culture_quiz_id;
 
+        // dd($question->toArray());
         // Check if the overview exists
         if (!$question) {
             return redirect()->route('culture.quiz.index')
                 ->with('error', 'Overview not found for this quiz.');
         }
         // Pass the overview data to the view
-        return view('quebec.culture.quiz.question.show', compact('overview','quizID'));
+        return view('quebec.culture.quiz.question.show', compact('question','quizID'));
+
+    }
+
+    public function destroy($id)
+    {
+        $question = Question::with('options')->findOrFail($id);
+        $quizId = $question->culture_quiz_id;
+        $question->delete();
+        return redirect()->route('culture.quiz.questions.destroy', ['id' => $quizId]);
 
     }
 }

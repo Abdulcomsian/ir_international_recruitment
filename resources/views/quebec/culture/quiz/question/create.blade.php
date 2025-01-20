@@ -23,32 +23,27 @@
             </div>
 
             <div class="form-group">
-                <label for="options">Options</label>
-                <div id="options-container">
-                    <div class="option-item">
-                        <input type="text" name="options[]" class="form-control mb-2 @error('options.*') is-invalid @enderror" placeholder="Option 1" required>
-                        @error('options.0')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror                    </div>
-                    <div class="option-item">
-                        <input type="text" name="options[]" class="form-control mb-2 @error('options.*') is-invalid @enderror" placeholder="Option 2" required>
-                    </div>
-                </div>
-                @error('options')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                @enderror
-                <button type="button" id="add-option" class="btn btn-secondary mt-2">Add Option</button>
-            </div>
+    <label for="options">Options</label>
+    <div id="options-container">
+        <div class="option-item d-flex align-items-center mb-2">
+            <input type="text" name="options[]" class="form-control" placeholder="Option 1" required>
+            <button type="button" class="btn btn-danger btn-sm ml-2 remove-option">Delete</button>
+        </div>
+        <div class="option-item d-flex align-items-center mb-2">
+            <input type="text" name="options[]" class="form-control" placeholder="Option 2" required>
+            <button type="button" class="btn btn-danger btn-sm ml-2 remove-option">Delete</button>
+        </div>
+    </div>
+    <button type="button" id="add-option" class="btn btn-secondary mt-2">Add Option</button>
+</div>
 
-            <div class="form-group">
-                <label for="correct_option">Correct Option</label>
-                <select name="correct_option" id="correct_option" class="form-control @error('correct_option') is-invalid @enderror" required>
-                    <option value="">Select Correct Option</option>
-                </select>
-                @error('correct_option')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+<div class="form-group">
+    <label for="correct_option">Correct Option</label>
+    <select name="correct_option" id="correct_option" class="form-control" required>
+        <option value="">Select Correct Option</option>
+    </select>
+</div>
+
 
             <button type="submit" class="btn btn-primary mt-3">Save Question</button>
         </form>
@@ -62,35 +57,47 @@
 
 @push('scripts')
     <script>
-        // Add functionality for dynamically adding options and updating the correct option select list
         document.addEventListener('DOMContentLoaded', function () {
-            const optionsContainer = document.getElementById('options-container');
-            const addOptionButton = document.getElementById('add-option');
-            const correctOptionSelect = document.getElementById('correct_option');
+    const optionsContainer = document.getElementById('options-container');
+    const addOptionButton = document.getElementById('add-option');
+    const correctOptionSelect = document.getElementById('correct_option');
 
-            // Add new option input field
-            addOptionButton.addEventListener('click', function () {
-                const newOption = document.createElement('div');
-                newOption.classList.add('option-item');
-                newOption.innerHTML = `<input type="text" name="options[]" class="form-control mb-2" placeholder="Option" required>`;
-                optionsContainer.appendChild(newOption);
-                updateCorrectOptionOptions();
-            });
+    // Add new option input field
+    addOptionButton.addEventListener('click', function () {
+        const newOption = document.createElement('div');
+        newOption.classList.add('option-item', 'd-flex', 'align-items-center', 'mb-2');
+        newOption.innerHTML = `
+            <input type="text" name="options[]" class="form-control" placeholder="Option" required>
+            <button type="button" class="btn btn-danger btn-sm ml-2 remove-option">Delete</button>
+        `;
+        optionsContainer.appendChild(newOption);
+        updateCorrectOptionOptions();
+    });
 
-            // Update correct option select list based on the number of options
-            function updateCorrectOptionOptions() {
-                const options = optionsContainer.getElementsByClassName('option-item');
-                correctOptionSelect.innerHTML = '<option value="">Select Correct Option</option>'; // Reset the select list
+    // Remove an option and update the correct option select list
+    optionsContainer.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-option')) {
+            const optionItem = e.target.closest('.option-item');
+            optionItem.remove();
+            updateCorrectOptionOptions();
+        }
+    });
 
-                Array.from(options).forEach((option, index) => {
-                    const optionElement = document.createElement('option');
-                    optionElement.value = index;
-                    optionElement.textContent = `Option ${index + 1}`;
-                    correctOptionSelect.appendChild(optionElement);
-                });
-            }
+    // Update correct option select list based on the number of options
+    function updateCorrectOptionOptions() {
+        const options = optionsContainer.getElementsByClassName('option-item');
+        correctOptionSelect.innerHTML = '<option value="">Select Correct Option</option>'; // Reset the select list
 
-            updateCorrectOptionOptions(); // Call once on page load
+        Array.from(options).forEach((option, index) => {
+            const optionElement = document.createElement('option');
+            optionElement.value = index;
+            optionElement.textContent = `Option ${index + 1}`;
+            correctOptionSelect.appendChild(optionElement);
         });
+    }
+
+    updateCorrectOptionOptions(); // Call once on page load
+});
+
     </script>
 @endpush
