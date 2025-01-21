@@ -250,7 +250,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
             });
             Route::controller(QuestionController::class)->prefix('quiz-questions')->name('quiz.questions.')->group(function () {
                 Route::get('{id}', 'index')->name('index'); 
-                Route::get('{id}/create', 'create')->name('create'); 
+                Route::get('{id}/create', 'create')->name('create');
+                Route::get('edit/{id}', 'edit')->name('edit'); 
                 Route::post('{quizId}', 'store')->name('store');
                 Route::get('show/{id}', 'show')->name('show'); 
                 Route::put('{id}', 'update')->name('update');

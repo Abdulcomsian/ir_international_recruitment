@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Manage Quebec Culture Overview</h2>
+    <h2>Manage Culture Quiz Overview</h2>
 
     <div class="card mb-4">
         <div class="card-body">
@@ -26,11 +26,10 @@
     </div>
 
     <div class="card mb-4" style="margin-left:20px;">
-    <h3>Labels</h3>
-
+    <label for="title">Labels</label>
         @foreach($overview->labels as $label)
             <div class="card-body">
-                        <h5 class="card-title">{{ $label->label ?? '' }}</h5>
+                        <p class="card-title">{{ $label->label ?? '' }}</p>
                     </div>
             <div class="col-md-4 mb-3" style="height: 50px; width:50px;">
                 <div class="card">
@@ -41,7 +40,7 @@
         @endforeach
     </div>
     </div>
-    <a href="{{ route('culture.quiz.overview.index', ['id' => $quizID]) }}" class="btn btn-dark">Manage OverView List</a>
+    <a href="{{ route('culture.quiz.overview.index', ['id' => $quizID]) }}" class="btn btn-dark">Manage Culture Quiz OverView List</a>
 
 </div>
 @endsection
