@@ -167,40 +167,6 @@ class QuestionController extends Controller
         
     }
 
-
-    public function update1(Request $request,$questionId)
-    {
-        $request->validate([
-            'featured_image' => 'ssometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'question_text' => 'required|string',
-            'options.*.answer_text' => 'required|string',
-            'correct_option' => 'required',
-        ]);
-
-        $question = Question::findOrFail($questionId);
-        $quizID = CultureQuiz::where('id',$question->culture_quiz_id)->first();
-        // dd($quizID);
-        if ($request->hasFile('featured_image')) {
-            $imagePath = $request->file('featured_image')->store('assets/questionImages', 'public');
-            $question->update(['featured_image' => $imagePath]);
-        }
-
-        $question->update(['question_text' => $request->question_text]);
-
-        foreach ($request->options as $id => $data) {
-            Answer::updateOrCreate(
-                ['id' => $id],
-                [
-                    'question_id' => $question->id,
-                    'answer_text' => $data['answer_text'],
-                    'is_correct' => $id == $request->correct_option,
-                ]
-            );
-        }
-
-        return redirect()->route('culture.quiz.questions.index', $quizID->id)->with('success', 'Question updated successfully!');
-    }
-
     public function destroy($id)
     {
         $question = Question::with('options')->findOrFail($id);
