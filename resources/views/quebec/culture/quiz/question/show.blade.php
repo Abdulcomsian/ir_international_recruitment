@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Question</h2>
+    <h2>Show Culture Quiz Question</h2>
 
     <div class="card mb-4">
         <div class="card-body">
@@ -19,8 +19,7 @@
     
 
     <div class="card mb-4" style="margin-left:20px;">
-        <h3>Options</h3>
-
+        <label for="options">Options</label>
         @foreach($question->options as $option)
             <div class="card-body">
                 <p class="card-title">{{ $loop->iteration }}.{{ $option->answer_text ?? '' }}</p>
@@ -29,13 +28,13 @@
     </div>
 
     <div class="card mb-4" style="margin-left:20px;">
-        <h3>Correct Option</h3>
+        <label for="">Correct Option</label>
         @php
             $correctOption = $question->options->firstWhere('is_correct', 1);
         @endphp
         @if($correctOption)
             <div class="card-body">
-                <h5 class="card-title text-success">{{ $correctOption->answer_text }}</h5>
+                <p class="card-title text-success">{{ $correctOption->answer_text }}</p>
             </div>
         @else
             <div class="card-body">
@@ -45,6 +44,7 @@
     </div>
     </div>
 
-    <a href="{{ route('culture.quiz.questions.index', ['id' => $quizID]) }}" class="btn btn-dark">Question List</a>
+    <a href="{{ route('culture.quiz.questions.index', ['id' => $quizID]) }}" class="btn btn-dark">Culture Quiz Question List</a>
 </div>
+
 @endsection

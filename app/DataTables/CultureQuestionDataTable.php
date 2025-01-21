@@ -37,7 +37,7 @@ class CultureQuestionDataTable extends DataTable
      */
     public function query(Question $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->where('culture_quiz_id', $this->quizId);
     }
 
     /**
@@ -74,13 +74,13 @@ class CultureQuestionDataTable extends DataTable
             ->title('featured_image')
             ->orderable(false)
             ->searchable(false)
-            ->width(80)
+            ->width(180)
             ->addClass('text-center'),
             Column::make('question_text'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(260)
+                  ->width(360)
                   ->addClass('text-center'),
         ];
     }

@@ -26,7 +26,6 @@ class CultureQuizController extends Controller
             return view('quebec.culture.create');
         }catch(\Exception $e){
             return redirect()->route('quebec.culture.index')->with('error','An error occurred while creating quiz');
-
         }
     }
 
@@ -51,9 +50,9 @@ class CultureQuizController extends Controller
                 'description' => $request->description,
             ]);
 
-            return redirect()->route('culture.quiz.index')->with('success', 'City created successfully');
+            return redirect()->route('culture.quiz.index')->with('success', 'Questions created successfully');
         } catch (\Exception $e) {
-            return redirect()->route('culture.quiz.index')->with('error', 'An error occured while creating City');
+            return redirect()->route('culture.quiz.index')->with('error', 'An error occured while creating Questions');
         }
     }
 

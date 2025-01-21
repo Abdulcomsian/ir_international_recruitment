@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Add Question for Quiz: {{ $quiz->title }}</h1>
+        <h1>Add Culture Quiz Question</h1>
 
         <form action="{{ route('culture.quiz.questions.store', $quiz->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -45,7 +45,7 @@
 </div>
 
 
-            <button type="submit" class="btn btn-primary mt-3">Save Question</button>
+            <button type="submit" class="btn btn-primary mt-3">Add Culture Quiz Question</button>
         </form>
     </div>
 @endsection

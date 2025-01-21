@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Manage Quebec Culture Quiz Overview
+            <div class="card-header">Manage Culture Quiz Overview
             <a href="{{ route('culture.quiz.overview.create',$quiz->id) }}" class="btn btn-primary float-right">Create Culture Quiz Overview</a>
 
             </div>
