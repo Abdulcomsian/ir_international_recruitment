@@ -42,10 +42,10 @@ if($pageName == "view.history"){
                     <i class="las la-file-alt"></i> <span>Quebec Informations
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('culture/quiz') || request()->is('culture/quiz/*') || request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{route('culture.quiz.index')}}" class="nav-link {{ request()->is('culture/quiz/*') ? 'active' : '' }}">Quebec Culture Quiz</a>
+                                <a href="{{route('culture.quiz.index')}}" class="nav-link {{ request()->is('culture/quiz') || request()->is('culture/quiz/*') ? 'active' : '' }}">Quebec Culture Quiz</a>
                             </li>
                             <!-- <li class="nav-item">
                                 <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>
