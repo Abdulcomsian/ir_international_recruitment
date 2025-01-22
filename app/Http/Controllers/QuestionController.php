@@ -41,6 +41,7 @@ class QuestionController extends Controller
             $validated = $request->validate([
                 'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'question_text' => 'required|string|max:255',
+                'question_type' => 'required|in:simple,true/false',
                 'options' => 'required|array|min:2',
                 'options.*' => 'required|string|max:255', 
                 'correct_option' => [
@@ -64,6 +65,8 @@ class QuestionController extends Controller
                 'featured_image' => $imageUrl ?? null,
                 'culture_quiz_id' => $quizId,
                 'question_text' => $validated['question_text'],
+                'question_type' => $validated['question_type'],
+
             ]);
     
             // Create the options and associate the correct option
@@ -122,6 +125,7 @@ class QuestionController extends Controller
             $request->validate([
                 'featured_image' => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'question_text' => 'required|string',
+                'question_type' => 'required|in:simple,true/false',
                 'options.*.answer_text' => 'required|string',
                 'correct_option' => 'required',
             ]);
@@ -138,7 +142,7 @@ class QuestionController extends Controller
                 $question->update(['featured_image' => $imageUrl]);
             }
     
-            $question->update(['question_text' => $request->question_text]);
+            $question->update(['question_text' => $request->question_text,'question_type'=>$request->question_type]);
     
             // Handle options
             $currentOptionIds = $question->options->pluck('id')->toArray();

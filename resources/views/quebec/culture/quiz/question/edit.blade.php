@@ -33,6 +33,21 @@
             </div>
 
             <div class="form-group">
+                <label for="question_type">Question Type</label>
+                <select name="question_type" id="question_type" class="form-control @error('question_type') is-invalid @enderror" required>
+                    <option value="" disabled>Select Question Type</option>
+                    <option value="simple" 
+                        {{ old('question_type', $question->question_type) == 'simple' ? 'selected' : '' }}>Simple</option>
+                    <option value="true/false" 
+                        {{ old('question_type', $question->question_type) == 'true/false' ? 'selected' : '' }}>True/False</option>
+                </select>
+                @error('question_type')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+
+            <div class="form-group">
                 <label for="options">Options</label>
                 <div id="options-container">
                     @if(isset($question) && $question->options)

@@ -10,6 +10,7 @@ class Question extends Model
         'featured_image',
         'culture_quiz_id', // Add culture_quiz_id here
         'question_text',
+        'question_type',
        
     ];
     public function options()

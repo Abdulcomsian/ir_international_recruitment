@@ -97,7 +97,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
             Route::get('{overview}', 'index')->name('index'); // Index route for overview
             Route::get('{overview}/create', 'create')->name('create'); 
             Route::post('{overview}', 'store')->name('store'); 
-            Route::put('{id}', 'update')->name('update'); 
+            Route::put('{overview}', 'update')->name('update'); 
             Route::get('show/{overview}', 'show')->name('show');
             Route::get('edit/{overview}', 'edit')->name('edit');
             Route::delete('{overview}', 'destroy')->name('destroy'); 

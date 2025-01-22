@@ -32,9 +32,9 @@ class CultureQuizController extends Controller
         // Retrieve the quiz with all its relationships (overview, questions, answers)
         $quiz = CultureQuiz::with([
             'overview.labels', 
-            // 'questions.options' => function($query) {
-            //     $query->select('id', 'answer_text', 'is_correct', 'question_id');
-            // }
+            'questions.options' => function($query) {
+                $query->select('id', 'answer_text', 'is_correct', 'question_id');
+            }
         ])
         ->findOrFail($id);
         // return new CultureQuizResource($quiz);
@@ -48,7 +48,7 @@ class CultureQuizController extends Controller
 
     public function getQuestions($id)
     {
-        $quiz=Question::with('options')->where('culture_quiz_id',$id)->get();
+        $quiz=Question::with('options')->where('id',$id)->get();
         return response()->json([
             'msg'=> 'Data Fetched Successfully',
             'status'=> true,

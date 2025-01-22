@@ -77,6 +77,7 @@ class CultureQuestionDataTable extends DataTable
             ->width(180)
             ->addClass('text-center'),
             Column::make('question_text'),
+            Column::make('question_type'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
