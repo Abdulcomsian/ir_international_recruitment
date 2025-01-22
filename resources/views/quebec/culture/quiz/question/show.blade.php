@@ -15,6 +15,14 @@
                     {{ $question->question_text }}
                 </div>
             </div>
+            <br>
+
+            <div class="col-sm-12">
+                <label for="title">Question Type</label>
+                <div>
+                    {{ $question->question_type }}
+                </div>
+            </div>
         </div>
     
 
