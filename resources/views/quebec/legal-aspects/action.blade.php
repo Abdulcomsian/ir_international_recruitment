@@ -3,6 +3,7 @@
 
 @php
     $extraButton = match ($row->type) {
+        'quiz' => ['route' => 'quebec.legal-aspects.quiz.index', 'label' => 'Quiz Categories'],
         'key_navigation' => ['route' => 'quebec.legal-aspects.navigations.index', 'label' => 'Key Navigations'],
         'faq' => ['route' => 'quebec.legal-aspects.faqs.index', 'label' => 'FAQs'],
         'useful_links' => ['route' => 'quebec.legal-aspects.useful-links.index', 'label' => 'Useful Links'],

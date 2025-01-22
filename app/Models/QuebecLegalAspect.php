@@ -22,4 +22,9 @@ class QuebecLegalAspect extends Model
         return $this->img ? asset("assets/QuebecLegalAspect/$this->img") : null;
     }
 
+    public function legalAspectQuiz()
+    {
+        return $this->hasMany(LegalAspectQuizCategory::class,'quebec_legal_aspect_id');
+    }
+
 }
