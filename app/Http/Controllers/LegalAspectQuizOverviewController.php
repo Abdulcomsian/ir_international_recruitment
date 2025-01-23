@@ -11,30 +11,21 @@ use App\DataTables\LegalAspectQuizOverviewDataTable;
 
 class LegalAspectQuizOverviewController extends Controller
 {
-    public function index1(LegalAspectQuizOverviewDataTable $dataTable,$id,$overview)
-    {
-            try {            
-                $quebecLegalAspect = QuebecLegalAspect::with('legalAspectQuiz')->where('type', 'quiz')->findOrFail($id);
-                // dd($quebecLegalAspect->toArray());
-                // $categoryId = $quebecLegalAspect->legal_aspect_quiz->id;
-                // dd($categoryId);
-                return $dataTable->render('quebec.legal-aspects.quiz.overview.index',compact('quebecLegalAspect'));
-    
-            } catch (\Exception $e) {
-                return redirect()->route('quebec.legal-aspects.index')->with('error','Quebec Legal Aspect Quiz not found');
-            }
-    }
-
     public function index(LegalAspectQuizOverviewDataTable $dataTable, $id, $overview)
     {
-        try {
-            // Fetch the specific legal aspect and its quiz category overview
+        try {          
             $category = LegalAspectQuizCategory::with('quizOverviews')
                 ->where('id', $overview)
                 ->where('quebec_legal_aspect_id', $id)
-                ->firstOrFail();
+                ->firstOrFail();   
+                $dataTable->overview = $overview; 
 
-            return $dataTable->render('quebec.legal-aspects.quiz.overview.index', compact('category'));
+            return $dataTable->render(
+                'quebec.legal-aspects.quiz.overview.index',
+                [
+                    'id' => $id,
+                    'overview' => $overview
+                ]);
         } catch (\Exception $e) {
             return redirect()->route('quebec.legal-aspects.quiz.index', ['id' => $id])
                 ->with('error', 'Quiz Overview not found.');
@@ -42,44 +33,70 @@ class LegalAspectQuizOverviewController extends Controller
     }
 
 
-    public function create($id)
+    public function create($id,$overview)
     {
         try {
-            // dd($id);
-            $quebecLegalAspect = QuebecLegalAspect::where('type', 'quiz')->findOrFail($id);
-            return view('quebec.legal-aspects.quiz.overview.create',compact('quebecLegalAspect'));
+            return view('quebec.legal-aspects.quiz.overview.create',['id'=>$id,'overview'=>$overview]);
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.legal-aspects.quiz.overview.index',$id)->with('error','Quebec Legal Aspect Quiz Link not found');
+            return redirect()->route('quebec.legal-aspects.quiz.overview.index',['id',$id])->with('error','Quebec Legal Aspect Quiz Link not found');
         }
     }
 
-    public function store(Request $request, $quizId)
+
+    public function store(Request $request, $id,$overview)
     {
         try {
             // Validate the request
             $validated = $request->validate([
-                'featured_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'title' => 'required|string|max:255',
+                'featured_image' => 'required|image', // Validate as an image
+                'title_question' => 'required|string|max:255',
                 'description' => 'required|string',
+                'labels' => 'required|array',
+                'labels.*' => 'required|string|max:255',
+                'label_images' => 'required|array',
+                'label_images.*' => 'required|image',
             ]);
 
-            // Handle file upload
-            $imagePath = null;
-            if ($request->hasFile('featured_image')) {
-                $imagePath = $request->file('featured_image')->store('legalAspectsQuiz', 'public');
-            }
+            // Ensure the quiz exists
+            $quiz = LegalAspectQuizCategory::findOrFail($overview);
+            $existingOverview = $quiz->quizOverviews; 
+            // dd($existingOverview);
+            // if ($existingOverview) {
+            //     dd("dd");
+            //     $existingOverview->getoverviewLabels()->delete();
+        
+            //     $existingOverview->delete();
+            // }
+            // dd("hello before image");
+            if($request->hasFile('featured_image')){
+                $image = $request->file('featured_image');
+                $imageName = time().'.'.$image->getClientOriginalExtension();
+                $imagePath = public_path('assets/legalAspectOverview');
+                $image->move($imagePath,$imageName);
 
+                //create image url
+                $imageUrl= 'assets/legalAspectOverview/'. $imageName;
+            }   
+            // dd("after image");         
             // Create a new overview entry
-            LegalAspectQuizOverview::create([
-                'quebec_legal_aspect_id' => $quizId,
-                'featured_image' => $imagePath,
-                'title' => $validated['title'],
+            $quizoverview=LegalAspectQuizOverview::create([
+                'legal_aspect_quiz_categories_id' => $overview,
+                'featured_image' => $imageUrl ?? null,
+                'title_question' => $validated['title_question'],
                 'description' => $validated['description'],
             ]);
+             // Store Labels and Label Images
+             foreach ($validated['labels'] as $index => $label) {
+                $labelImagePath = $request->file('label_images')[$index]->store('labels', 'public');
+                $quizoverview->getoverviewLabels()->create([
+                    'label' => $label,
+                    'label_image' => $labelImagePath,
+                ]);
+            }
 
             // Redirect with success message
-            return redirect()->route('quebec.legal-aspects.quiz.index', $quizId)
+            return redirect()->route('quebec.legal-aspects.quiz.overview.index', ['id'=>$id,'overview'=>$overview])
                             ->with('success', 'Quiz Category Overview created successfully!');
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred while creating the quiz category overview: ' . $e->getMessage());

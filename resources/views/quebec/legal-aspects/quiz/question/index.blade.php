@@ -3,14 +3,14 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Quebec Legal Aspect Quiz Overview
-            <a href="{{ route('quebec.legal-aspects.quiz.overview.create', ['id' => $id, 'overview' => $overview]) }}" class="btn btn-primary float-right">Create Category Overview</a>
+            <div class="card-header">Manage Quebec Culture Quiz Questions
+            <a href="{{ route('quebec.legal-aspects.quiz.question.create', ['id' => $id, 'overview' => $overview]) }}" class="btn btn-primary float-right">Create legal Aspect Quiz Question</a>
 
             </div>
-                <div class="card-body">
-                    {{ $dataTable->table() }} <!-- This will render the DataTable -->
-                </div>
+            <div class="card-body">
+                {{ $dataTable->table() }} <!-- This will render the DataTable -->
             </div>
+        </div>
     </div>
 @endsection
 

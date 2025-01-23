@@ -8,7 +8,7 @@
     </form>
     <a href="{{ route('quebec.legal-aspects.quiz.overview.index', ['id' => $row->quebec_legal_aspect_id , 'overview' => $row->id]) }}" class="btn btn-success btn-sm">Manage Overview</a>
 
-    <a href="{{ route('quebec.legal-aspects.quiz.edit', ['id' => $row->quebec_legal_aspect_id , 'quiz' => $row->id]) }}" class="btn btn-warning btn-sm">Manage Questions</a>
+    <a href="{{ route('quebec.legal-aspects.quiz.question.index', ['id' => $row->quebec_legal_aspect_id , 'overview' => $row->id]) }}" class="btn btn-warning btn-sm">Manage Questions</a>
 
 </div>
     

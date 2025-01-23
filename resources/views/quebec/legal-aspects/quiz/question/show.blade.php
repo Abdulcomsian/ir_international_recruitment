@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Show Culture Quiz Question</h2>
+    <h2>Show Legal Aspect Quiz Question</h2>
 
     <div class="card mb-4">
         <div class="card-body">
@@ -28,7 +28,7 @@
 
     <div class="card mb-4" style="margin-left:20px;">
         <label for="options">Options</label>
-        @foreach($question->options as $option)
+        @foreach($question->getoptions as $option)
             <div class="card-body">
                 <p class="card-title">{{ $loop->iteration }}.{{ $option->answer_text ?? '' }}</p>
             </div>
@@ -38,7 +38,7 @@
     <div class="card mb-4" style="margin-left:20px;">
         <label for="">Correct Option</label>
         @php
-            $correctOption = $question->options->firstWhere('is_correct', 1);
+            $correctOption = $question->getoptions->firstWhere('is_correct', 1);
         @endphp
         @if($correctOption)
             <div class="card-body">
@@ -52,7 +52,9 @@
     </div>
     </div>
 
-    <a href="{{ route('quebec.legal-aspects.quiz.question.index', ['id' => $overview]) }}" class="btn btn-dark">Legal Aspect Quiz Question List</a>
+    <a href="{{ route('quebec.legal-aspects.quiz.question.index', ['id' => $id, 'overview' => $overview]) }}" class="btn btn-dark">Culture Quiz Question List</a>
+
+
 </div>
 
 @endsection

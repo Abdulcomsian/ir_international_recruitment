@@ -38,7 +38,8 @@ use App\Http\Controllers\{
     CultureOverviewController,
     QuestionController,
     QuebecLegalAspectQuizController,
-    LegalAspectQuizOverviewController
+    LegalAspectQuizOverviewController,
+    LegalAspectQuestionController,
 };
 
 
@@ -94,6 +95,15 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
         Route::resource('legal-aids', QuebecLegalAspectAidController::class);
         Route::resource('quiz', QuebecLegalAspectQuizController::class);
         Route::controller(LegalAspectQuizOverviewController::class)->prefix('quiz-overview')->name('quiz.overview.')->group(function () {
+            Route::get('{overview}', 'index')->name('index'); // Index route for overview
+            Route::get('{overview}/create', 'create')->name('create'); 
+            Route::post('{overview}', 'store')->name('store'); 
+            Route::put('{overview}', 'update')->name('update'); 
+            Route::get('show/{overview}', 'show')->name('show');
+            Route::get('edit/{overview}', 'edit')->name('edit');
+            Route::delete('{overview}', 'destroy')->name('destroy'); 
+        });
+        Route::controller(LegalAspectQuestionController::class)->prefix('quiz-question')->name('quiz.question.')->group(function () {
             Route::get('{overview}', 'index')->name('index'); // Index route for overview
             Route::get('{overview}/create', 'create')->name('create'); 
             Route::post('{overview}', 'store')->name('store'); 

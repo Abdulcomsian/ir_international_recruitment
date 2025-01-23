@@ -177,6 +177,5 @@ class QuestionController extends Controller
         $quizId = $question->culture_quiz_id;
         $question->delete();
         return redirect()->route('culture.quiz.questions.destroy', ['id' => $quizId]);
-
     }
 }

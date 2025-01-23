@@ -20,7 +20,13 @@ class LegalAspectQuizCategory extends Model
 
     public function quizOverviews()
     {
-        return $this->hasMany(LegalAspectQuizOverview::class, 'legal_aspect_quiz_categories_id', 'id');
+        return $this->hasOne(LegalAspectQuizOverview::class, 'legal_aspect_quiz_categories_id', 'id');
+    }
+
+    //get legal overview questions
+    public function quizQuestions()
+    {
+        return $this->hasOne(LegalAspectQuestion::class, 'legal_aspect_quiz_categories_id', 'id');
     }
 
 }

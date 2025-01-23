@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\{QuebecLegalAspectResource, QuebecLegalAspectNavigationResource, QuebecLegalAspectFaqResource, QuebecLegalAspectUsefulLinkResource, QuebecLegalAspectAidResource};
-use App\Models\{QuebecLegalAspect, QuebecLegalAspectFaq, QuebecLegalAspectNavigation, QuebecLegalAspectUsefulLink, QuebecLegalAspectAid};
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use App\Models\LegalAspectQuestion;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Models\LegalAspectQuizCategory;
+use App\Models\{QuebecLegalAspect, QuebecLegalAspectFaq, QuebecLegalAspectNavigation, QuebecLegalAspectUsefulLink, QuebecLegalAspectAid};
+use App\Http\Resources\{QuebecLegalAspectResource, QuebecLegalAspectNavigationResource, QuebecLegalAspectFaqResource, QuebecLegalAspectUsefulLinkResource, QuebecLegalAspectAidResource};
 
 class QuebecLegalAspectController extends Controller
 {
@@ -93,5 +95,47 @@ class QuebecLegalAspectController extends Controller
                 'error' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function quiz(Request $request) //here get the quiz, quiz categories and it overview with labels
+    {
+       $legalQuiz =  QuebecLegalAspect::with('legalAspectQuiz.quizOverviews.getoverviewLabels')->where('type','quiz')->get();
+       return response()->json([
+        'msg'=> 'Data Fetched Successfully',
+        'status'=>true,
+        'data'=> $legalQuiz
+       ]);
+    }
+
+    public function questions($id) //get all questions of a specific category
+    {
+        $questions = LegalAspectQuestion::with('getoptions')->where('legal_aspect_quiz_categories_id',$id)->get();
+        return response()->json([
+            'msg'=> 'Questions Data Fetched Successfully',
+            'status'=>true,
+            'data'=> $questions
+           ]);
+    }
+
+    public function submitAnswer($id, Request $request)
+    {
+        $request->validate([
+            'selected_option_id'=> 'required'
+        ]);
+        $question = LegalAspectQuestion::with('getoptions')->findOrFail($id);
+
+        $selectedOption = $question->getoptions->firstWhere('id', $request->selected_option_id);
+
+        if (!$selectedOption) {
+            return response()->json(['error' => 'Invalid option selected'], 400);
+        }
+        $isCorrect = $selectedOption->is_correct;
+
+        return response()->json([
+            'is_correct' => $isCorrect,
+            'message' => $isCorrect ? 'Correct answer!' : 'Incorrect answer.',
+            'data' => $selectedOption
+        ]);
+
     }
 }
