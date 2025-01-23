@@ -90,6 +90,7 @@ class CultureOverviewController extends Controller
     public function show($quizId)
     {
         try{
+            dd($quizID);
             $overview = CultureOverview::with('labels')->findOrFail($quizId);
             $quizID = $overview->culture_quiz_id;        
             // Check if the overview exists

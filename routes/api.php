@@ -62,6 +62,10 @@ Route::middleware(['api_auth'])->group(function(){
             Route::get('/faqs', [QuebecLegalAspectController::class, 'faqs']);
             Route::get('/useful-links', [QuebecLegalAspectController::class, 'usefulLinks']);
             Route::get('/legal-aids', [QuebecLegalAspectController::class, 'legalAids']);
+            Route::get('/quiz', [QuebecLegalAspectController::class, 'quiz']);
+            Route::get('/questions/{id}', [QuebecLegalAspectController::class, 'questions']);
+            Route::post('/submit/answer/{id}',[QuebecLegalAspectController::class,'submitAnswer']);
+
         });
          ///Employee statistics///
         Route::prefix('employee')->group(function(){

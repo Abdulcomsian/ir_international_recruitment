@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\LegalAspectQuizOverview;
+use App\Models\LegalAspectQuestion;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class LegalAspectQuizOverviewDataTable extends DataTable
+class LegalAspectQuestionDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,7 +23,7 @@ class LegalAspectQuizOverviewDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
         ->addColumn('action', function($row) {
-            return view('quebec.legal-aspects.quiz.overview.action', ['row' => $row]);
+            return view('quebec.legal-aspects.quiz.question.action', ['row' => $row]);
         })
         ->addColumn('featured_image',function($raw){
             $imagePath = asset($raw->featured_image);
@@ -37,8 +37,9 @@ class LegalAspectQuizOverviewDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(LegalAspectQuizOverview $model): QueryBuilder
+    public function query(LegalAspectQuestion $model): QueryBuilder
     {
+        // return $model->newQuery();
         return $model->newQuery()->where('legal_aspect_quiz_categories_id', $this->overview);
 
     }
@@ -49,7 +50,7 @@ class LegalAspectQuizOverviewDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('legalaspectquizoverview-table')
+                    ->setTableId('legalaspectquestion-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -71,21 +72,23 @@ class LegalAspectQuizOverviewDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
+            Column::make('id')
+            ->exportable(false)
+                  ->printable(false)
+                  ->width(20)
+                  ->addClass('text-center'),
             Column::computed('featured_image')
             ->title('Image')
             ->orderable(false)
             ->searchable(false)
             ->width(100)
             ->addClass('text-center'),
-            Column::make('title_question'),
-            Column::make('description'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('question_text'),
+            Column::make('question_type'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(160)
                   ->addClass('text-center'),
         ];
     }
@@ -95,6 +98,6 @@ class LegalAspectQuizOverviewDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'LegalAspectQuizOverview_' . date('YmdHis');
+        return 'LegalAspectQuestion_' . date('YmdHis');
     }
 }

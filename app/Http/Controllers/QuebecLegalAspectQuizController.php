@@ -34,6 +34,20 @@ class QuebecLegalAspectQuizController extends Controller
         }
     }
 
+    public function show404($id)
+    {
+        try {
+            dd($id);
+            $quebecLegalAspect = LegalAspectQuizCategory::where('quebec_legal_aspect_id', '$id')->first();
+            dd($quebecLegalAspect);
+            return view('quebec.legal-aspects.quiz.show',compact('quebecLegalAspect'));
+
+        } catch (\Exception $e) {
+            return redirect()->route('quebec.legal-aspects.quiz.index',$id)->with('error','Quebec Legal Aspect Quiz Link not found');
+        }
+
+    }
+
     public function store(StoreRequest $request, $id)
     {
         try {
@@ -67,6 +81,18 @@ class QuebecLegalAspectQuizController extends Controller
             // dd($quebecLegalAspectQ   uiz);
 
             return view('quebec.legal-aspects.quiz.edit', compact('quebecLegalAspectQuiz'));
+
+        } catch (\Exception $e) {
+            return redirect()->route('quebec.legal-aspects.quiz.index',$id)->with('error', 'Quiz not found');
+        }
+
+    }
+
+    public function show($id, $quebecLegalAspectQuizId)
+    {
+        try {
+            $quebecLegalAspect = LegalAspectQuizCategory::with('quebecLegalAspect')->findOrFail($quebecLegalAspectQuizId);
+            return view('quebec.legal-aspects.quiz.show', compact('quebecLegalAspect'));
 
         } catch (\Exception $e) {
             return redirect()->route('quebec.legal-aspects.quiz.index',$id)->with('error', 'Quiz not found');
