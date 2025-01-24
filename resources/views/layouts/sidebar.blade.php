@@ -38,6 +38,14 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('cities.index') || request()->is('cities/*') || request()->is('cities.edit/*') ? 'active' : '' }}" href="{{route('cities.index')}}">
+                        <i class="las la-cog"></i> <span>Cities
+                        <!-- <a href="{{ route('cities.index') }}" class="btn btn-info float-right">Cities</a>  -->
+
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
                     <i class="las la-file-alt"></i> <span>Quebec Informations
                         </span>
