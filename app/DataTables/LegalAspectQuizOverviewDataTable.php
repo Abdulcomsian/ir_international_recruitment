@@ -80,12 +80,10 @@ class LegalAspectQuizOverviewDataTable extends DataTable
             ->addClass('text-center'),
             Column::make('title_question'),
             Column::make('description'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
-                  ->width(60)
+                  ->width(160)
                   ->addClass('text-center'),
         ];
     }
