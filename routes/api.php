@@ -65,6 +65,7 @@ Route::middleware(['api_auth'])->group(function(){
             Route::get('/quiz', [QuebecLegalAspectController::class, 'quiz']);
             Route::get('/questions/{id}', [QuebecLegalAspectController::class, 'questions']);
             Route::post('/submit/answer/{id}',[QuebecLegalAspectController::class,'submitAnswer']);
+            Route::post('/store/result/{id}',[QuebecLegalAspectController::class,'storeResult']);
 
         });
          ///Employee statistics///
@@ -103,7 +104,7 @@ Route::middleware(['api_auth'])->group(function(){
             Route::get('/details/{id}',[CultureQuizController::class,'getQuizDetails']);
             Route::get('/questions/{id}',[CultureQuizController::class,'getQuestions']);
             Route::post('/submit/answer/{id}',[CultureQuizController::class,'submitAnswer']);
-
+            Route::post('/store/result/{id}',[CultureQuizController::class,'storeResult']);
 
         });
 
