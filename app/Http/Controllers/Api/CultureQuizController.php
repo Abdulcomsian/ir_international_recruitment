@@ -146,27 +146,35 @@ class CultureQuizController extends Controller
 
     public function storeResult(Request $request, $id)
     {
-        $culture = CultureQuiz::find($id);
-        if(!$culture)
-        {
+        try{
+            $culture = CultureQuiz::find($id);
+            if(!$culture)
+            {
+                return response()->json([
+                    'message' => 'Quiz Culture Not Found!',
+                ]);
+    
+            }
+            $user = Auth::user()->id;
+            $result =new CultureQuizResult;
+            $result->user_id = $user;
+            $result->culture_quiz_id = $id;
+            $result->total_questions = $request->total_questions;
+            $result->correct_answers = $request->correct_answers;
+            $result->save();
+    
             return response()->json([
-                'message' => 'Quiz Culture Not Found!',
+                'message' => 'Quiz Result Submitted Successully!',
+                'data' => $result
             ]);
-
+    
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Issue Occured!',
+                'error' => $e->getMessage()
+            ]);
         }
-        $user = Auth::user()->id;
-        $result =new CultureQuizResult;
-        $result->user_id = $user;
-        $result->culture_quiz_id = $id;
-        $result->total_questions = $request->total_questions;
-        $result->correct_answers = $request->correct_answers;
-        $result->save();
-
-        return response()->json([
-            'message' => 'Quiz Result Submitted Successully!',
-            'data' => $result
-        ]);
-
+        
         
     }
 
