@@ -5,7 +5,8 @@
         <div class="card">
             <div class="card-header">Quebec Legal Aids
             <a href="{{ route('quebec.legal-aspects.legal-aids.create', $quebecLegalAspect->id) }}" class="btn btn-primary float-right">Create New Legal Aid</a>
-            <a href="{{ route('cities.index') }}" class="btn btn-info float-right">Cities</a>
+            <!-- <a href="{{ route('cities.index') }}" class="btn btn-info float-right">Cities</a>  -->
+            <!-- need to exclude city from it -->
 
             </div>
             <div class="card-body">
