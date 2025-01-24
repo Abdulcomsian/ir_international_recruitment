@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\LegalAspectQuestion;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\LegalAspectQuizResult;
 use App\Models\LegalAspectQuizCategory;
 use App\Models\{QuebecLegalAspect, QuebecLegalAspectFaq, QuebecLegalAspectNavigation, QuebecLegalAspectUsefulLink, QuebecLegalAspectAid};
 use App\Http\Resources\{QuebecLegalAspectResource, QuebecLegalAspectNavigationResource, QuebecLegalAspectFaqResource, QuebecLegalAspectUsefulLinkResource, QuebecLegalAspectAidResource};
@@ -137,5 +139,39 @@ class QuebecLegalAspectController extends Controller
             'data' => $selectedOption
         ]);
 
+    }
+
+    public function storeResult(Request $request, $id)
+    {
+        try{
+            $culture = LegalAspectQuizCategory::find($id);
+            if(!$culture)
+            {
+                return response()->json([
+                    'message' => 'Quiz Culture Not Found!',
+                ]);
+    
+            }
+            $user = Auth::user()->id;
+            $result =new LegalAspectQuizResult;
+            $result->user_id = $user;
+            $result->legal_aspect_quiz_categories_id = $id;
+            $result->total_questions = $request->total_questions;
+            $result->correct_answers = $request->correct_answers;
+            $result->save();
+    
+            return response()->json([
+                'message' => 'Quiz Result Submitted Successully!',
+                'data' => $result
+            ]);
+    
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Issue Occured!',
+                'error'=> $e->getMessage(),
+            ]);
+        }
+        
+        
     }
 }

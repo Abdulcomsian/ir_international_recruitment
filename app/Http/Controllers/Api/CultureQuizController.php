@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\CultureQuiz;
 use App\Models\Question;
+use App\Models\CultureQuiz;
+use Illuminate\Http\Request;
+use App\Models\CultureQuizResult;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CultureQuizResource;
 
 class CultureQuizController extends Controller
@@ -140,6 +142,40 @@ class CultureQuizController extends Controller
             'results' => $results,
             'message' => 'Answers submitted successfully!',
         ]);
+    }
+
+    public function storeResult(Request $request, $id)
+    {
+        try{
+            $culture = CultureQuiz::find($id);
+            if(!$culture)
+            {
+                return response()->json([
+                    'message' => 'Quiz Culture Not Found!',
+                ]);
+    
+            }
+            $user = Auth::user()->id;
+            $result =new CultureQuizResult;
+            $result->user_id = $user;
+            $result->culture_quiz_id = $id;
+            $result->total_questions = $request->total_questions;
+            $result->correct_answers = $request->correct_answers;
+            $result->save();
+    
+            return response()->json([
+                'message' => 'Quiz Result Submitted Successully!',
+                'data' => $result
+            ]);
+    
+        }catch(\Exception $e){
+            return response()->json([
+                'message' => 'Issue Occured!',
+                'error' => $e->getMessage()
+            ]);
+        }
+        
+        
     }
 
 }
