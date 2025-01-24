@@ -30,22 +30,8 @@ class QuebecLegalAspectQuizController extends Controller
             return view('quebec.legal-aspects.quiz.create',compact('quebecLegalAspect'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.legal-aspects.quiz.index',$id)->with('error','Quebec Legal Aspect Quiz Link not found');
+            return redirect()->route('quebec.legal-aspects.index',$id)->with('error','Quebec Legal Aspect Quiz Link not found');
         }
-    }
-
-    public function show404($id)
-    {
-        try {
-            dd($id);
-            $quebecLegalAspect = LegalAspectQuizCategory::where('quebec_legal_aspect_id', '$id')->first();
-            dd($quebecLegalAspect);
-            return view('quebec.legal-aspects.quiz.show',compact('quebecLegalAspect'));
-
-        } catch (\Exception $e) {
-            return redirect()->route('quebec.legal-aspects.quiz.index',$id)->with('error','Quebec Legal Aspect Quiz Link not found');
-        }
-
     }
 
     public function store(StoreRequest $request, $id)
@@ -91,11 +77,12 @@ class QuebecLegalAspectQuizController extends Controller
     public function show($id, $quebecLegalAspectQuizId)
     {
         try {
+            // dd([$id,$quebecLegalAspectQuizId]);
             $quebecLegalAspect = LegalAspectQuizCategory::with('quebecLegalAspect')->findOrFail($quebecLegalAspectQuizId);
-            return view('quebec.legal-aspects.quiz.show', compact('quebecLegalAspect'));
+            return view('quebec.legal-aspects.quiz.show', compact('quebecLegalAspect','id','quebecLegalAspectQuizId'));
 
         } catch (\Exception $e) {
-            return redirect()->route('quebec.legal-aspects.quiz.index',$id)->with('error', 'Quiz not found');
+            return redirect()->route('quebec.legal-aspects.index',$id)->with('error', 'Quiz not found');
         }
 
     }
