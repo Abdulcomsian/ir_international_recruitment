@@ -24,6 +24,9 @@
         <div class="mb-4">
             <h3>Description</h3>
             <p>{{ $quiz->description }}</p>
+            <p>{{ $id }}</p>
+            <p>{{ $overview }}</p>
+
         </div>
 
         <!-- Labels and Label Images -->
@@ -45,6 +48,7 @@
         </div>
 
         <!-- Back Button -->
-        <a href="{{ route('quebec.legal-aspects.quiz.overview.index', ['id' => $id, 'overview' => $quiz->id]) }}" class="btn btn-primary">Back to Overview List</a>
+        <a href="{{ route('quebec.legal-aspects.quiz.overview.index', ['id' => $id, 'overview' => $overview]) }}" class="btn btn-primary">Back to Overview List</a>
+
         </div>
 @endsection
