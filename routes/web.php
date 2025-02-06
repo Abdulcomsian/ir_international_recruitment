@@ -40,8 +40,9 @@ use App\Http\Controllers\{
     QuebecLegalAspectQuizController,
     LegalAspectQuizOverviewController,
     LegalAspectQuestionController,
+    CityServicesController,
 };
-
+use App\Models\CityService;
 
 Auth::routes();
 
@@ -117,6 +118,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     // city guide //transportations
     Route::prefix('city-guide')->name('city-guide.')->group(function () {
         Route::resource('transportations',TransportationController::class);
+        Route::resource('services',CityServicesController::class);
+
     });
     // activities
     Route::prefix('activities')->name('activities.')->group(function () {

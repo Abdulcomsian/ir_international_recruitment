@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="container">
-
-        <h1>View Quebec Legal Aspect Category</h1>
+        <h1>View Quebec Legal Aspect Quiz Category</h1>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -17,6 +16,8 @@
                         <label for="title">Title</label>
                         <div>
                             {{ $quebecLegalAspect->title }}
+
+
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -28,6 +29,7 @@
                 </div>
             </div>
         </div>
-        <a href="{{ route('quebec.legal-aspects.index') }}" class="btn btn-dark">Quebec Legal Aspects</a>
+        <a href="{{ route('quebec.legal-aspects.quiz.index', ['id' => $id]) }}" class="btn btn-dark">Back to Quebec Legal Aspects Quizzes</a>
+
     </div>
 @endsection

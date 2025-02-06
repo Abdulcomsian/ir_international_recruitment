@@ -3,7 +3,6 @@
 @section('content')
 <div class="container">
     <h2>Show Legal Aspect Quiz Question</h2>
-
     <div class="card mb-4">
         <div class="card-body">
             <label for="Image">Featured Image</label><br />

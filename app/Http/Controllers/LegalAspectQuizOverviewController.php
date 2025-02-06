@@ -176,10 +176,11 @@ class LegalAspectQuizOverviewController extends Controller
     public function show($id, $overview)
     {
         try {
+            // dd([$id,$overview]);
             $quiz = LegalAspectQuizOverview::with('getoverviewLabels')->findOrFail($overview);
 
             // Pass the $id and $quiz to the view
-            return view('quebec.legal-aspects.quiz.overview.show', compact('quiz', 'id'));
+            return view('quebec.legal-aspects.quiz.overview.show', compact('quiz', 'id','overview'));
         } catch (\Exception $e) {
             return back()->with('error', 'An error occurred while fetching the quiz overview: ' . $e->getMessage());
         }

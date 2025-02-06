@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\{
     WithMyNameController,
     UniversityController,
     CultureQuizController,
+    CityGuideServicesController
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -78,6 +79,10 @@ Route::middleware(['api_auth'])->group(function(){
 
          // Tranportations
         Route::get('city-guide/transportations',[TransportationController::class, 'index']);
+
+        //city guide services
+        Route::get('city-guide/services',[CityGuideServicesController::class, 'getServices']);
+
         // Social services
         Route::get('social-service/legal-aids',[SocialServiceLegalAidController::class, 'index']);
 
