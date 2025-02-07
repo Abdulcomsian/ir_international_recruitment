@@ -41,6 +41,7 @@ use App\Http\Controllers\{
     LegalAspectQuizOverviewController,
     LegalAspectQuestionController,
     CityServicesController,
+    UploadCityVideoController,
 };
 use App\Models\CityService;
 
@@ -79,6 +80,8 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
 
     //cities
     Route::resource('cities',CityController::class);
+    Route::resource('cities.upload-cityVideo',UploadCityVideoController::class);
+
     // qubec foods
     Route::resource('quebec/foods',QuebecFoodController::class,['as' => 'quebec']);
     // qubec climates
