@@ -12,9 +12,12 @@ class TransportationController extends Controller
 {
     public function index(Request $request)
     {
+
         try {
 
             $cityId = $request->city ?? '';
+
+            dd($cityId);
 
             $transportations = Transportation::when(!empty($cityId), function ($query) use ($cityId) {
                 $query->where('city_id', $cityId);
