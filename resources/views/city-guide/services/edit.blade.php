@@ -11,6 +11,12 @@
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $service->title) }}" required>
             </div>
+
+            <div class="form-group">
+                <label for="keyword">Keyword</label>
+                <input type="text" class="form-control" id="keyword" name="keyword" value="{{ old('keyword', $service->keyword) }}" required>
+            </div>
+
             <div class="form-group">
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category" required>

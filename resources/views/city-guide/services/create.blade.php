@@ -11,6 +11,11 @@
             </div>
 
             <div class="form-group">
+                <label for="keyword">Keyword</label>
+                <input type="text" class="form-control" id="keyword" name="keyword" required>
+            </div>
+
+            <div class="form-group">
                 <label for="category">Category</label>
                 <select class="form-control" id="category" name="category" required>
                     <option value="">Select Category</option>

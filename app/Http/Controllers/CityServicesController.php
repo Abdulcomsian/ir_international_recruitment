@@ -35,6 +35,7 @@ class CityServicesController extends Controller
         $service = CityService::create([
             'title' => $request->title,
             'category'=> $request->category,
+            'keyword' => $request->keyword,
         ]);
         
         return redirect()->route('city-guide.services.index')->with('success', 'City Services created successfully.');
@@ -53,6 +54,8 @@ class CityServicesController extends Controller
         $service->update([
             'title' => $request->title,
             'category'=> $request->category,
+            'keyword' => $request->keyword,
+
         ]);
 
         return redirect()->route('city-guide.services.index')->with('success', 'Service updated successfully.');
