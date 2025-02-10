@@ -66,6 +66,7 @@ class CityServiceDataTable extends DataTable
             Column::make('id'),
             Column::make('title'),
             Column::make('category'),
+            Column::make('keyword'),
 
             // Column::make('created_at'),
             // Column::make('updated_at'),

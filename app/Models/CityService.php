@@ -8,6 +8,7 @@ class CityService extends Model
 {
     protected $fillable = [
         'title',
-        'category'
+        'category',
+        'keyword',
     ];
 }

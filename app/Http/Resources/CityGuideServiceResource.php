@@ -18,6 +18,7 @@ class CityGuideServiceResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'keyword' => $this->keyword,
             'category' => $this->category,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
