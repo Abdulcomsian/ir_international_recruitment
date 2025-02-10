@@ -24,7 +24,8 @@ use App\Http\Controllers\Api\{
     WithMyNameController,
     UniversityController,
     CultureQuizController,
-    CityGuideServicesController
+    CityGuideServicesController,
+    CityVideoController,
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -47,6 +48,9 @@ Route::middleware(['api_auth'])->group(function(){
 
         // Cities
         Route::get('cities',CityController::class);
+
+        //city videos
+        Route::get('get-city-videos/{id}',[CityVideoController::class,'getCityVideos']);
         // foods
         Route::get('/foods', [QuebecFoodController::class, 'index']);
         // Group routes related to "climates"
