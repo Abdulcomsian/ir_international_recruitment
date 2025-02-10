@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('city_id')->constrained('cities');
             $table->string('video_url')->nullable();
             $table->enum('is_active',['yes','no'])->default('no');
+            $table->string('featured_image')->nullable();
             $table->timestamps();
         });
     }

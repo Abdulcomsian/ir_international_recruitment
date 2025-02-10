@@ -80,7 +80,13 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
 
     //cities
     Route::resource('cities',CityController::class);
-    Route::resource('cities.upload-cityVideo',UploadCityVideoController::class);
+    //upload city videos
+    // Route::resource('cities.upload-cityVideo',UploadCityVideoController::class);
+    Route::resource('cities.upload-cityVideo', UploadCityVideoController::class)
+    ->parameters([
+        'upload-cityVideo' => 'uploadCityVideo'
+    ]);
+    
 
     // qubec foods
     Route::resource('quebec/foods',QuebecFoodController::class,['as' => 'quebec']);

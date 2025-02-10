@@ -23,6 +23,10 @@ class UploadCityVideoDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'cities.videos.action')
+            ->addColumn('featured_image',function($row) {
+                return '<img src="' . asset($row->featured_image) . '" width="50" height="50" />';
+            })
+            ->rawColumns(['featured_image','action'])
             ->setRowId('id');
     }
 
@@ -31,7 +35,9 @@ class UploadCityVideoDataTable extends DataTable
      */
     public function query(UploadCityVideo $model): QueryBuilder
     {
-        return $model->newQuery();
+        // return $model->newQuery();
+        return $model->newQuery()->where('city_id', $this->Id);
+
     }
 
     /**
@@ -64,10 +70,11 @@ class UploadCityVideoDataTable extends DataTable
         return [
             
             Column::make('id'),
+            Column::make('featured_image'),
             Column::make('video_url'),
             Column::make('is_active'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            // Column::make('created_at'),
+            // Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

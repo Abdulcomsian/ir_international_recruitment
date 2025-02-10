@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Upload City Video
-            <a href="{{ route('cities.upload-cityVideo.create',$id) }}" class="btn btn-primary float-right">Create New City Video</a>
+            <div class="card-header">Upload City Videos
+            <a href="{{ route('cities.upload-cityVideo.create',$id) }}" class="btn btn-primary float-right">Create City Video</a>
 
             </div>
             <div class="card-body">

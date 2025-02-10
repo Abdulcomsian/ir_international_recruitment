@@ -9,6 +9,7 @@ class UploadCityVideo extends Model
     protected $fillable = [
         'city_id',
         'video_url',
-        'is_Active'
+        'is_Active',
+        'featured_image',
     ];
 }

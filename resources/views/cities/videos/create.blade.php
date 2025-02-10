@@ -19,6 +19,11 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <label for="image">Featured Image</label>
+                <input type="file" class="form-control" name="featured_image" value="" id="featured_image" required>
+            </div>
+
             <button type="submit" class="btn btn-success">Create City Video</button>
         </form>
     </div>
