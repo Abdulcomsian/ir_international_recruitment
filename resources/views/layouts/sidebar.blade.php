@@ -32,6 +32,12 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link {{ request()->is('toDoList.index') || request()->is('toDoList./*') ? 'active' : '' }}" href="{{route('toDoList.index')}}">
+                        <i class="las la-tasks"></i> <span>ToDo List
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link {{ request()->is('fetch-services') || request()->is('fetch-services/*') || request()->is('edit-service/*') ? 'active' : '' }}" href="{{route('fetch-services')}}">
                         <i class="las la-cog"></i> <span>Services
                         </span>
