@@ -26,6 +26,7 @@ use App\Http\Controllers\Api\{
     CultureQuizController,
     CityGuideServicesController,
     CityVideoController,
+    ToDoListController,
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -44,6 +45,11 @@ Route::middleware(['api_auth'])->group(function(){
 
     // Quebec
     Route::prefix('quebec')->group(function (){
+        //HOME todolist
+        Route::get('getToDoList',[ToDoListController::class,'getToDoList']);
+        Route::get('getCompletedToDoList',[ToDoListController::class,'CompletedToDoList']);
+
+
         Route::get('get-services',[ServiceController::class,'getService']);
 
         // Cities

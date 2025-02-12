@@ -42,6 +42,7 @@ use App\Http\Controllers\{
     LegalAspectQuestionController,
     CityServicesController,
     UploadCityVideoController,
+    ToDoListController
 };
 use App\Models\CityService;
 
@@ -59,7 +60,9 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::post('get-history-content', [HistoryController::class, 'getHistoryContent'])->name('get.history.content');
     Route::get('edit-history/{id}', [HistoryController::class, 'editHistory'])->name('edit.history');
 
-
+    /////////////////Home To-Do-List/////////////////
+    Route::resource('toDoList',ToDoListController::class);
+    
     //////////Service ///////////////////////
     Route::get('fetch-services',[ServiceController::class,'fetchService'])->name('fetch-services');
     Route::get('services/create', [ServiceController::class, 'create'])->name('services.create');
