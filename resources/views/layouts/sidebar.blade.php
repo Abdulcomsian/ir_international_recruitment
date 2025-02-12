@@ -52,18 +52,25 @@ if($pageName == "view.history"){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
+                    <a class="nav-link menu-link {{ request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') || request()->is('history-quebec/*') || request()->is('history-quebec') || request()->is('quebec-history-categories/*') || request()->is('quebec-history-categories') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#customization" aria-expanded="{{$aria_expansion}}" aria-controls="customization">
                     <i class="las la-file-alt"></i> <span>Quebec Informations
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('culture/quiz') || request()->is('culture/quiz/*') || request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') ? 'show' : '' }}" id="customization" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('culture/quiz') || request()->is('culture/quiz/*') || request()->is('quebec/history/*') || request()->is('quebec/historical/events/*') || request()->is('quebec/foods') || request()->is('quebec/foods/*') || request()->is('quebec/climates') || request()->is('quebec/climates/*') || request()->is('quebec/legal-aspects') || request()->is('quebec/legal-aspects/*') || request()->is('history-quebec/*') || request()->is('history-quebec') || request()->is('quebec-history-categories/*') || request()->is('quebec-history-categories') ? 'show' : '' }}" id="customization" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('culture.quiz.index')}}" class="nav-link {{ request()->is('culture/quiz') || request()->is('culture/quiz/*') ? 'active' : '' }}">Quebec Culture Quiz</a>
                             </li>
-                            <!-- <li class="nav-item">
+                            <li class="nav-item">
+                                <a href="{{route('history-quebec.index')}}" class="nav-link {{ request()->is('history-quebec/*') ? 'active' : '' }}">History of Quebec</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('quebec-history-categories.index')}}" class="nav-link {{ request()->is('quebec-history-categories/*') ? 'active' : '' }}">Quebec History Categories</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>
-                            </li> -->
+                            </li>
+                           
                             <li class="nav-item">
                                 <a href="{{ route('quebec.foods.index') }}" class="nav-link {{ request()->is('quebec/foods') || request()->is('quebec/foods/*') ? 'active' : '' }}">Quebec Food</a>
                             </li>

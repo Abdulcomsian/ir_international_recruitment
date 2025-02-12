@@ -41,8 +41,10 @@ use App\Http\Controllers\{
     LegalAspectQuizOverviewController,
     LegalAspectQuestionController,
     CityServicesController,
+    HistoryQuebecController,
     UploadCityVideoController,
-    ToDoListController
+    ToDoListController,
+    QuebecHistoryCategoriesController,
 };
 use App\Models\CityService;
 
@@ -62,7 +64,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
 
     /////////////////Home To-Do-List/////////////////
     Route::resource('toDoList',ToDoListController::class);
-    
+
     //////////Service ///////////////////////
     Route::get('fetch-services',[ServiceController::class,'fetchService'])->name('fetch-services');
     Route::get('services/create', [ServiceController::class, 'create'])->name('services.create');
@@ -72,8 +74,12 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::DELETE('delete-service/{id}',[ServiceController::class,'deleteService'])->name('services.destroy');
     // Route::resource('services', ServiceController::class);
 
+    // quebec History Routes
+    Route::resource('quebec-history-categories',QuebecHistoryCategoriesController::class);
+    Route::resource('history-quebec',HistoryQuebecController::class);
+
     ///////////////Quebec Information////////////////////////////////////
-                ////Quebec History//////
+                ////this is quebec historical events routes Quebec History//////
     Route::get('quebec/history/index',[QuebecHistoryController::class,'index'])->name('quebec.history.index');
     Route::get('quebec/history/create',[QuebecHistoryController::class,'create'])->name('quebec.history.create');
     Route::post('quebec/history/store',[QuebecHistoryController::class,'store'])->name('quebec.history.store');
