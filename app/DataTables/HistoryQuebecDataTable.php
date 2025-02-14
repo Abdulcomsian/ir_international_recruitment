@@ -23,6 +23,11 @@ class HistoryQuebecDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'quebec.history.action')
+            ->editColumn('featured_image',function($row){
+                $imagePath = asset($row->featured_image);
+                return '<img src="' . $imagePath . '" width="50" height="50" alt="Image">';
+            })
+            ->rawColumns(['action','featured_image'])
             ->setRowId('id');
     }
 
@@ -65,6 +70,8 @@ class HistoryQuebecDataTable extends DataTable
             
             Column::make('id'),
             Column::make('featured_image'),
+
+            Column::make('title'),
             // Column::make('blog'),
             Column::make('created_at'),
             Column::make('updated_at'),

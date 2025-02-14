@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Quebec History
+            <div class="card-header">Quebec Information- Quebec History
             <a href="{{ route('history-quebec.create') }}" class="btn btn-primary float-right">Create Quebec History</a>
 
             </div>

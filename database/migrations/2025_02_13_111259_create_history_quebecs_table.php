@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('history_quebecs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->constrained('quebec_history_categories')->onDelete('cascade');
             $table->string('featured_image')->nullable();
+            $table->string('title')->nullable();
             $table->longText('blog')->nullable();
             $table->timestamps();
         });
