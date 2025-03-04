@@ -23,6 +23,11 @@
             </div>
 
             <div class="form-group">
+                <label for="label">Video Url</label>
+                <input type="text" class="form-control" id="label" name="video_url" value="{{ old('video_url', $state->video_url) }}" required>
+            </div>
+
+            <div class="form-group">
                 <label for="image"> Image</label>
                 <input type="file" class="form-control" id="image" name="media_url">
                 <small class="form-text text-muted">Leave blank if you don't want to change the image.</small>

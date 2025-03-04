@@ -21,8 +21,13 @@
             </div>
 
             <div class="form-group">
+                <label for="video_url">Video Url</label>
+                <input type="text" class="form-control" id="video_url" name="video_url" >
+            </div>
+
+            <div class="form-group">
                 <label for="title">Logo</label>
-                <input type="file" class="form-control" id="image" name="media_url" required>
+                <input type="file" class="form-control" id="image" name="media_url" >
             </div>
             <button type="submit" class="btn btn-success">Create Employee Statistics</button>
         </form>
