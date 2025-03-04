@@ -13,7 +13,6 @@ class UploadCityVideoController extends Controller
     use RemoveFileTrait;
     public function index(UploadCityVideoDataTable $dataTable, City $city)
     {
-        // dd($city);
         $id = $city->id;
         $dataTable->Id = $id; 
         // dd($id);

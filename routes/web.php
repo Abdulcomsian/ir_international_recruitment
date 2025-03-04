@@ -78,6 +78,7 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
     Route::resource('quebec-history-categories',QuebecHistoryCategoriesController::class);
     Route::resource('history-quebec',HistoryQuebecController::class);
 
+    
     Route::resource('quebec-history-categories.history-quebec',HistoryQuebecController::class);
 
     ///////////////Quebec Information////////////////////////////////////

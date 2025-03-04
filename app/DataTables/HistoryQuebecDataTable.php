@@ -36,8 +36,11 @@ class HistoryQuebecDataTable extends DataTable
      */
     public function query(HistoryQuebec $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->where('category_id', $this->Id);
+
+        // return $model->newQuery();
     }
+
 
     /**
      * Optional method if you want to use the html builder.

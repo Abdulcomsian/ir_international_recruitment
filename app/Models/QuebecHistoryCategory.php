@@ -10,4 +10,9 @@ class QuebecHistoryCategory extends Model
         'title',
         'featured_image'
     ];
+
+    public function sections()
+    {
+        return $this->hasMany(Section::class,'history_quebec_id');
+    }
 }

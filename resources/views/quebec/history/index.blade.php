@@ -3,8 +3,9 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <div class="card-header">Quebec Information- Quebec History
-            <a href="{{ route('history-quebec.create') }}" class="btn btn-primary float-right">Create Quebec History</a>
+            <div class="card-header">Quebec Information- Quebec History1
+            <a href="{{ route('quebec-history-categories.history-quebec.create', ['quebec_history_category' => $id]) }}" class="btn btn-primary float-right">Create Quebec History</a>
+
 
             </div>
             <div class="card-body">

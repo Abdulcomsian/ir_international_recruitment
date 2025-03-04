@@ -4,7 +4,9 @@
 <div class="container">
     <h2>Quebec Information- Create Quebec History</h2>
 
-    <form action="{{ route('history-quebec.store') }}" method="POST" enctype="multipart/form-data">
+    <!-- <form action="{{ route('history-quebec.store',$id) }}" method="POST" enctype="multipart/form-data"> -->
+    <form action="{{ route('quebec-history-categories.history-quebec.store', ['quebec_history_category' => $id]) }}" method="POST" enctype="multipart/form-data">
+
         @csrf
 
         <!-- Featured Image -->
@@ -18,7 +20,7 @@
 
         <!-- Category Title -->
         <div class="mb-3">
-            <label for="title" class="form-label">Category Title</label>
+            <label for="title" class="form-label">History Title</label>
             <input type="text" class="form-control" id="title" name="title" required>
         </div>
 

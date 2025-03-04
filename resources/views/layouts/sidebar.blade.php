@@ -65,7 +65,7 @@ if($pageName == "view.history"){
                                 <a href="{{route('history-quebec.index')}}" class="nav-link {{ request()->is('history-quebec/*') ? 'active' : '' }}">History of Quebec</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('quebec-history-categories.index')}}" class="nav-link {{ request()->is('quebec-history-categories/*') ? 'active' : '' }}">Quebec History Categories</a>
+                                <a href="{{route('quebec-history-categories.index')}}" class="nav-link {{request()->is('quebec-history-categories') || request()->is('quebec-history-categories/*') ? 'active' : '' }}">Quebec History Categories</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('quebec.historical.event.index')}}" class="nav-link {{ request()->is('quebec/historical/events/*') ? 'active' : '' }}">Historical Events of Quebec</a>

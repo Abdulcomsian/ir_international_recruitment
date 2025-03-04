@@ -7,121 +7,180 @@ use App\Models\Section;
 use Illuminate\Http\Request;
 use App\Models\HistoryQuebec;
 use App\Traits\RemoveFileTrait;
+use App\Models\QuebecHistoryCategory;
 use App\DataTables\HistoryQuebecDataTable;
 
 class HistoryQuebecController extends Controller
 {
     use RemoveFileTrait;
-    public function index(HistoryQuebecDataTable $dataTable)
+    public function index(HistoryQuebecDataTable $dataTable, QuebecHistoryCategory $quebecHistoryCategory)
     {
-        return $dataTable->render('quebec.history.index');
+        try{
+            $id = $quebecHistoryCategory->id;
+            // dd($id);
+            $dataTable->Id = $id;
+            return $dataTable->render('quebec.history.index',compact('id'));
+
+        }catch(\Exception $e){
+
+        }
+        
     }
 
-    public function create()
+    public function create($id)
     {
-        return view('quebec.history.create');
-    }
+        try{
+            return view('quebec.history.create',compact('id'));
 
-    public function store(Request $request)
-    {
-        // dd($request->all());
-        $request->validate([
-            'title' => 'required|string',
-            'featured_image'=>'nullable|image|mimes:jpg,jpeg,png,svg,gif',
-            'sections' => 'required|array',
-            'sections.*' => 'required|string',
-
-        ]);
-        $imageUrl = null;
-
-        if($request->hasFile('featured_image'))
+        }catch(\Exception $e)
         {
-            $image = $request->file('featured_image');
-            $imageName= time(). '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path("assets/historyQuebecImages");
-
-            $image->move($imagePath, $imageName);
-            $imageUrl = "assets/historyQuebecImages/".$imageName;
+            return redirect()->route('quebec-history-categories.history-quebec.index', $id)
+            ->with('success', 'Quebec History created successfully!');
         }
+    }
 
-        $category = HistoryQuebec::create([
-            'title' => $request->title,
-            'featured_image' => $imageUrl,
-        ]);
-
-        // Check if category ID exists before inserting sections
-        if (!$category || !$category->id) {
-            return back()->with('error', 'Category creation failed.');
-        }
-        // Log::info('Category Created ID: ' . $category->id);
-
-
-        foreach ($request->sections as $section) {
-            Section::create([
-                'history_quebec_id' => $category->id,
-                'content' => $section,
+    public function store(Request $request, QuebecHistoryCategory $quebecHistoryCategory)
+    {
+        try{
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'featured_image' => 'required|image|mimes:jpg,jpeg,png',
+                'sections' => 'array',  // Validate sections if necessary
             ]);
-        }
-     
-
-        return redirect()->route('history-quebec.index')->with('success', 'Category added successfully!');
-    }
-
-    public function edit($id)
-    {
-        $category = HistoryQuebec::find($id);
-        return view('quebec.history.edit',compact('category'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required|string',
-            'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif',
-            'sections' => 'required|array',
-            'sections.*' => 'required|string',
-        ]);
-
-        $category = HistoryQuebec::findOrFail($id);
-
-        // Handle image upload
-        if ($request->hasFile('featured_image')) {
-            // Delete old image if exists
-            if ($category->featured_image && file_exists(public_path($category->featured_image))) {
-                unlink(public_path($category->featured_image));
+    
+            $imageUrl = null;
+    
+            if($request->hasFile('featured_image'))
+            {
+                $image = $request->file('featured_image');
+                $imageName= time(). '.' . $image->getClientOriginalExtension();
+                $imagePath = public_path("assets/historyQuebecImages");
+    
+                $image->move($imagePath, $imageName);
+                $imageUrl = "assets/historyQuebecImages/".$imageName;
             }
+    
+            // Create the history entry and associate it with the category
+            $category = HistoryQuebec::create([
+                'title' => $request->input('title'),
+                'featured_image' => $imageUrl,
+                'category_id' => $quebecHistoryCategory->id, // Assign the category ID here
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+    
+            if (!$category || !$category->id) {
+                return back()->with('error', 'Category creation failed.');
+            }
+    
+            foreach ($request->sections as $section) {
+                Section::create([
+                    'history_quebec_id' => $category->id,
+                    'content' => $section,
+                ]);
+            }
+    
+            return redirect()->route('quebec-history-categories.history-quebec.index', $quebecHistoryCategory->id)
+                            ->with('success', 'Quebec History created successfully!');
 
-            $image = $request->file('featured_image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $imagePath = public_path("assets/historyQuebecImages");
-
-            $image->move($imagePath, $imageName);
-            $category->featured_image = "assets/historyQuebecImages/" . $imageName;
+        }catch(\Exception $e){
+            return redirect()->route('quebec-history-categories.history-quebec.index', $quebecHistoryCategory->id)
+            ->with('success', 'Quebec History created successfully!');
         }
+        
+    }
 
-        // Update category
-        $category->title = $request->title;
-        $category->save();
+    public function show(QuebecHistoryCategory $quebecHistoryCategory, HistoryQuebec $historyQuebec)
+    {
+        try{
+            return view('quebec.history.show',compact('historyQuebec','quebecHistoryCategory'));
+        }catch(\Exception $exception)
+        {
+            return redirect()->route('quebec-history-categories.history-quebec.index', $quebecHistoryCategory->id)
+            ->with('success', 'Quebec History created successfully!');
+        }
+    }
 
-        // Remove existing sections and insert new ones
-        $category->sections()->delete();
+    public function edit(QuebecHistoryCategory $quebecHistoryCategory, HistoryQuebec $historyQuebec)
+    {
+        try{
+            $historyQuebecId= $historyQuebec->id;
+            $quebecHistoryCategoryId = $quebecHistoryCategory->id;
+            return view('quebec.history.edit',compact('historyQuebec','quebecHistoryCategory'));
+    
+        }catch(\Exception $e){
+            return redirect()->route('quebec-history-categories.history-quebec.index', $quebecHistoryCategory->id)
+            ->with('success', 'Quebec History created successfully!');
+        }
+       
+    }
 
-        foreach ($request->sections as $sectionContent) {
-            Section::create([
-                'history_quebec_id' => $category->id,
-                'content' => $sectionContent,
+    public function update(Request $request,  QuebecHistoryCategory $quebecHistoryCategory, HistoryQuebec $historyQuebec)
+    {
+        try{
+            if ($historyQuebec->category_id !== $quebecHistoryCategory->id) {
+                abort(404, 'This quebec history does not belong to the specified category.');
+            }
+            $validated = $request->validate([
+                'title' => 'required|string',
+                'featured_image' => 'nullable|image|mimes:jpg,jpeg,png,svg,gif',
+                'sections' => 'required|array',
+                'sections.*' => 'required|string',
+            ]);
+    
+            // Handle image upload
+            if ($request->hasFile('featured_image')) {
+                // Delete old image if exists
+                if ($historyQuebec->featured_image && file_exists(public_path($historyQuebec->featured_image))) {
+                    unlink(public_path($historyQuebec->featured_image));
+                }
+    
+                $image = $request->file('featured_image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $imagePath = public_path("assets/historyQuebecImages");
+    
+                $image->move($imagePath, $imageName);
+                $historyQuebec->featured_image = "assets/historyQuebecImages/" . $imageName;
+            }
+    
+            // Update category
+            $historyQuebec->title = $validated['title'];
+            $historyQuebec->save();
+    
+            // Remove existing sections and insert new ones
+            $historyQuebec->sections()->delete();
+    
+            foreach ($request->sections as $sectionContent) {
+                Section::create([
+                    'history_quebec_id' => $historyQuebec->id,
+                    'content' => $sectionContent,
+                ]);
+            }
+    
+            return redirect()->route('quebec-history-categories.history-quebec.index', $quebecHistoryCategory->id)
+                            ->with('success', 'Quebec History created successfully!');
+
+        }catch(\Exception $e){
+            return redirect()->route('quebec-history-categories.history-quebec.index', $quebecHistoryCategory->id)
+            ->with('success', 'Quebec History created successfully!');
+        }
+        
+    }
+
+   
+    public function destroy(QuebecHistoryCategory $quebecHistoryCategory, HistoryQuebec $historyQuebec)
+    {
+        try{
+            $quebec = $historyQuebec->delete();
+            return redirect()->route('quebec-history-categories.history-quebec.index', $quebecHistoryCategory->id)
+            ->with('success', 'Quebec History Deleted Successfully!');
+        }catch(\Exception $e){
+            return response()->json([
+                'msg'=> $e->getMessage()
             ]);
         }
-
-        return redirect()->route('history-quebec.index')->with('success', 'Category updated successfully!');
+        
     }
 
-    public function destroy($id)
-    {
-        $category = HistoryQuebec::find($id);
-        $category->delete();
-        return redirect()->route('history-quebec.index')->with('success', 'Category Deleted successfully!');
-
-    }
 
 }

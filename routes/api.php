@@ -27,6 +27,7 @@ use App\Http\Controllers\Api\{
     CityGuideServicesController,
     CityVideoController,
     ToDoListController,
+    QuebecCategoryHistoryController,
 };
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -49,6 +50,9 @@ Route::middleware(['api_auth'])->group(function(){
         Route::get('getToDoList',[ToDoListController::class,'getToDoList']);
         Route::get('getCompletedToDoList',[ToDoListController::class,'CompletedToDoList']);
 
+        //quebec information - history of quebec Apis
+        Route::get('getQuebecHistoryCategories',[QuebecCategoryHistoryController::class,'getQuebecHistoryCategories']);
+        Route::get('getQuebecHistoryDetails/{id}',[QuebecCategoryHistoryController::class,'getQuebecHistoryDetails']);
 
         Route::get('get-services',[ServiceController::class,'getService']);
 

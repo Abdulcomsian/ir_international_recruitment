@@ -4,22 +4,22 @@
 <div class="container">
 <h2>Quebec Information- Edit Quebec History</h2>
 
-    <form action="{{ route('history-quebec.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('quebec-history-categories.history-quebec.update', [$quebecHistoryCategory->id, $historyQuebec->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="mb-3">
             <label class="form-label">Featured Image</label>
             <input type="file" name="featured_image" class="form-control">
-            @if($category->featured_image)
+            @if($historyQuebec->featured_image)
                 <p>Current Image:</p>
-                <img src="{{ asset($category->featured_image) }}" width="150">
+                <img src="{{ asset($historyQuebec->featured_image) }}" width="150">
             @endif
         </div>
         
         <div class="mb-3">
             <label class="form-label">Title</label>
-            <input type="text" name="title" class="form-control" value="{{ old('title', $category->title) }}" required>
+            <input type="text" name="title" class="form-control" value="{{ old('title', $historyQuebec->title) }}" required>
         </div>
 
         
@@ -27,7 +27,7 @@
         <div class="mb-3">
             <label class="form-label">Sections</label>
             <div id="sections-container">
-                @foreach($category->sections as $section)
+                @foreach($historyQuebec->sections as $section)
                     <div class="section-group">
                         <div class="quill-editor" data-content="{{ $section->content }}"></div>
                         <input type="hidden" name="sections[]" value="{{ $section->content }}">
