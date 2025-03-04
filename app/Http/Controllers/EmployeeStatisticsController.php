@@ -45,6 +45,7 @@ class EmployeeStatisticsController extends Controller
             'state' => 'nullable|string|max:255',
             'label' => 'nullable|string|max:255',
             'media_url' => 'required|image|mimes:jpeg,png,jpg,svg,gif|max:2048', // Adjust the max size as needed
+            'video_url' => 'nullable|string',
         ]);
 
         // Handle the image upload
@@ -64,6 +65,8 @@ class EmployeeStatisticsController extends Controller
         $state->state = $request->state;
         $state->label = $request->label;
         $state->media_url = $imageUrl ?? null;
+        $state->video_url = $request->video_url;
+
         $state->save();
 
         // Optionally redirect if not using JSON response
@@ -82,13 +85,17 @@ class EmployeeStatisticsController extends Controller
             'title' => 'nullable|string|max:255',
             'state' => 'nullable|string|max:255',
             'label' => 'nullable|string|max:255',
-            'media_url' => 'required|image|mimes:jpeg,png,jpg,svg,gif|max:2048', // Adjust the max size as needed
+            'media_url' => 'sometimes|image|mimes:jpeg,png,jpg,svg,gif|max:2048', // Adjust the max size as needed
+            'video_url' => 'nullable|string|max:255',
+
         ]);
 
         $state = EmployeeStatistics::findOrFail($id);
         $state->title = $request->title;
         $state->state = $request->state;
         $state->label = $request->label;
+        $state->video_url = $request->video_url;
+
         // Handle image upload if a new image is provided
         if ($request->hasFile('media_url')) {
             // remove Old img
@@ -96,12 +103,15 @@ class EmployeeStatisticsController extends Controller
             $image = $request->file('media_url');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $imagePath = public_path('assets/employee_statistics');
+
             $image->move($imagePath, $imageName);
 
             $media_url = 'assets/employee_statistics/' . $imageName;
+            $state->media_url = $media_url ?? null;
+
+
 
         }
-        $state->media_url = $media_url ?? null;
 
         $state->save();
 

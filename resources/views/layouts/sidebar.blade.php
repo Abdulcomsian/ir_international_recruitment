@@ -130,6 +130,7 @@ if($pageName == "view.history"){
                             <li class="nav-item">
                                 <a href="{{route('quebec.employee.statistics.index')}}" class="nav-link  {{ request()->is('quebec/employee/statistics/*') ? 'active' : '' }}">Employee Statistics</a>
                             </li>
+                         
                             <li class="nav-item">
                                 <a href="{{route('job.search.advice.index')}}" class="nav-link {{ request()->is('job/search/advice/*') ? 'active' : '' }}">Job Search Advice</a>
                             </li>
