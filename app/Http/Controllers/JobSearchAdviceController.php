@@ -12,7 +12,15 @@ class JobSearchAdviceController extends Controller
     use RemoveFileTrait;
 
     //JOB SEARCH ADVICE api//
-  
+    public function jobSearchAdvice()
+    {
+        $jobsearch = JobSearchAdvice::get();
+        return response()->json([
+            'status'=> true,
+            'msg' => 'job search data fetched successfully',
+            'data' => $jobsearch
+        ]);
+    }
 
     public function index(JobSearchAdviceDataTable $dataTables)
     {

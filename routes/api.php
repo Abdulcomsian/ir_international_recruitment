@@ -89,6 +89,7 @@ Route::middleware(['api_auth'])->group(function(){
             Route::get('/statistics',[EmployeeStatisticsController::class,'getStatistics']);
             Route::get('/currentTrends',[QuebecCurrentTrendController::class,'getCurrentTrends']);
             Route::get('/foreignDiploma',[ForeignDiplomaController::class,'foreignDiploma']);
+            Route::get('/jobSearchAdvice',[JobSearchAdviceController::class,'jobSearchAdvice']);
 
 
         });
