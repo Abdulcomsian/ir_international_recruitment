@@ -45,6 +45,7 @@ use App\Http\Controllers\{
     UploadCityVideoController,
     ToDoListController,
     QuebecHistoryCategoriesController,
+    StatisticController
 };
 use App\Models\CityService;
 
@@ -182,6 +183,17 @@ Route::middleware(['auth:web', 'admin'])->group(function(){
             Route::get('/edit/{id}',[EmployeeStatisticsController::class,'edit'])->name('quebec.employee.statistics.edit');
             Route::put('/update/{id}',[EmployeeStatisticsController::class,'update'])->name('quebec.employee.statistics.update');
             Route::DELETE('/delete/{id}',[EmployeeStatisticsController::class,'delete'])->name('quebec.employee.statistics.delete');
+
+        });
+
+        // statistics beauty cards
+        Route::prefix('quebec/statistics/cards')->group(function() {
+            Route::get('/index',[StatisticController::class,'index'])->name('quebec.statistics.cards.index');
+            Route::get('/create',[StatisticController::class,'create'])->name('quebec.statistics.cards.create');
+            Route::post('/store',[StatisticController::class,'store'])->name('quebec.statistics.cards.store');
+            Route::get('/edit/{id}',[StatisticController::class,'edit'])->name('quebec.statistics.cards.edit');
+            Route::put('/update/{id}',[StatisticController::class,'update'])->name('quebec.statistics.cards.update');
+            Route::DELETE('/delete/{id}',[StatisticController::class,'delete'])->name('quebec.statistics.cards.delete');
 
         });
 

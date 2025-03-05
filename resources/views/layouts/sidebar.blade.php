@@ -122,7 +122,7 @@ if($pageName == "view.history"){
                     <i class="las la-book-reader"></i> <span>Employment and Diploma Recognition
                         </span>
                     </a>
-                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') || request()->is('diploma/resource/*') ? 'show' : '' }}" id="employment_education" style="">
+                    <div class="menu-dropdown collapse {{ request()->is('quebec/current/trend/*') ||  request()->is('quebec/statistics/cards/*') ||  request()->is('quebec/statistics/cards/index') || request()->is('quebec/employee/statistics/*') || request()->is('job/search/advice/*') || request()->is('foreign/diploma/fields/*') || request()->is('diploma/validation/*') || request()->is('diploma/resource/*') ? 'show' : '' }}" id="employment_education" style="">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a href="{{route('quebec.current.trend.index')}}" class="nav-link {{ request()->is('quebec/current/trend/*') ? 'active' : '' }}">Current Trends</a>
@@ -130,6 +130,12 @@ if($pageName == "view.history"){
                             <li class="nav-item">
                                 <a href="{{route('quebec.employee.statistics.index')}}" class="nav-link  {{ request()->is('quebec/employee/statistics/*') ? 'active' : '' }}">Employee Statistics</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('quebec.statistics.cards.index')}}" class="nav-link  {{ request()->is('quebec/statistics/cards/*') ? 'active' : '' }}">Statistics Beauty Cards</a>
+                            </li>
+
+                           
                          
                             <li class="nav-item">
                                 <a href="{{route('job.search.advice.index')}}" class="nav-link {{ request()->is('job/search/advice/*') ? 'active' : '' }}">Job Search Advice</a>

@@ -20,10 +20,10 @@
                 <input type="text" class="form-control" id="title" name="label" required>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="video_url">Video Url</label>
                 <input type="text" class="form-control" id="video_url" name="video_url" >
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="title">Logo</label>

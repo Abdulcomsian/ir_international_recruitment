@@ -45,7 +45,7 @@ class EmployeeStatisticsController extends Controller
             'state' => 'nullable|string|max:255',
             'label' => 'nullable|string|max:255',
             'media_url' => 'required|image|mimes:jpeg,png,jpg,svg,gif|max:2048', // Adjust the max size as needed
-            'video_url' => 'nullable|string',
+            // 'video_url' => 'nullable|string',
         ]);
 
         // Handle the image upload
@@ -65,7 +65,7 @@ class EmployeeStatisticsController extends Controller
         $state->state = $request->state;
         $state->label = $request->label;
         $state->media_url = $imageUrl ?? null;
-        $state->video_url = $request->video_url;
+        // $state->video_url = $request->video_url;
 
         $state->save();
 
@@ -86,7 +86,7 @@ class EmployeeStatisticsController extends Controller
             'state' => 'nullable|string|max:255',
             'label' => 'nullable|string|max:255',
             'media_url' => 'sometimes|image|mimes:jpeg,png,jpg,svg,gif|max:2048', // Adjust the max size as needed
-            'video_url' => 'nullable|string|max:255',
+            // 'video_url' => 'nullable|string|max:255',
 
         ]);
 
@@ -94,7 +94,7 @@ class EmployeeStatisticsController extends Controller
         $state->title = $request->title;
         $state->state = $request->state;
         $state->label = $request->label;
-        $state->video_url = $request->video_url;
+        // $state->video_url = $request->video_url;
 
         // Handle image upload if a new image is provided
         if ($request->hasFile('media_url')) {

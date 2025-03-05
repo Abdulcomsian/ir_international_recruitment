@@ -22,10 +22,10 @@
                 <input type="text" class="form-control" id="label" name="label" value="{{ old('label', $state->label) }}" required>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="label">Video Url</label>
                 <input type="text" class="form-control" id="label" name="video_url" value="{{ old('video_url', $state->video_url) }}" required>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <label for="image"> Image</label>
