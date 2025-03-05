@@ -10,7 +10,8 @@ use App\Http\Controllers\{
     EmployeeStatisticsController,
     QuebecCurrentTrendController,
     ForeignDiplomaController,
-    JobSearchAdviceController
+    JobSearchAdviceController,
+    StatisticController
 
 };
 use App\Http\Controllers\Api\{
@@ -90,9 +91,11 @@ Route::middleware(['api_auth'])->group(function(){
             Route::get('/currentTrends',[QuebecCurrentTrendController::class,'getCurrentTrends']);
             Route::get('/foreignDiploma',[ForeignDiplomaController::class,'foreignDiploma']);
             Route::get('/jobSearchAdvice',[JobSearchAdviceController::class,'jobSearchAdvice']);
-
-
         });
+
+        //employee statistics beauty cards
+        Route::get('/statistic/beautyCards',[StatisticController::class,'getStatisticsBeautyCards']);
+
 
          // Tranportations
         Route::post('city-guide/transportations',[TransportationController::class, 'index']);

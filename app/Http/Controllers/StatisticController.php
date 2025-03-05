@@ -11,6 +11,16 @@ class StatisticController extends Controller
 {
     use  RemoveFileTrait;
 
+    public function getStatisticsBeautyCards()
+    {
+        $staticCards = Statistic::get();
+        return response()->json([
+            'status'=> true,
+            'msg' => 'Data Fetched Successfully',
+            'data' => $staticCards
+        ]);
+    }
+
     public function index(StatisticsDataTable $dataTable)
     {
         return $dataTable->render('statisticsCards.index');
@@ -84,7 +94,7 @@ class StatisticController extends Controller
             $image->move($imagePath, $imageName);
 
             $media_url = 'assets/employee_statistics/' . $imageName;
-            $state->media_url = $media_url ?? null;
+            $state->image = $media_url ?? null;
 
 
 

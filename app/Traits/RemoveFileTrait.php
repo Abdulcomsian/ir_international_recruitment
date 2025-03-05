@@ -6,10 +6,9 @@ use Illuminate\Support\Facades\File;
 
 trait RemoveFileTrait
 {
-    public function unlinkFile(string $path)
+    public function unlinkFile(?string $path) // Allow null values
     {
-
-        if ($path === null) {
+        if (empty($path)) { // Check if null or empty
             return false;
         }
 
@@ -19,4 +18,17 @@ trait RemoveFileTrait
             File::delete($path);
         }
     }
+    // public function unlinkFile(string $path)
+    // {
+
+    //     if ($path === null) {
+    //         return false;
+    //     }
+
+    //     $path = public_path($path);
+
+    //     if (File::exists($path)) {
+    //         File::delete($path);
+    //     }
+    // }
 }
